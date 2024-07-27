@@ -1,8 +1,8 @@
 {
   "name": "biblemodel",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "database model for the Bible",
+  "main": "Bible.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,5 +10,8 @@
     "type": "git",
     "url": "https://github.com/MichaelKentBurns/BibleModel.git"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "sqlite3": "^5.1.7"
+  }
 }
