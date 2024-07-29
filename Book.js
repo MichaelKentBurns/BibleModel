@@ -2,7 +2,7 @@ let DataSource = require('./DataSource.js');
 
 class Book {
     constructor(row) {
-        this.ordinal     = row.ordinal;
+        this.ordinal     = row.order;
         this.name        = row.title_short;
         this.title       = row.title_full;
         this.category    = row.category;
@@ -21,8 +21,8 @@ Book.load = function load() {
         data.db.each('SELECT * FROM "book_info"', function (err, row) {
             if (err) console.log(' Error: ', err);
             book = new Book(row);
-            books[book.ordinal] = book;
-            console.log(`Book[${book.ordinal}]${book.name} loaded.`)
+            books[book.order] = book;
+            console.log(`Book[${book.ordinal}] ${book.name} loaded.`)
         });
     });
 }

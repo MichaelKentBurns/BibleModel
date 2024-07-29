@@ -1,5 +1,5 @@
 let sqlite3 = require('sqlite3').verbose();
-const datafile = '../Data/bible-sqlite.db';
+const datafile = 'Data/bible-sqlite.db';
 var theDb = new sqlite3.Database(datafile);
 
 class DataSource {
