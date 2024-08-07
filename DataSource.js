@@ -9,7 +9,7 @@ class DataSource {
 }
 
 DataSource.open = function open() {
-    if ( this.db = 'undefined' ) {
+    if ( this.db = undefined ) {
         this.db = new sqlite3.Database(datafile);
         console.log("DataSource is now open.");
     }

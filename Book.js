@@ -25,6 +25,7 @@ Book.load = function load() {
             console.log(`Book[${book.ordinal}] ${book.name} loaded.`)
         });
     });
+    console.log(books);
 }
 
 Book.books = function books() {

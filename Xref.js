@@ -1,36 +1,27 @@
 let DataSource = require('./DataSource.js');
-
-const million = 1_000_000;
-const thousand = 1_000;
-
-function idToBPath(id) {
-   	millions =  Math.trunc( id / million );
-        thousands = Math.trunc(  ( id % million ) / thousand );
-        units = Math.trunc( id % thousand );
-        path = [];
-	path[0] = millions;
-	path[1] = thousands;
-	path[2] = units;
-	return path;
-}
+let Location   = require('./Location.js');
 
 class Xref {
     constructor(row) {
+        let path;
         this.sourceId               = row.vid;
-        path 			= idToBPath(this.sourceId);
+        this.sourceLoc              = new Location('source', this.sourceId)
+        path 			            = this.sourceLoc.path;
         this.sourceBook             = path[0];
         this.sourceChapter          = path[1];
         this.sourceVerse            = path[2];
         this.rank                   = row.rank;
         this.targetId               = row.sv;
-        path 			= idToBPath(this.targetId);
+        this.targetLoc              = new Location('target', this.targetId);
+        path 			            = this.targetLoc.path;
         this.targetBook             = path[0];
         this.targetChapter          = path[0];
         this.targetVerse            = path[0];
         this.targetEndId            = row.ev;
         if ( this.targetEndId != 0)
         {
-            path 	       = idToBPath(this.targetEndId);
+            this.targetEndLoc       = new Location('targetEnd', this.targetEndId)
+            path 	                = this.targetEndLoc.path;
             this.targetEndBook      = path[0];
             this.targetEndChapter   = path[1];
             this.targetEndVerse     = path[2];
@@ -61,6 +52,7 @@ Xref.load = function load() {
             }
         });
     });
+    console.log(xrefs);
     console.log('There are a total of ', nXrefs, ' cross references loaded.');
 }
 
