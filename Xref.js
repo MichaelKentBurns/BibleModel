@@ -1,4 +1,5 @@
 let DataSource = require('./DataSource.js');
+// const Bible = require('./Bible.js');
 let Location   = require('./Location.js');
 
 class Xref {
@@ -30,20 +31,23 @@ class Xref {
     }
 }
 
-var xrefs   = [];
-
 data = new DataSource();
 
-DataSource.open();
 let nXrefs = 0;
 let announceInterval = 1_000;
-Xref.load = function load() {
+Xref.load = function load(theBible) {
+    DataSource.open();
     let order = 0;
     data.db.serialize(function () {
         data.db.each('SELECT * FROM "cross_reference"', function (err, row) {
             if (err) console.log(' Error: ', err);
             xref = new Xref(row);
-            xrefs[order] = xref;
+            if ( theBible != undefined ) {
+                if ( theBible.xrefs == undefined)
+                    theBible.xrefs = Xref[1000];
+                theBible.xrefs .push(xref);
+            }
+            // console.log(xref);
             order ++;
             nXrefs++;
             if ( nXrefs % announceInterval == 0 ) {
@@ -52,12 +56,10 @@ Xref.load = function load() {
             }
         });
     });
-    console.log(xrefs);
-    console.log('There are a total of ', nXrefs, ' cross references loaded.');
-}
-
-Xref.xrefs = function xrefs() {
-    return xrefs;
+    if ( theBible != undefined && theBible.xrefs != undefined ) {
+        console.log(theBible.xrefs);
+        console.log('There are a total of ', nXrefs, ' cross references loaded.');
+    }
 }
 
 module.exports = Xref;
