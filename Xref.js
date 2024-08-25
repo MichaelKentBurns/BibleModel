@@ -1,5 +1,10 @@
+const traceXrefs = true;
+if ( traceXrefs ) console.log('Xref.js initializing.');
+
 let DataSource = require('./DataSource.js');
 // const Bible = require('./Bible.js');
+let theBible;
+
 let Location   = require('./Location.js');
 
 class Xref {
@@ -31,35 +36,44 @@ class Xref {
     }
 }
 
-data = new DataSource();
+Xref.setBible = function ( aBible ) {
+    theBible = aBible;
+}
 
 let nXrefs = 0;
 let announceInterval = 1_000;
-Xref.load = function load(theBible) {
+Xref.load = function load(aBible) {
+    if ( theBible == undefined && aBible != undefined )
+        theBible = aBible;
+    data = new DataSource();
     DataSource.open();
     let order = 0;
     data.db.serialize(function () {
         data.db.each('SELECT * FROM "cross_reference"', function (err, row) {
-            if (err) console.log(' Error: ', err);
+            if (err) console.log('XrefLoad: Error: ', err);
             xref = new Xref(row);
-            if ( theBible != undefined ) {
-                if ( theBible.xrefs == undefined)
-                    theBible.xrefs = Xref[1000];
-                theBible.xrefs .push(xref);
-            }
-            // console.log(xref);
+            theBible.AddXref(xref);
+            if ( traceXrefs ) console.log(xref);
             order ++;
             nXrefs++;
             if ( nXrefs % announceInterval == 0 ) {
-                console.log('There are now ', nXrefs, ' cross references loaded.');
+                if ( traceXrefs ) console.log('There are now ', nXrefs, ' cross references loaded.');
                 announceInterval *= 10;
             }
         });
+        if ( theBible != undefined ) theBible.xrefsComplete = true;
+        data.db.close();
     });
-    if ( theBible != undefined && theBible.xrefs != undefined ) {
-        console.log(theBible.xrefs);
-        console.log('There are a total of ', nXrefs, ' cross references loaded.');
+    if ( theBible != undefined ) {
+        if ( theBible.xrefs != undefined )
+        {
+            if (traceXrefs) console.log(theBible.xrefs);
+            if (traceXrefs) console.log('There are a total of ', nXrefs, ' cross references loaded.');
+        }
     }
 }
 
-module.exports = Xref;
+if ( theBible != undefined )
+    theBible.xrefInitialized = true;
+if ( traceXrefs ) console.log('Xref.js initialized.');
+    module.exports = Xref;

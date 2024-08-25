@@ -1,6 +1,10 @@
+const traceBook = true;
+if ( traceBook ) console.log('Book.js initializing.');
+
 const fs = require('fs')
-const DataSource = require('./DataSource.js');
-// const Bible = require('./Bible.js');
+const Bible = require('./Bible.js');
+let theBible;
+// let theBible = new Bible();
 
 class Book {
     constructor(row) {
@@ -11,28 +15,38 @@ class Book {
         this.nChapters   = row.chapters;
     }
 }
+Book.setBible = function ( aBible ) {
+    theBible = aBible;
+}
+Book.load = function load( aBible ) {
+    const sqlite3 = require('sqlite3').verbose();
+    if ( aBible != undefined && theBible == undefined ) theBible = aBible;
+// open the database
+    let db = new sqlite3.Database('./Data/bible-sqlite.db');
 
-const dataSource = new DataSource();
+    let sql = `SELECT * FROM book_info`;
 
-DataSource.open();
-
-Book.load = function load( theBible ) {
-    data.db.serialize(function () {
-        data.db.each('SELECT * FROM "book_info"', function (err, row) {
-            if (err) console.log(' Error: ', err);
+    db.all(sql, [], (err, rows) => {
+        if (err) {
+            throw err;
+        }
+        rows.forEach((row) => {
             book = new Book(row);
-            let books = theBible.books;
-            if (books == undefined) {
-                books = [];
-                theBible.books = books;
-            }
-            books.push(book);
-            console.log(`Book[${book.ordinal}] ${book.name} loaded.`)
-            console.log(book);
+            theBible.AddBook(book);
+            if ( traceBook ) console.log(`Book[${book.ordinal}] ${book.name} loaded.`)
+            if ( traceBook ) console.log(book);
         });
+
+        if ( theBible != undefined ) theBible.booksComplete = true;
     });
+// close the database connection
+    db.close();
+}
+
+Book.saveAll = function saveAll(theBible) {
+
     if ( theBible != undefined && theBible.books != undefined) {
-        console.log(theBible.books);
+        if ( traceBook ) console.log(theBible.books);
 
         // convert JSON object to a string
         const jsonData = JSON.stringify(theBible.books)
@@ -42,11 +56,18 @@ Book.load = function load( theBible ) {
             if (err) {
                 throw err
             }
-            console.log('Books JSON data is saved.')
+            if ( traceBook ) console.log('Books JSON data is saved.')
         })
 
     }
 
 }
+
+//if ( traceBook ) console.log('ready to load');
+//Book.load(theBible);
+// if ( traceBook ) console.log("loaded, now to save it all.")
+//Book.saveAll(theBible);
+if ( theBible != undefined ) theBible.bookInitialized = true;
+if ( traceBook ) console.log('Book.js initialized.');
 
 module.exports = Book;
