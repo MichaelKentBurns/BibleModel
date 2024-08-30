@@ -1,8 +1,27 @@
 const traceBook = true;
 if ( traceBook ) console.log('Book.js initializing.');
+//import allBooks from './books.json' assert { type: 'json' };
 
-const fs = require('fs')
+let allBooks;
+const fs = require('fs');
+const booksPath = './Books.json';
+if (fs.existsSync(booksPath)) {
+const booksData = fs.readFileSync(booksPath , (error) => {
+    if (error) {
+        console.log('An error has occurred reading books', error);
+        return;
+    }
+    if ( traceBible) console.log('Books data read successfully from disk');
+});
+
+if (booksData != undefined && booksData.length > 2) {
+    allBooks = JSON.parse(booksData);
+}
+
+}
+
 const Bible = require('./Bible.js');
+
 let theBible;
 // let theBible = new Bible();
 
@@ -19,8 +38,15 @@ Book.setBible = function ( aBible ) {
     theBible = aBible;
 }
 Book.load = function load( aBible ) {
+
+    if ( allBooks != undefined ) {
+        theBible.allBooks = allBooks;
+        if ( theBible != undefined ) theBible.booksComplete = true;
+        return;
+    }
     const sqlite3 = require('sqlite3').verbose();
     if ( aBible != undefined && theBible == undefined ) theBible = aBible;
+
 // open the database
     let db = new sqlite3.Database('./Data/bible-sqlite.db');
 

@@ -13,6 +13,18 @@ if ( state == undefined ){
     if ( traceBible ) console.log('Bible.js iteration ', iteration, ' state=', state, ':', stateNames[state] );
 }
 
+
+const { readFileSync } = require('fs');
+const configPath = './BibleModel.json';
+const configData = readFileSync(configPath , (error) => {
+    if (error) {
+      console.log('An error has occurred reading configuration', error);
+      return;
+    }
+    if ( traceBible) console.log('Data read successfully from disk');
+  });
+const config = JSON.parse(configData);
+
 if ( traceBible ) console.log('Bible.js Initializing');
 let Book = require('./Book.js');
 // let Location = require('./Location.js');
