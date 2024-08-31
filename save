@@ -1,0 +1,109 @@
+Disclaimer:   I'm a 40 year veteran software developer:  C, Java, lots of other stuff.  Trying to do simple Object Oriented program in Javascript under Node.js.   The threading and global memory management is baffling me.  
+
+I'm using a sqlite tutorial:
+https://www.sqlitetutorial.net/sqlite-nodejs/query/
+
+I'm running the query for all rows.   
+I have inserted this code into a Node.js file.   I have wrapped that simple query in a function call.   The function gets called, the query is submitted and the function returns to the calling code.  However at that point I have code to save the results as a json file and the data is not there.   When the program completes, THEN the callback from the query runs, but it is too late because the program saved no data and completed.    
+
+What do I need to insert to get it to actually run the query and call the callback?  
+
+Here is my 'Book.js' file:
+- - - - - - - - - - - - start Book.js - - - - - - - - --
+
+```
+    const fs = require('fs')
+    // const Bible = require('./Bible.js');
+
+    class Bible {
+        constructor() {
+            this.books = [];
+            this.xrefs = [];
+        }
+
+        AddBook(book) {
+            this.books.push(book);
+            console.log('Book added: ' + book.name);
+        }
+
+        AddXref(xref) {
+            this.xrefs.push(xref);
+            console.log('Xref added: ' + xref);
+        }
+    }
+
+    let theBible = new Bible();
+
+    class Book {
+        constructor(row) {
+            this.ordinal     = row.order;
+            this.name        = row.title_short;
+            this.title       = row.title_full;
+            this.category    = row.category;
+            this.nChapters   = row.chapters;
+        }
+    }
+
+    Book.load = function load( theBible ) {
+        const sqlite3 = require('sqlite3').verbose();
+
+    // open the database
+        let db = new sqlite3.Database('./Data/bible-sqlite.db');
+
+        let sql = `SELECT * FROM book_info`;
+
+        db.all(sql, [], (err, rows) => {
+            if (err) {
+                throw err;
+            }
+            rows.forEach((row) => {
+                book = new Book(row);
+                theBible.AddBook(book);
+                console.log(`Book[${book.ordinal}] ${book.name} loaded.`)
+                console.log(book);
+            });
+        });
+
+    // close the database connection
+        db.close();
+    }
+
+    Book.saveAll = function saveAll(theBible) {
+
+        if ( theBible != undefined && theBible.books != undefined) {
+            console.log(theBible.books);
+
+            // convert JSON object to a string
+            const jsonData = JSON.stringify(theBible.books)
+
+            // write JSON string to a file
+            fs.writeFile('books.json', jsonData, err => {
+                if (err) {
+                    throw err
+                }
+                console.log('Books JSON data is saved.')
+            })
+
+        }
+
+    }
+
+    console.log('ready to load');
+    Book.load(theBible);
+    console.log("loaded, now to save it all.")
+    Book.saveAll(theBible);
+    console.log('done.');
+
+    module.exports = Book;
+```
+
+- - - - - - - - - - - - end Book.js - - - - - - - - --
+
+
+Only after the final 5 lines of code are run and the program is done does the callback thread run.   
+
+What am I missing? 
+
+
+
+explained in the description.    I was expecting the callback to deliver the data after the call to the Book.load() function (Method) returns, but it only happens after the whole program is 'complete'.  
