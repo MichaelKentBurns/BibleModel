@@ -1,3 +1,7 @@
+# misc temp files
+package-lock.json
+
+
 # Logs
 logs
 *.log

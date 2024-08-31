@@ -166,7 +166,7 @@ let books = [];
             data.db.close();
             console.log(theBible.books.length + " books loaded.");
             Book.saveAll(theBible);
-            console.log("done load and save.");
+            console.log("done load and Strange execution timing.txt.");
     }
 
     Book.saveAll = function (theBible) {

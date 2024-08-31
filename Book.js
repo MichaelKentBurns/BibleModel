@@ -91,7 +91,7 @@ Book.saveAll = function saveAll(theBible) {
 
 //if ( traceBook ) console.log('ready to load');
 //Book.load(theBible);
-// if ( traceBook ) console.log("loaded, now to save it all.")
+// if ( traceBook ) console.log("loaded, now to Strange execution timing.txt it all.")
 //Book.saveAll(theBible);
 if ( theBible != undefined ) theBible.bookInitialized = true;
 if ( traceBook ) console.log('Book.js initialized.');
