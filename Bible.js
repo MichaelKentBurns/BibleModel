@@ -5,9 +5,12 @@
 // This is the top level (primary) class that represents a web based study Bible.
 //
 //  Responsibilities:
+//      Provide access to all contained parts.
 //
 //  Collaborators:
-//
+//      Testaments - a sequence of Holy texts from different faith communities,
+//                  specifically Judaism and Christianity.
+//      Books - a sequence of writings by various authors that constitutes the Holy Canon of a faith.
 //
 const traceBible = true;
 var state;
