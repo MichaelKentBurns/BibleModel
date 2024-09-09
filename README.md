@@ -29,6 +29,10 @@ Javascript is a very widely used language because of the web explosion.
 But, to be fair, I have decided to try this first in Javascript because that is what my mentees use and 
 I need to learn it better and give it a fair chance.
 
+## Real Life Object Model
+See the article titled **Object Design of a Bible Study Application**
+https://michaelkentburns.com/index.php/software-design/object-design-of-a-bible-study-application/
+
 ## Methods.
 My hope is that I can code this to be run both on the backend and frontend.
 Node.js is meant for server side javascript.
@@ -47,3 +51,5 @@ Probably others.
 
 ## Notes.
 There is a Notes directory in the project where I will drop text files explaining issues and solutions as needed. 
+
+
