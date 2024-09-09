@@ -1,3 +1,14 @@
+//
+//  Class:  Bible
+//
+//  An online version of a Study Bible.
+// This is the top level (primary) class that represents a web based study Bible.
+//
+//  Responsibilities:
+//
+//  Collaborators:
+//
+//
 const traceBible = true;
 var state;
 let                             state_init = 1, state_loadBooks = 2, state_waitBooks = 3, state_booksLoaded = 4, state_saveBooks = 5, state_booksSaved = 6, state_whatsNext = 7;

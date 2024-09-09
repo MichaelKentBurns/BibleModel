@@ -1,3 +1,24 @@
+//
+//  Class:  Book
+//
+//  A holy writing considered as part of the Canon of a faith.
+//  A Book is ultimately a sequence of words with appropriate punctuation.
+//  In modern forms it is composed of a sequence of chapters.
+//  Usually attributed to a specific author.
+//
+//  Responsibilities:
+//      The formal name.
+//      A longer descriptive name.
+//      Abbreviations for the name.
+//      The name of the author.
+//      Introductory text.
+//
+//  Collaborators:
+//      The Bible that contains this book.
+//      The Testament that contains this book.
+//      Chapters - A sequence of numbered chapters that form this book.
+//
+
 const traceBook = true;
 if (traceBook) console.log('Book.js initializing.');
 //import allBooks from './books.json' assert { type: 'json' };
