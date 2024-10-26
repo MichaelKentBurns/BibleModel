@@ -1,4 +1,4 @@
-const traceXrefs = true;
+const traceXrefs = false;
 if ( traceXrefs ) console.log('Xref.js initializing.');
 
 let DataSource = require('./DataSource.js');

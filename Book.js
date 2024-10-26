@@ -19,7 +19,7 @@
 //      Chapters - A sequence of numbered chapters that form this book.
 //
 
-const traceBook = true;
+const traceBook = false;
 if (traceBook) console.log('Book.js initializing.');
 //import allBooks from './books.json' assert { type: 'json' };
 
@@ -73,24 +73,38 @@ Book.load = function load(aBible) {
 // open the database
     let db = new sqlite3.Database('./Data/bible-sqlite.db');
 
-    let sql = `SELECT *
-               FROM book_info`;
+    let promiseToReadBooks = new Promise((resolve, reject) => {
 
-    db.all(sql, [], (err, rows) => {
-        if (err) {
-            throw err;
-        }
-        rows.forEach((row) => {
-            book = new Book(row);
-            theBible.AddBook(book);
-            if (traceBook) console.log(`Book[${book.ordinal}] ${book.name} loaded.`)
-            if (traceBook) console.log(book);
+        let sql = `SELECT *
+                   FROM book_info`;
+
+        db.all(sql, [], (err, rows) => {
+            if (err) {
+                throw err;
+            }
+            rows.forEach((row) => {
+                book = new Book(row);
+                theBible.AddBook(book);
+                if (traceBook) console.log(`Book[${book.ordinal}] ${book.name} loaded.`)
+                if (traceBook) console.log(book);
+            });
+
+            if (theBible != undefined) theBible.booksComplete = true;
         });
+        // close the database connection
+        db.close();
+    })
 
-        if (theBible != undefined) theBible.booksComplete = true;
-    });
-// close the database connection
-    db.close();
+    promiseToReadBooks.then(
+        function (value) {
+            theBible.booksComplete = true;
+        },
+        function (error) {
+            theBible.booksReadError = error;
+        }
+    );
+
+    console.log('promise has been made.?');
 }
 
 Book.saveAll = function saveAll(theBible) {

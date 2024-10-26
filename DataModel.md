@@ -9,12 +9,40 @@ I will now present a basic CRC card design for this project.
 ## UML model for the BibleModel project
 
 ### Package: BibleModel 
+```mermaid
+classDiagram
+    note "Bible is a collection of Books"
+   
+    class Bible {
+        +String translationCode
+        +String translationName
+        +Testament[] testaments
+        +getTestamentNamed(String: name) Testament
+        +getTestamentNumber(integer: number) Testament
+        +Book[] books
+        +getBookNamed(String: name) Book
+        +getBookNumbered(integer: number) Book
+    }
+
+    Bible *-- Testament
+    class Testament {
+        +String name
+        +getBookNamed(String: name) Book
+        +getBookNumbered(integer: number) Book
+    }
+
+    Bible *-- Book 
+    Testament *-- Book
+    class Book {
+        -int numChapters
+        -findText( String: someText ) Verse
+    }
+
+```
 
 #### Class: DataSource.js
 
-#### Class: Bible.js
 
-#### Class: Book.js 
 
 #### Class: Location.js
 
