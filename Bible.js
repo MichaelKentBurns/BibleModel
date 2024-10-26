@@ -56,6 +56,7 @@ class Bible {
     constructor() {
         this.books = [];
         this.booksComplete = false;
+        this.booksReadError = undefined;
         this.bookInitialized = false;
         this.xrefs = [];
         this.xrefsComplete = false;
