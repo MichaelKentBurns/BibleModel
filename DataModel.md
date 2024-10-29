@@ -37,6 +37,15 @@ classDiagram
         -int numChapters
         -findText( String: someText ) Verse
     }
+    Book *-- Chapter
+
+    class Chapter {
+        +Book book
+        +int number
+        +int numVerses
+        +Verse[] verses
+        +getVerse( int : number ) : Verse
+    }
 
 ```
 
