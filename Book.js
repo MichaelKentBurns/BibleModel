@@ -19,7 +19,7 @@
 //      Chapters - A sequence of numbered chapters that form this book.
 //
 
-const traceBook = false;
+const traceBook = true;
 if (traceBook) console.log('Book.js initializing.');
 //import allBooks from './books.json' assert { type: 'json' };
 
@@ -32,7 +32,7 @@ if (fs.existsSync(booksPath)) {
             console.log('An error has occurred reading books', error);
             return;
         }
-        if (traceBible) console.log('Books data read successfully from disk');
+        if (traceBook) console.log('Books data read successfully from disk');
     });
 
     if (booksData != undefined && booksData.length > 2) {

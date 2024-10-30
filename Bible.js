@@ -12,7 +12,7 @@
 //                  specifically Judaism and Christianity.
 //      Books - a sequence of writings by various authors that constitutes the Holy Canon of a faith.
 //
-const traceBible = false;
+const traceBible = true;
 var state;
 let                             state_init = 1, state_loadBooks = 2, state_waitBooks = 3, state_booksLoaded = 4, state_saveBooks = 5, state_booksSaved = 6, state_whatsNext = 7;
 const stateNames = [ 'null', 'init',        'loadBooks',          'waitBooks',         'booksLoaded',         'saveBooks',         'booksSaved',         'whatsNext' ];
