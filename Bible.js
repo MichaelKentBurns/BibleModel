@@ -53,7 +53,7 @@ let Xref = require('./Xref.js');
 
 // utility function to pause this main event loop to allow asynch tasks to run
 function sleep(ms) {
-    if ( traceBible ) console.log('Bible.js sleep() for ',ms,' milliseconds.');
+    if ( traceBible ) console.log('Bible.js sleep() for ',ms,' milliseconds. time=', performance.now() );
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
@@ -104,7 +104,10 @@ class Bible {
 // if ( traceBible ) console.log('Bible Class Defined.');
 }
 //- - - - - - - - - - -end Class definition - - - - - - - - - - -
+let waitingForBooks = false;
 
+function stateMachine() {
+    if ( traceBible ) console.log('Bible.js =====================  stateMachine() beginning.  state=',state,' iteration=', iteration);
 // = = = = = = = = = = = Begin state machine logic = = = = = = = = = = = = = = = =
 while ( state < state_shutdown ) 
 {
@@ -136,10 +139,14 @@ if ( state == state_loadBooks ) {
 
 // - - - utility function needed to check if books are loaded.  
 // This part is tricky in node.js   Issue #1 requires some interesting dancing around. 
-async function waitForBooks(){
-    let timeoutCount = 10;
-    waitBooksStop = setInterval(waitBooks, 1000);
-    while ( !waitBooks() && timeoutCount > 0 && !theBible.booksComplete ) {
+
+let timeoutCount = 10;
+
+// function to start the process of waiting for books to be loaded. 
+async function startWaitForBooks(){
+    waitBooksStop = setInterval(stillWaitingForBooks, 1000);
+    waitingForBooks = true;
+    while ( !stillWaitingForBooks() && timeoutCount > 0 && !theBible.booksComplete ) {
         if ( traceBible ) console.log('Bible.js Still waiting for books to be done loading, ', timeoutCount, ' seconds to go.');
         timeoutCount--;
         await new Promise( r=> setTimeout(r, 1000 ));
@@ -148,23 +155,16 @@ async function waitForBooks(){
 
 // Still more dancing, this should get simplified as I learn more. 
 let waitBooksStop;
-function waitBooks() {
+// after startWaitForBooks starts it, this function monitors the process.
+function stillWaitingForBooks() {
     // Check to see if the books are loaded yet or not. 
-    if ( traceBible ) console.log('Bible.js Waiting for all Books. There are ', theBible.books.length, ' books loaded.');
+    if ( traceBible ) console.log('Bible.js stillWaitingForBooks Waiting for all Books. There are ', theBible.books.length, ' books loaded at time ', performance.now());
     if (theBible.booksComplete) {   // We think they are ready, but needed to check. 
-        if ( traceBible ) console.log('waitBooks: theBible.booksComplete. All books are loaded.');
+        if ( traceBible ) console.log('stillWaitingForBooks: theBible.booksComplete. All books are loaded.');
         clearInterval(waitBooksStop);
         stateNext = 0;
         state += 1;     // If they are all loaded then move on to next state. 
-        if ( traceBible )     console.log('Bible.js advance state to ', state, stateNames[state] );
-
-        // This next bit will probably be a new state by itself. 
-        // console.log('Might as well try to save now...');
-        // Book.saveAll(theBible);
-        // console.log("Books saved??");
-        stateNext = 0;
-        state += 1;
-        if ( traceBible )     console.log('Bible.js advance state to ', state, stateNames[state] );
+        if ( traceBible )     console.log('Bible.js stillWaitingForBooks advance state to ', state, stateNames[state] );
         return true;
     }
     else
@@ -173,11 +173,11 @@ function waitBooks() {
 
 // - - - - - - - After book loading is requested, this state calls above functions to check progress. 
 if ( state == state_waitBooks ) {
-    if (traceBible) console.log('Bible.js Waiting for books to be done loading.')
-    waitForBooks();
-    if (traceBible) console.log('There are ', theBible.books.length, ' books loaded.');
-    if (traceBible) console.log('We think they must be loaded.  Are they?')
-    if (traceBible) console.log('Done.');
+    if (traceBible) console.log('Bible.js state is waiting for books to be done loading.')
+    if ( !waitingForBooks ) {
+        startWaitForBooks(); 
+    }
+    break;   // break the state machine for now.  The timeout will watch for a while. 
     stateNext = 0;
 }
 
@@ -226,6 +226,7 @@ if ( traceBible ) console.log('Bible.js Ready state=', state, ':', stateNames[st
 // - - - State machine complete (all states considered in this iteration.) 
 if ( stateNext > 0 ) {
     state = stateNext;
+    stateNext = 0;
 }
 
 
@@ -239,7 +240,11 @@ if ( scheduler != undefined ) {
         if ( traceBible ) console. log('start nextTick');
         process.nextTick(() => {
               if ( traceBible ) console.log('nextTick callback');
+              if ( state < state_shutdown ) {
+                   stateMachine();  // re-run the state machine on next tick. 
+              }
             });
+        
         if ( traceBible ) console. log('scheduled');
         sleep(1000);  // sleep this event loop.   
         // break;   // should break the big while loop.
@@ -249,7 +254,11 @@ if ( scheduler != undefined ) {
 if ( iteration > iterationMax ) {
     if ( traceBible ) console.log('Bible.js has reached maximum iterations.  Time to quit.')
     if ( state == state_shutdown )
+    {
         state = state_abort;
+        process.abort();
+    }
+        
     else
         state = state_shutdown;    
 }
@@ -257,7 +266,10 @@ if ( iteration > iterationMax ) {
 iteration += 1;
 if ( traceBible ) console.log('Bible.js iteration ', iteration, ' state=', state, ':', stateNames[state] );
 } // = = = = = = = = = = end of state machine loop. 
+if ( traceBible ) console.log('Bible.js ===================== stateMachine() ending.')
+}
 
+stateMachine();   // start the state machine. 
 
 // - - - - - - - - - Normal shutdown - - - - 
 if ( state == state_shutdown ) {
