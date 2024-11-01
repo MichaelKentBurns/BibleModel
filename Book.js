@@ -60,7 +60,7 @@ class Book {
 Book.setBible = function (aBible) {
     theBible = aBible;
 }
-Book.load = function load(aBible) {
+Book.loadAll = function load(aBible) {
 
     if (allBooks != undefined) {
         theBible.allBooks = allBooks;
@@ -73,32 +73,46 @@ Book.load = function load(aBible) {
 // open the database
     let db = new sqlite3.Database('./Data/bible-sqlite.db');
 
+    // StateMachine:  This is where it gets weird.  This Promise
+    // calls db.all which is run in a separate task.  The db.all
+    // loop does asych i/o.
     let promiseToReadBooks = new Promise((resolve, reject) => {
 
         let sql = `SELECT *
                    FROM book_info`;
 
-        db.all(sql, [], (err, rows) => {
+        db.all(sql, [], (err, rows) => { // this is a callback function 
+            // In a db task, this reads from the database.
             if (err) {
                 throw err;
             }
+            // As each row is read from the database this
+            // forEach loop is run.  In that loop the row
+            // is used to build a new Book object which is 
+            // then added to the array of books in theBible.
             rows.forEach((row) => {
                 book = new Book(row);
                 theBible.AddBook(book);
                 if (traceBook) console.log(`Book[${book.ordinal}] ${book.name} loaded.`)
                 if (traceBook) console.log(book);
             });
-
+            // When all rows have been read, we notify the Bible
+            // that the query is all finished.  
             if (theBible != undefined) theBible.booksComplete = true;
         });
         // close the database connection
         db.close();
     })
 
+    // I still don't fully understand how this works.
     promiseToReadBooks.then(
+        // .then gets called when the entire promise is fulfilled
         function (value) {
             theBible.booksComplete = true;
         },
+        // but if it failed, then the error function is called 
+        // to register the failure.  That gets returned to 
+        // the Bible's
         function (error) {
             theBible.booksReadError = error;
         }

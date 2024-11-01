@@ -15,7 +15,8 @@
 const traceBible = true;  // Set this true to have the inner workings of this class traced to console log.
 
 // - - - - - - - - - Issue #1, state machine works better
-// Setup state machine. 
+// Setup state machine globals.  
+// Actual state machine function is coded and called later on. 
 var state;      // state number, defined in next two lines.   Can simply increment to move to next state sequentially. 
 let                     state_init = 1, state_loadBooks = 2, state_waitBooks = 3, state_booksLoaded = 4, state_saveBooks = 5, state_booksSaved = 6, state_whatsNext = 7, state_shutdown = 8, state_abort = 9;
 const stateNames = [ 'null', 'init',         'loadBooks',         'waitBooks',         'booksLoaded',         'saveBooks',         'booksSaved',         'whatsNext',          'shutdown',         'abort' ];
@@ -92,7 +93,7 @@ class Bible {
         // Books get loaded first 
         if ( traceBible ) console.log('Bible.js LoadAll() Loading books...');
         this.booksComplete = false;
-        Book.load(theBible);
+        Book.loadAll(theBible);
 
         // Next cross references might be loaded, or may be deferred for lazy loads. 
       //  console.log('Loading cross references...');
@@ -106,6 +107,12 @@ class Bible {
 //- - - - - - - - - - -end Class definition - - - - - - - - - - -
 let waitingForBooks = false;
 
+// ======================== State Machine ======================
+// The stateMachine function runs a loop trying to move the state
+// machine through it's state.   See StateMachine.md for a UML 
+// state machine diagram. 
+// The function is coded here but obviously does not run until
+// the function is called below. 
 function stateMachine() {
     if ( traceBible ) console.log('Bible.js =====================  stateMachine() beginning.  state=',state,' iteration=', iteration);
 // = = = = = = = = = = = Begin state machine logic = = = = = = = = = = = = = = = =
@@ -142,39 +149,56 @@ if ( state == state_loadBooks ) {
 
 let timeoutCount = 10;
 
-// function to start the process of waiting for books to be loaded. 
-async function startWaitForBooks(){
-    waitBooksStop = setInterval(stillWaitingForBooks, 1000);
-    waitingForBooks = true;
-    while ( !stillWaitingForBooks() && timeoutCount > 0 && !theBible.booksComplete ) {
-        if ( traceBible ) console.log('Bible.js Still waiting for books to be done loading, ', timeoutCount, ' seconds to go.');
-        timeoutCount--;
-        await new Promise( r=> setTimeout(r, 1000 ));
-    }
-}
-
-// Still more dancing, this should get simplified as I learn more. 
-let waitBooksStop;
-// after startWaitForBooks starts it, this function monitors the process.
+// First we define a callback function that will get called asynch
+// while the books are being loaded.  This will check the signal 
+// that will be sent by the promiseToLoadBooks completion callback.
 function stillWaitingForBooks() {
     // Check to see if the books are loaded yet or not. 
-    if ( traceBible ) console.log('Bible.js stillWaitingForBooks Waiting for all Books. There are ', theBible.books.length, ' books loaded at time ', performance.now());
-    if (theBible.booksComplete) {   // We think they are ready, but needed to check. 
+    if ( traceBible ) 
+        console.log('Bible.js stillWaitingForBooks Waiting for all Books. There are ', 
+                    theBible.books.length, ' books loaded at time ', performance.now());
+    // When the PromiseToLoadBooks completes it will have set booksComplete to true.
+    if (theBible.booksComplete) {   // The signal has been set, so it should be done.
         if ( traceBible ) console.log('stillWaitingForBooks: theBible.booksComplete. All books are loaded.');
-        clearInterval(waitBooksStop);
-        stateNext = 0;
+        clearInterval(waitBooksStop);  // Cancel the asych loop.
+        // Now we need to bump the state machine to the next state.
+        stateNext = 0;  
         state += 1;     // If they are all loaded then move on to next state. 
         if ( traceBible )     console.log('Bible.js stillWaitingForBooks advance state to ', state, stateNames[state] );
-        return true;
+        return true;   // Return true so know it's complete.
     }
     else
         return false;
 }
 
+// Function to start the process of waiting for books to be loaded. 
+// This function will be called by the WaitBooks state to begin a
+// loop that periodically checks for completion. 
+async function startWaitForBooks(){
+    // The setInterval shedules a microtask that will call stillWaitingForBooks
+    // every second.  
+    waitBooksStop = setInterval(
+        stillWaitingForBooks, // Callback function defined below.
+        1000);                // gets called every 1000 ms.
+    waitingForBooks = true;
+    while ( !stillWaitingForBooks() && timeoutCount > 0 && !theBible.booksComplete ) {
+        if ( traceBible ) console.log('Bible.js Still waiting for books to be done loading, ', timeoutCount, ' seconds to go.');
+        timeoutCount--;
+        await new Promise( r => setTimeout(r, 1000 ));
+    }
+}
+
+// Still more dancing, this should get simplified as I learn more. 
+let waitBooksStop;
+// After startWaitForBooks starts it, this function monitors the process.
+// 
+
+
 // - - - - - - - After book loading is requested, this state calls above functions to check progress. 
 if ( state == state_waitBooks ) {
     if (traceBible) console.log('Bible.js state is waiting for books to be done loading.')
     if ( !waitingForBooks ) {
+        // If we have not been waiting, then kickoff the asynch loop.
         startWaitForBooks(); 
     }
     break;   // break the state machine for now.  The timeout will watch for a while. 
@@ -268,7 +292,10 @@ if ( traceBible ) console.log('Bible.js iteration ', iteration, ' state=', state
 } // = = = = = = = = = = end of state machine loop. 
 if ( traceBible ) console.log('Bible.js ===================== stateMachine() ending.')
 }
+// ===================== end of StateMachine function. ============
 
+// Now that the function is defined, this next call starts it 
+// for the first time.   
 stateMachine();   // start the state machine. 
 
 // - - - - - - - - - Normal shutdown - - - - 
