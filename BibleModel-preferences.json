@@ -3,6 +3,7 @@
     "Title": "BibleModel Preferences",
     "Owner": "Michael Burns",
     "Email": "MichaelKentBurns@gmail.com",
-    "Translation": "ASV",
+    "LibraryPath": "./newTestLibrary",
+    "Translation": "WEB",
     "Book": "Acts"
 }

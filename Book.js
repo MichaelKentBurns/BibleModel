@@ -25,7 +25,7 @@ if (traceBook) console.log('Book.js initializing.');
 
 let allBooks;
 const fs = require('fs');
-const booksPath = './Books.json';
+const booksPath = './books.json';
 if (fs.existsSync(booksPath)) {
     const booksData = fs.readFileSync(booksPath, (error) => {
         if (error) {
@@ -60,10 +60,11 @@ class Book {
 Book.setBible = function (aBible) {
     theBible = aBible;
 }
+
 Book.loadAll = function load(aBible) {
 
     if (allBooks != undefined) {
-        theBible.allBooks = allBooks;
+        theBible.books = allBooks;
         if (theBible != undefined) theBible.booksComplete = true;
         return;
     }
@@ -77,7 +78,7 @@ Book.loadAll = function load(aBible) {
     // calls db.all which is run in a separate task.  The db.all
     // loop does asych i/o.
     let promiseToReadBooks = new Promise((resolve, reject) => {
-
+        let newBooks = [Book];
         let sql = `SELECT *
                    FROM book_info`;
 
@@ -92,16 +93,20 @@ Book.loadAll = function load(aBible) {
             // then added to the array of books in theBible.
             rows.forEach((row) => {
                 book = new Book(row);
-                theBible.AddBook(book);
                 if (traceBook) console.log(`Book[${book.ordinal}] ${book.name} loaded.`)
                 if (traceBook) console.log(book);
+                theBible.addBook(book);
+                newBooks.push(book);
             });
             // When all rows have been read, we notify the Bible
             // that the query is all finished.  
             if (theBible != undefined) theBible.booksComplete = true;
+            resolve(newBooks);
         });
         // close the database connection
         db.close();
+      //  resolve('Books sent to theBible');
+
     })
 
     // I still don't fully understand how this works.
@@ -119,6 +124,7 @@ Book.loadAll = function load(aBible) {
     );
 
     console.log('promise has been made.?');
+    return promiseToReadBooks;
 }
 
 Book.saveAll = function saveAll(theBible) {
@@ -138,7 +144,6 @@ Book.saveAll = function saveAll(theBible) {
         })
 
     }
-
 }
 
 //if ( traceBook ) console.log('ready to load');
