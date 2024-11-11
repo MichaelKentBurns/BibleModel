@@ -1,0 +1,59 @@
+<html>
+
+<head>
+    <Title>Books of the Bible</Title>
+
+    <script src="updateTable.js"></script>
+</head>
+
+<body>
+    <H1>Books of the Bible</H1>
+
+    <p id="context">
+    In <b>BibleModel</b> initialization of the class <b>Bible</b> stage 2 of the state machine reads a database and creates a json file named <STRONG>books.json</STRONG>.
+    </p>
+
+    <p id="what">
+    </p>
+    This page simply reads that in and displays it as a Table.
+    </p>
+    <p>
+
+
+
+<p> 
+<h2>This is where the table should go.</h2>
+
+  <table id="booksTable">
+
+  </table>
+</p>
+
+        <script>
+          async function readBooks(){
+           
+            console.log(`Fetching`);
+            var url = "books.json";
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error! status: ${response.status}`);
+            }
+
+            const books = await response.json();
+            console.log(books);
+            return books; 
+          }  
+
+
+          updateTable("booksTable", readBooks());
+        </script>
+        
+</body>
+
+</html>
