@@ -15,5 +15,5 @@ function updateTable(tableId, jsonData){
       tableHTML += "</tr>";
     }
   
-    document.getElementById(tableId).innerHTML = tableHTML;
+    tableId.innerHTML = tableHTML;
   }

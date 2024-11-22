@@ -133,5 +133,7 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# a directory I use to play with snippets and sample programs
+testLibrary
 
 

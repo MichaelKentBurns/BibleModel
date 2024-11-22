@@ -80,6 +80,12 @@ class Bible {
         this.bibleInitialized = false;    // basic setup is complete and ready for further requests.
     }
 
+    getBooks()
+    {
+        return this.books;
+    }
+
+
     // called from book loading to add each book to the collection of books
     addBook(book) {
         this.books.push(book);
