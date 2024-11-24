@@ -12,7 +12,7 @@
 //                  specifically Judaism and Christianity.
 //      Books - a sequence of writings by various authors that constitutes the Holy Canon of a faith.
 //
-const traceBible = false;  // Set this true to have the inner workings of this class traced to console log.
+const traceBible = true;  // Set this true to have the inner workings of this class traced to console log.
 
 // - - - - - - - - - Issue #1, state machine works better
 // Setup state machine globals.  
@@ -132,9 +132,9 @@ stateMachine = async function stateMachine() {
             if (traceBible) console.log('Bible.js state_init');
 
             // Tell the book and xref classes about the singleton.
-            Book.setBible(theBible);
+            if (theBible) Book.setBible(theBible);
             theBible.bookInitialized = true;
-            Xref.setBible(theBible);
+            if ( theBible) Xref.setBible(theBible);
             theBible.xrefInitialized = true;
 
             stateNext = 0;   // set to 0 so normal incremental state progression works. 
