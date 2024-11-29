@@ -1,147 +1,22 @@
-Bible.mjs Initializing for the first time
-Bible.mjs Initializing
+(node:32513) ExperimentalWarning: CommonJS module /Users/Michael/.nvm/versions/node/v23.3.0/lib/node_modules/npm/node_modules/debug/src/node.js is loading ES Module /Users/Michael/.nvm/versions/node/v23.3.0/lib/node_modules/npm/node_modules/supports-color/index.js using require().
+Support for loading ES Module in require() is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+> biblemodel@1.0.0 main
+> node --experimental-sqlite Bible.mjs
+
 Book.mjs initializing.
 Book.mjs initialized.
+Bible.mjs Initializing for the first time
+Bible.mjs Initializing
 Bible.mjs singleton theBible created.
 Bible.mjs startStateMachine
-Bible.mjs =====================  stateMachine() beginning time= 34.204041  state= 1  iteration= 1
+Bible.mjs =====================  stateMachine() beginning time= 15.091041  state= 1  iteration= 1
 Bible.mjs state_init
 Bible.mjs advance state to  2 loadBooks
 Bible.mjs Requesting the loading of books...
 Bible.mjs LoadAll() Loading books...
-promise has been made.?
-A promise to load all books =  Promise { <pending> }
-Bible.mjs we have a promise to read books. Change state to wait.
-Bible.mjs next go around, advance state to  0 null
-Bible.mjs state is waiting for books to be done loading.
-Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
-start nextTick
-scheduled
-Bible.mjs iteration  2  state= 3 : waitBooks
-Bible.mjs state is waiting for books to be done loading.
-Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
-start nextTick
-scheduled
-Bible.mjs iteration  3  state= 3 : waitBooks
-Bible.mjs state is waiting for books to be done loading.
-Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
-start nextTick
-scheduled
-Bible.mjs iteration  4  state= 3 : waitBooks
-Bible.mjs state is waiting for books to be done loading.
-Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
-start nextTick
-scheduled
-Bible.mjs iteration  5  state= 3 : waitBooks
-Bible.mjs state is waiting for books to be done loading.
-Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
-start nextTick
-scheduled
-Bible.mjs iteration  6  state= 3 : waitBooks
-Bible.mjs state is waiting for books to be done loading.
-Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
-start nextTick
-scheduled
-Bible.mjs iteration  7  state= 3 : waitBooks
-Bible.mjs state is waiting for books to be done loading.
-Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
-start nextTick
-scheduled
-Bible.mjs iteration  8  state= 3 : waitBooks
-Bible.mjs state is waiting for books to be done loading.
-Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
-start nextTick
-scheduled
-Bible.mjs iteration  9  state= 3 : waitBooks
-Bible.mjs state is waiting for books to be done loading.
-Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
-start nextTick
-scheduled
-Bible.mjs iteration  10  state= 3 : waitBooks
-Bible.mjs state is waiting for books to be done loading.
-Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
-start nextTick
-scheduled
-Bible.mjs iteration  11  state= 3 : waitBooks
-Bible.mjs state is waiting for books to be done loading.
-Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
-start nextTick
-scheduled
-Bible.mjs iteration  12  state= 3 : waitBooks
-Bible.mjs state is waiting for books to be done loading.
-Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
-start nextTick
-scheduled
-Bible.mjs iteration  13  state= 3 : waitBooks
-Bible.mjs state is waiting for books to be done loading.
-Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
-start nextTick
-scheduled
-Bible.mjs iteration  14  state= 3 : waitBooks
-Bible.mjs state is waiting for books to be done loading.
-Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
-start nextTick
-scheduled
-Bible.mjs iteration  15  state= 3 : waitBooks
-Bible.mjs state is waiting for books to be done loading.
-Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
-start nextTick
-scheduled
-Bible.mjs iteration  16  state= 3 : waitBooks
-Bible.mjs state is waiting for books to be done loading.
-Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
-start nextTick
-scheduled
-Bible.mjs iteration  17  state= 3 : waitBooks
-Bible.mjs state is waiting for books to be done loading.
-Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
-start nextTick
-scheduled
-Bible.mjs iteration  18  state= 3 : waitBooks
-Bible.mjs state is waiting for books to be done loading.
-Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
-start nextTick
-scheduled
-Bible.mjs iteration  19  state= 3 : waitBooks
-Bible.mjs state is waiting for books to be done loading.
-Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
-start nextTick
-scheduled
-Bible.mjs iteration  20  state= 3 : waitBooks
-Bible.mjs state is waiting for books to be done loading.
-Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
-start nextTick
-scheduled
-Bible.mjs iteration  21  state= 3 : waitBooks
-Bible.mjs state is waiting for books to be done loading.
-Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
-start nextTick
-scheduled
-Bible.mjs has reached maximum iterations.  Time to quit.
-Bible.mjs iteration  22  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 37.218708
-Bible.mjs complete, do normal shutdown.
-nextTick callback
-nextTick callback
-nextTick callback
-nextTick callback
-nextTick callback
-nextTick callback
-nextTick callback
-nextTick callback
-nextTick callback
-nextTick callback
-nextTick callback
-nextTick callback
-nextTick callback
-nextTick callback
-nextTick callback
-nextTick callback
-nextTick callback
-nextTick callback
-nextTick callback
-nextTick callback
-nextTick callback
+StatementSync { sourceSQL: [Getter], expandedSQL: [Getter] }
 Book[1] Genesis loaded.
 Book {
   ordinal: 1,
@@ -737,12 +612,586 @@ Book {
 }
 Bible.mjs Book added: Revelation
 Bible.mjs booksComplete= false  books.length= 66
+promise has been made.?
+A promise to load all books =  Promise {
+  [
+    [class Book] { saveAll: [Function: saveAll] },
+    Book {
+      ordinal: 1,
+      name: 'Genesis',
+      title: 'The First Book of Moses Called Genesis',
+      category: 'Law',
+      nChapters: 50
+    },
+    Book {
+      ordinal: 2,
+      name: 'Exodus',
+      title: 'The Second Book of Moses Called Exodus',
+      category: 'Law',
+      nChapters: 40
+    },
+    Book {
+      ordinal: 3,
+      name: 'Leviticus',
+      title: 'The Third Book of Moses Called Leviticus',
+      category: 'Law',
+      nChapters: 27
+    },
+    Book {
+      ordinal: 4,
+      name: 'Numbers',
+      title: 'The Fourth Book of Moses Called Numbers',
+      category: 'Law',
+      nChapters: 36
+    },
+    Book {
+      ordinal: 5,
+      name: 'Deuteronomy',
+      title: 'The Fifth Book of Moses Called Deuteronomy',
+      category: 'Law',
+      nChapters: 34
+    },
+    Book {
+      ordinal: 6,
+      name: 'Joshua',
+      title: 'The Book of Joshua',
+      category: 'Old Testament Narrative',
+      nChapters: 24
+    },
+    Book {
+      ordinal: 7,
+      name: 'Judges',
+      title: 'The Book of Judges',
+      category: 'Old Testament Narrative',
+      nChapters: 21
+    },
+    Book {
+      ordinal: 8,
+      name: 'Ruth',
+      title: 'The Book of Ruth',
+      category: 'Old Testament Narrative',
+      nChapters: 4
+    },
+    Book {
+      ordinal: 9,
+      name: '1 Samuel',
+      title: 'The First Book of Samuel',
+      category: 'Old Testament Narrative',
+      nChapters: 31
+    },
+    Book {
+      ordinal: 10,
+      name: '2 Samuel',
+      title: 'The Second Book of Samuel',
+      category: 'Old Testament Narrative',
+      nChapters: 24
+    },
+    Book {
+      ordinal: 11,
+      name: '1 Kings',
+      title: 'The First Book of Kings',
+      category: 'Old Testament Narrative',
+      nChapters: 22
+    },
+    Book {
+      ordinal: 12,
+      name: '2 Kings',
+      title: 'The Second Book of Kings',
+      category: 'Old Testament Narrative',
+      nChapters: 25
+    },
+    Book {
+      ordinal: 13,
+      name: '1 Chronicles',
+      title: 'The First Book of Chronicles',
+      category: 'Old Testament Narrative',
+      nChapters: 29
+    },
+    Book {
+      ordinal: 14,
+      name: '2 Chronicles',
+      title: 'The Second Book of Chronicles',
+      category: 'Old Testament Narrative',
+      nChapters: 36
+    },
+    Book {
+      ordinal: 15,
+      name: 'Ezra',
+      title: 'The Book of Ezra',
+      category: 'Old Testament Narrative',
+      nChapters: 10
+    },
+    Book {
+      ordinal: 16,
+      name: 'Nehemiah',
+      title: 'The Book of Nehemiah',
+      category: 'Old Testament Narrative',
+      nChapters: 13
+    },
+    Book {
+      ordinal: 17,
+      name: 'Esther',
+      title: 'The Book of Esther',
+      category: 'Old Testament Narrative',
+      nChapters: 10
+    },
+    Book {
+      ordinal: 18,
+      name: 'Job',
+      title: 'The Book of Job',
+      category: 'Wisdom Literature',
+      nChapters: 42
+    },
+    Book {
+      ordinal: 19,
+      name: 'Psalms',
+      title: 'The Book of Psalms',
+      category: 'Wisdom Literature',
+      nChapters: 150
+    },
+    Book {
+      ordinal: 20,
+      name: 'Proverbs',
+      title: 'The Book of Proverbs',
+      category: 'Wisdom Literature',
+      nChapters: 31
+    },
+    Book {
+      ordinal: 21,
+      name: 'Ecclesiastes',
+      title: 'The Book of Ecclesiastes',
+      category: 'Wisdom Literature',
+      nChapters: 12
+    },
+    Book {
+      ordinal: 22,
+      name: 'Song of Solomon',
+      title: 'Song of Solomon',
+      category: 'Wisdom Literature',
+      nChapters: 8
+    },
+    Book {
+      ordinal: 23,
+      name: 'Isaiah',
+      title: 'The Book of Isaiah',
+      category: 'Major Prophets',
+      nChapters: 66
+    },
+    Book {
+      ordinal: 24,
+      name: 'Jeremiah',
+      title: 'The Book of Jeremiah',
+      category: 'Major Prophets',
+      nChapters: 52
+    },
+    Book {
+      ordinal: 25,
+      name: 'Lamentations',
+      title: 'The Book of Lamentations',
+      category: 'Major Prophets',
+      nChapters: 5
+    },
+    Book {
+      ordinal: 26,
+      name: 'Ezekiel',
+      title: 'The Book of Ezekiel',
+      category: 'Major Prophets',
+      nChapters: 48
+    },
+    Book {
+      ordinal: 27,
+      name: 'Daniel',
+      title: 'The Book of Daniel',
+      category: 'Major Prophets',
+      nChapters: 12
+    },
+    Book {
+      ordinal: 28,
+      name: 'Hosea',
+      title: 'The Book of Hosea',
+      category: 'Minor Prophets',
+      nChapters: 14
+    },
+    Book {
+      ordinal: 29,
+      name: 'Joel',
+      title: 'The Book of Joel',
+      category: 'Minor Prophets',
+      nChapters: 3
+    },
+    Book {
+      ordinal: 30,
+      name: 'Amos',
+      title: 'The Book of Amos',
+      category: 'Minor Prophets',
+      nChapters: 9
+    },
+    Book {
+      ordinal: 31,
+      name: 'Obadiah',
+      title: 'The Book of Obadiah',
+      category: 'Minor Prophets',
+      nChapters: 1
+    },
+    Book {
+      ordinal: 32,
+      name: 'Jonah',
+      title: 'The Book of Jonah',
+      category: 'Minor Prophets',
+      nChapters: 4
+    },
+    Book {
+      ordinal: 33,
+      name: 'Micah',
+      title: 'The Book of Micah',
+      category: 'Minor Prophets',
+      nChapters: 7
+    },
+    Book {
+      ordinal: 34,
+      name: 'Nahum',
+      title: 'The Book of Nahum',
+      category: 'Minor Prophets',
+      nChapters: 3
+    },
+    Book {
+      ordinal: 35,
+      name: 'Habakkuk',
+      title: 'The Book of Habakkuk',
+      category: 'Minor Prophets',
+      nChapters: 3
+    },
+    Book {
+      ordinal: 36,
+      name: 'Zephaniah',
+      title: 'The Book of Zephaniah',
+      category: 'Minor Prophets',
+      nChapters: 3
+    },
+    Book {
+      ordinal: 37,
+      name: 'Haggai',
+      title: 'The Book of Haggai',
+      category: 'Minor Prophets',
+      nChapters: 2
+    },
+    Book {
+      ordinal: 38,
+      name: 'Zechariah',
+      title: 'The Book of Zechariah',
+      category: 'Minor Prophets',
+      nChapters: 14
+    },
+    Book {
+      ordinal: 39,
+      name: 'Malachi',
+      title: 'The Book of Malachi',
+      category: 'Minor Prophets',
+      nChapters: 4
+    },
+    Book {
+      ordinal: 40,
+      name: 'Matthew',
+      title: 'The Gospel According to Matthew',
+      category: 'New Testament Narrative',
+      nChapters: 28
+    },
+    Book {
+      ordinal: 41,
+      name: 'Mark',
+      title: 'The Gospel According to Mark',
+      category: 'New Testament Narrative',
+      nChapters: 16
+    },
+    Book {
+      ordinal: 42,
+      name: 'Luke',
+      title: 'The Gospel According to Luke',
+      category: 'New Testament Narrative',
+      nChapters: 24
+    },
+    Book {
+      ordinal: 43,
+      name: 'John',
+      title: 'The Gospel According to John',
+      category: 'New Testament Narrative',
+      nChapters: 21
+    },
+    Book {
+      ordinal: 44,
+      name: 'Acts',
+      title: 'The Acts of the Apostles',
+      category: 'New Testament Narrative',
+      nChapters: 28
+    },
+    Book {
+      ordinal: 45,
+      name: 'Romans',
+      title: 'The Epistle of Paul to the Romans',
+      category: 'Pauline Epistles',
+      nChapters: 16
+    },
+    Book {
+      ordinal: 46,
+      name: '1 Corinthians',
+      title: 'The First Epistle of Paul to the Corinthians',
+      category: 'Pauline Epistles',
+      nChapters: 16
+    },
+    Book {
+      ordinal: 47,
+      name: '2 Corinthians',
+      title: 'The Second Epistle of Paul to the Corinthians',
+      category: 'Pauline Epistles',
+      nChapters: 13
+    },
+    Book {
+      ordinal: 48,
+      name: 'Galatians',
+      title: 'The Epistle of Paul to the Galatians',
+      category: 'Pauline Epistles',
+      nChapters: 6
+    },
+    Book {
+      ordinal: 49,
+      name: 'Ephesians',
+      title: 'The Epistle of Paul to the Ephesians',
+      category: 'Pauline Epistles',
+      nChapters: 6
+    },
+    Book {
+      ordinal: 50,
+      name: 'Philippians',
+      title: 'The Epistle of Paul to the Philippians',
+      category: 'Pauline Epistles',
+      nChapters: 4
+    },
+    Book {
+      ordinal: 51,
+      name: 'Colossians',
+      title: 'The Epistle of Paul to the Colossians',
+      category: 'Pauline Epistles',
+      nChapters: 4
+    },
+    Book {
+      ordinal: 52,
+      name: '1 Thessalonians',
+      title: 'The First Epistle of Paul to the Thessalonians',
+      category: 'Pauline Epistles',
+      nChapters: 5
+    },
+    Book {
+      ordinal: 53,
+      name: '2 Thessalonians',
+      title: 'The Second Epistle of Paul to the Thessalonians',
+      category: 'Pauline Epistles',
+      nChapters: 3
+    },
+    Book {
+      ordinal: 54,
+      name: '1 Timothy',
+      title: 'The First Epistle of Paul to Timothy',
+      category: 'Pauline Epistles',
+      nChapters: 6
+    },
+    Book {
+      ordinal: 55,
+      name: '2 Timothy',
+      title: 'The Second Epistle of Paul to Timothy',
+      category: 'Pauline Epistles',
+      nChapters: 4
+    },
+    Book {
+      ordinal: 56,
+      name: 'Titus',
+      title: 'The Epistle of Paul to the Titus',
+      category: 'Pauline Epistles',
+      nChapters: 3
+    },
+    Book {
+      ordinal: 57,
+      name: 'Philemon',
+      title: 'The Epistle of Paul to the Philemon',
+      category: 'Pauline Epistles',
+      nChapters: 1
+    },
+    Book {
+      ordinal: 58,
+      name: 'Hebrews',
+      title: 'The Epistle to the Hebrews',
+      category: 'General Epistles',
+      nChapters: 13
+    },
+    Book {
+      ordinal: 59,
+      name: 'James',
+      title: 'The General Epistle of James',
+      category: 'General Epistles',
+      nChapters: 5
+    },
+    Book {
+      ordinal: 60,
+      name: '1 Peter',
+      title: 'The First Epistle of Peter',
+      category: 'General Epistles',
+      nChapters: 5
+    },
+    Book {
+      ordinal: 61,
+      name: '2 Peter',
+      title: 'The Second Epistle of Peter',
+      category: 'General Epistles',
+      nChapters: 3
+    },
+    Book {
+      ordinal: 62,
+      name: '1 John',
+      title: 'The First Epistle of John',
+      category: 'General Epistles',
+      nChapters: 5
+    },
+    Book {
+      ordinal: 63,
+      name: '2 John',
+      title: 'The Second Epistle of John',
+      category: 'General Epistles',
+      nChapters: 1
+    },
+    Book {
+      ordinal: 64,
+      name: '3 John',
+      title: 'The Third Epistle of John',
+      category: 'General Epistles',
+      nChapters: 1
+    },
+    Book {
+      ordinal: 65,
+      name: 'Jude',
+      title: 'The Epistle of Jude',
+      category: 'General Epistles',
+      nChapters: 1
+    },
+    Book {
+      ordinal: 66,
+      name: 'Revelation',
+      title: 'The Book of Revelation',
+      category: 'Apocalyptic Epistle',
+      nChapters: 22
+    }
+  ]
+}
+Bible.mjs we have a promise to read books. Change state to wait.
+Bible.mjs next go around, advance state to  0 null
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
+start nextTick
+scheduled
+Bible.mjs iteration  2  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
+start nextTick
+scheduled
+Bible.mjs iteration  3  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
+start nextTick
+scheduled
+Bible.mjs iteration  4  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
+start nextTick
+scheduled
+Bible.mjs iteration  5  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
+start nextTick
+scheduled
+Bible.mjs iteration  6  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
+start nextTick
+scheduled
+Bible.mjs iteration  7  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
+start nextTick
+scheduled
+Bible.mjs iteration  8  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
+start nextTick
+scheduled
+Bible.mjs iteration  9  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
+start nextTick
+scheduled
+Bible.mjs iteration  10  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
+start nextTick
+scheduled
+Bible.mjs iteration  11  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
+start nextTick
+scheduled
+Bible.mjs iteration  12  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
+start nextTick
+scheduled
+Bible.mjs iteration  13  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
+start nextTick
+scheduled
+Bible.mjs iteration  14  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
+start nextTick
+scheduled
+Bible.mjs iteration  15  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
+start nextTick
+scheduled
+Bible.mjs iteration  16  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
+start nextTick
+scheduled
+Bible.mjs iteration  17  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
+start nextTick
+scheduled
+Bible.mjs iteration  18  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
+start nextTick
+scheduled
+Bible.mjs iteration  19  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
+start nextTick
+scheduled
+Bible.mjs iteration  20  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
+start nextTick
+scheduled
+Bible.mjs iteration  21  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs Ready state= 3 : waitBooks  stateNext= 0 : null
+start nextTick
+scheduled
+Bible.mjs has reached maximum iterations.  Time to quit.
+Bible.mjs iteration  22  state= 8 : shutdown
+Bible.mjs ===================== stateMachine() ending. time= 24.226083
+Bible.mjs complete, do normal shutdown.
 Data received: [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -1206,16 +1655,12 @@ Data received: [
     nChapters: 22
   }
 ]
-Bible.mjs =====================  stateMachine() beginning time= 43.563708  state= 4  iteration= 22
+Bible.mjs =====================  stateMachine() beginning time= 24.799875  state= 4  iteration= 22
 Bible.mjs Books are done loading.
 Bible.mjs advance state to  5 saveBooks
 Saving books as json.
 [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -1692,13 +2137,9 @@ start nextTick
 scheduled
 Bible.mjs has reached maximum iterations.  Time to quit.
 Bible.mjs iteration  23  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 44.290166
+Bible.mjs ===================== stateMachine() ending. time= 25.180333
 Data received: [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -2162,16 +2603,12 @@ Data received: [
     nChapters: 22
   }
 ]
-Bible.mjs =====================  stateMachine() beginning time= 44.586375  state= 4  iteration= 23
+Bible.mjs =====================  stateMachine() beginning time= 25.381083  state= 4  iteration= 23
 Bible.mjs Books are done loading.
 Bible.mjs advance state to  5 saveBooks
 Saving books as json.
 [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -2648,13 +3085,9 @@ start nextTick
 scheduled
 Bible.mjs has reached maximum iterations.  Time to quit.
 Bible.mjs iteration  24  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 45.162958
+Bible.mjs ===================== stateMachine() ending. time= 25.688416
 Data received: [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -3118,16 +3551,12 @@ Data received: [
     nChapters: 22
   }
 ]
-Bible.mjs =====================  stateMachine() beginning time= 45.576083  state= 4  iteration= 24
+Bible.mjs =====================  stateMachine() beginning time= 26.120291  state= 4  iteration= 24
 Bible.mjs Books are done loading.
 Bible.mjs advance state to  5 saveBooks
 Saving books as json.
 [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -3604,13 +4033,9 @@ start nextTick
 scheduled
 Bible.mjs has reached maximum iterations.  Time to quit.
 Bible.mjs iteration  25  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 45.975875
+Bible.mjs ===================== stateMachine() ending. time= 26.479666
 Data received: [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -4074,16 +4499,12 @@ Data received: [
     nChapters: 22
   }
 ]
-Bible.mjs =====================  stateMachine() beginning time= 46.263958  state= 4  iteration= 25
+Bible.mjs =====================  stateMachine() beginning time= 26.673833  state= 4  iteration= 25
 Bible.mjs Books are done loading.
 Bible.mjs advance state to  5 saveBooks
 Saving books as json.
 [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -4560,13 +4981,9 @@ start nextTick
 scheduled
 Bible.mjs has reached maximum iterations.  Time to quit.
 Bible.mjs iteration  26  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 46.665375
+Bible.mjs ===================== stateMachine() ending. time= 26.971208
 Data received: [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -5030,16 +5447,12 @@ Data received: [
     nChapters: 22
   }
 ]
-Bible.mjs =====================  stateMachine() beginning time= 47.034166  state= 4  iteration= 26
+Bible.mjs =====================  stateMachine() beginning time= 27.292625  state= 4  iteration= 26
 Bible.mjs Books are done loading.
 Bible.mjs advance state to  5 saveBooks
 Saving books as json.
 [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -5516,13 +5929,9 @@ start nextTick
 scheduled
 Bible.mjs has reached maximum iterations.  Time to quit.
 Bible.mjs iteration  27  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 47.427375
+Bible.mjs ===================== stateMachine() ending. time= 27.609958
 Data received: [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -5986,16 +6395,12 @@ Data received: [
     nChapters: 22
   }
 ]
-Bible.mjs =====================  stateMachine() beginning time= 47.682375  state= 4  iteration= 27
+Bible.mjs =====================  stateMachine() beginning time= 27.801708  state= 4  iteration= 27
 Bible.mjs Books are done loading.
 Bible.mjs advance state to  5 saveBooks
 Saving books as json.
 [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -6472,13 +6877,9 @@ start nextTick
 scheduled
 Bible.mjs has reached maximum iterations.  Time to quit.
 Bible.mjs iteration  28  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 48.041208
+Bible.mjs ===================== stateMachine() ending. time= 28.139875
 Data received: [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -6942,16 +7343,12 @@ Data received: [
     nChapters: 22
   }
 ]
-Bible.mjs =====================  stateMachine() beginning time= 48.419833  state= 4  iteration= 28
+Bible.mjs =====================  stateMachine() beginning time= 28.411791  state= 4  iteration= 28
 Bible.mjs Books are done loading.
 Bible.mjs advance state to  5 saveBooks
 Saving books as json.
 [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -7428,13 +7825,9 @@ start nextTick
 scheduled
 Bible.mjs has reached maximum iterations.  Time to quit.
 Bible.mjs iteration  29  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 48.8215
+Bible.mjs ===================== stateMachine() ending. time= 28.671583
 Data received: [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -7898,16 +8291,12 @@ Data received: [
     nChapters: 22
   }
 ]
-Bible.mjs =====================  stateMachine() beginning time= 49.064416  state= 4  iteration= 29
+Bible.mjs =====================  stateMachine() beginning time= 28.832708  state= 4  iteration= 29
 Bible.mjs Books are done loading.
 Bible.mjs advance state to  5 saveBooks
 Saving books as json.
 [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -8384,13 +8773,9 @@ start nextTick
 scheduled
 Bible.mjs has reached maximum iterations.  Time to quit.
 Bible.mjs iteration  30  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 49.506625
+Bible.mjs ===================== stateMachine() ending. time= 29.082041
 Data received: [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -8854,16 +9239,12 @@ Data received: [
     nChapters: 22
   }
 ]
-Bible.mjs =====================  stateMachine() beginning time= 49.875291  state= 4  iteration= 30
+Bible.mjs =====================  stateMachine() beginning time= 29.329208  state= 4  iteration= 30
 Bible.mjs Books are done loading.
 Bible.mjs advance state to  5 saveBooks
 Saving books as json.
 [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -9340,13 +9721,9 @@ start nextTick
 scheduled
 Bible.mjs has reached maximum iterations.  Time to quit.
 Bible.mjs iteration  31  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 50.25
+Bible.mjs ===================== stateMachine() ending. time= 29.647125
 Data received: [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -9810,16 +10187,12 @@ Data received: [
     nChapters: 22
   }
 ]
-Bible.mjs =====================  stateMachine() beginning time= 50.489958  state= 4  iteration= 31
+Bible.mjs =====================  stateMachine() beginning time= 29.815875  state= 4  iteration= 31
 Bible.mjs Books are done loading.
 Bible.mjs advance state to  5 saveBooks
 Saving books as json.
 [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -10296,13 +10669,9 @@ start nextTick
 scheduled
 Bible.mjs has reached maximum iterations.  Time to quit.
 Bible.mjs iteration  32  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 50.9045
+Bible.mjs ===================== stateMachine() ending. time= 30.180375
 Data received: [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -10766,16 +11135,12 @@ Data received: [
     nChapters: 22
   }
 ]
-Bible.mjs =====================  stateMachine() beginning time= 51.242708  state= 4  iteration= 32
+Bible.mjs =====================  stateMachine() beginning time= 30.46725  state= 4  iteration= 32
 Bible.mjs Books are done loading.
 Bible.mjs advance state to  5 saveBooks
 Saving books as json.
 [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -11252,13 +11617,9 @@ start nextTick
 scheduled
 Bible.mjs has reached maximum iterations.  Time to quit.
 Bible.mjs iteration  33  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 51.603791
+Bible.mjs ===================== stateMachine() ending. time= 30.731958
 Data received: [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -11722,16 +12083,12 @@ Data received: [
     nChapters: 22
   }
 ]
-Bible.mjs =====================  stateMachine() beginning time= 51.821833  state= 4  iteration= 33
+Bible.mjs =====================  stateMachine() beginning time= 30.888625  state= 4  iteration= 33
 Bible.mjs Books are done loading.
 Bible.mjs advance state to  5 saveBooks
 Saving books as json.
 [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -12208,13 +12565,9 @@ start nextTick
 scheduled
 Bible.mjs has reached maximum iterations.  Time to quit.
 Bible.mjs iteration  34  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 52.185375
+Bible.mjs ===================== stateMachine() ending. time= 31.127416
 Data received: [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -12678,16 +13031,12 @@ Data received: [
     nChapters: 22
   }
 ]
-Bible.mjs =====================  stateMachine() beginning time= 52.529375  state= 4  iteration= 34
+Bible.mjs =====================  stateMachine() beginning time= 31.365333  state= 4  iteration= 34
 Bible.mjs Books are done loading.
 Bible.mjs advance state to  5 saveBooks
 Saving books as json.
 [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -13164,13 +13513,9 @@ start nextTick
 scheduled
 Bible.mjs has reached maximum iterations.  Time to quit.
 Bible.mjs iteration  35  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 52.86575
+Bible.mjs ===================== stateMachine() ending. time= 31.580916
 Data received: [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -13634,16 +13979,12 @@ Data received: [
     nChapters: 22
   }
 ]
-Bible.mjs =====================  stateMachine() beginning time= 53.070458  state= 4  iteration= 35
+Bible.mjs =====================  stateMachine() beginning time= 31.721291  state= 4  iteration= 35
 Bible.mjs Books are done loading.
 Bible.mjs advance state to  5 saveBooks
 Saving books as json.
 [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -14120,13 +14461,9 @@ start nextTick
 scheduled
 Bible.mjs has reached maximum iterations.  Time to quit.
 Bible.mjs iteration  36  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 53.386458
+Bible.mjs ===================== stateMachine() ending. time= 32.007208
 Data received: [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -14590,16 +14927,12 @@ Data received: [
     nChapters: 22
   }
 ]
-Bible.mjs =====================  stateMachine() beginning time= 53.714583  state= 4  iteration= 36
+Bible.mjs =====================  stateMachine() beginning time= 32.246291  state= 4  iteration= 36
 Bible.mjs Books are done loading.
 Bible.mjs advance state to  5 saveBooks
 Saving books as json.
 [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -15076,13 +15409,9 @@ start nextTick
 scheduled
 Bible.mjs has reached maximum iterations.  Time to quit.
 Bible.mjs iteration  37  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 54.034708
+Bible.mjs ===================== stateMachine() ending. time= 32.4635
 Data received: [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -15546,16 +15875,12 @@ Data received: [
     nChapters: 22
   }
 ]
-Bible.mjs =====================  stateMachine() beginning time= 54.242083  state= 4  iteration= 37
+Bible.mjs =====================  stateMachine() beginning time= 32.603583  state= 4  iteration= 37
 Bible.mjs Books are done loading.
 Bible.mjs advance state to  5 saveBooks
 Saving books as json.
 [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -16032,13 +16357,9 @@ start nextTick
 scheduled
 Bible.mjs has reached maximum iterations.  Time to quit.
 Bible.mjs iteration  38  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 54.594541
+Bible.mjs ===================== stateMachine() ending. time= 32.817833
 Data received: [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -16502,16 +16823,12 @@ Data received: [
     nChapters: 22
   }
 ]
-Bible.mjs =====================  stateMachine() beginning time= 54.908  state= 4  iteration= 38
+Bible.mjs =====================  stateMachine() beginning time= 33.038  state= 4  iteration= 38
 Bible.mjs Books are done loading.
 Bible.mjs advance state to  5 saveBooks
 Saving books as json.
 [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -16988,13 +17305,9 @@ start nextTick
 scheduled
 Bible.mjs has reached maximum iterations.  Time to quit.
 Bible.mjs iteration  39  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 55.224291
+Bible.mjs ===================== stateMachine() ending. time= 33.246833
 Data received: [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -17458,16 +17771,12 @@ Data received: [
     nChapters: 22
   }
 ]
-Bible.mjs =====================  stateMachine() beginning time= 55.430083  state= 4  iteration= 39
+Bible.mjs =====================  stateMachine() beginning time= 33.378833  state= 4  iteration= 39
 Bible.mjs Books are done loading.
 Bible.mjs advance state to  5 saveBooks
 Saving books as json.
 [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -17944,13 +18253,9 @@ start nextTick
 scheduled
 Bible.mjs has reached maximum iterations.  Time to quit.
 Bible.mjs iteration  40  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 55.733958
+Bible.mjs ===================== stateMachine() ending. time= 33.58925
 Data received: [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -18414,16 +18719,12 @@ Data received: [
     nChapters: 22
   }
 ]
-Bible.mjs =====================  stateMachine() beginning time= 56.014458  state= 4  iteration= 40
+Bible.mjs =====================  stateMachine() beginning time= 33.797125  state= 4  iteration= 40
 Bible.mjs Books are done loading.
 Bible.mjs advance state to  5 saveBooks
 Saving books as json.
 [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -18900,13 +19201,9 @@ start nextTick
 scheduled
 Bible.mjs has reached maximum iterations.  Time to quit.
 Bible.mjs iteration  41  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 56.39775
+Bible.mjs ===================== stateMachine() ending. time= 34.008375
 Data received: [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -19370,16 +19667,12 @@ Data received: [
     nChapters: 22
   }
 ]
-Bible.mjs =====================  stateMachine() beginning time= 56.602916  state= 4  iteration= 41
+Bible.mjs =====================  stateMachine() beginning time= 34.144708  state= 4  iteration= 41
 Bible.mjs Books are done loading.
 Bible.mjs advance state to  5 saveBooks
 Saving books as json.
 [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -19856,13 +20149,9 @@ start nextTick
 scheduled
 Bible.mjs has reached maximum iterations.  Time to quit.
 Bible.mjs iteration  42  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 56.925875
+Bible.mjs ===================== stateMachine() ending. time= 34.350458
 Data received: [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -20326,16 +20615,12 @@ Data received: [
     nChapters: 22
   }
 ]
-Bible.mjs =====================  stateMachine() beginning time= 57.141291  state= 4  iteration= 42
+Bible.mjs =====================  stateMachine() beginning time= 34.481958  state= 4  iteration= 42
 Bible.mjs Books are done loading.
 Bible.mjs advance state to  5 saveBooks
 Saving books as json.
 [
-  [class Book] {
-    setBible: [Function (anonymous)],
-    loadAll: [Function: load],
-    saveAll: [Function: saveAll]
-  },
+  [class Book] { saveAll: [Function: saveAll] },
   Book {
     ordinal: 1,
     name: 'Genesis',
@@ -20812,7 +21097,30 @@ start nextTick
 scheduled
 Bible.mjs has reached maximum iterations.  Time to quit.
 Bible.mjs iteration  43  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 57.60175
+Bible.mjs ===================== stateMachine() ending. time= 34.762875
+(node:32529) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+nextTick callback
+nextTick callback
+nextTick callback
+nextTick callback
+nextTick callback
+nextTick callback
+nextTick callback
+nextTick callback
+nextTick callback
+nextTick callback
+nextTick callback
+nextTick callback
+nextTick callback
+nextTick callback
+nextTick callback
+nextTick callback
+nextTick callback
+nextTick callback
+nextTick callback
+nextTick callback
+nextTick callback
 nextTick callback
 nextTick callback
 nextTick callback

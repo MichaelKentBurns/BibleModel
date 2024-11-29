@@ -2,10 +2,10 @@
   "name": "biblemodel",
   "version": "1.0.0",
   "description": "database model for the Bible",
-  "main": "Bible.js",
+  "main": "Bible.mjs",
   "scripts": {
     "test": "jest",
-    "main": "node Bible.js"
+    "main": "node --experimental-sqlite Bible.mjs"
   },
   "repository": {
     "type": "git",
@@ -13,6 +13,7 @@
   },
   "private": true,
   "dependencies": {
+    "sqlite": "",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {

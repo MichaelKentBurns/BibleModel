@@ -1,7 +1,7 @@
 let theBible;
 
-const DataSource = require('./DataSource.js');
-const fs = require('fs');
+import DataSource from './DataSource.mjs';
+import fs from 'node:fs';
 //------------------------------------------------------------------------------------------
 class Bible {
     constructor() {

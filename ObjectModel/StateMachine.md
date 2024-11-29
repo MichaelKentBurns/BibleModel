@@ -4,7 +4,7 @@ Node.js and it's main event loop is a pretty strange beast.
 Many articles are written.  With much reading and a lot of experimentation I have gotten this to work as a state machine.
 I'm sure it can be improved.
 
-### StateMachine: inside Bible.js and Book.js I have built a state machine. 
+### StateMachine: inside Bible.mjs and Book.mjs I have built a state machine. 
  
 ```mermaid
 stateDiagram-v2

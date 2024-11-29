@@ -1,95 +1,95 @@
-Bible.js Initializing for the first time
-Bible.js Initializing
-Bible.js singleton theBible created.
-Bible.js startStateMachine
-Bible.js =====================  stateMachine() beginning time= 23.512334  state= 1  iteration= 1
-Bible.js state_init
-Bible.js advance state to  2 loadBooks
-Bible.js Requesting the loading of books...
-Bible.js LoadAll() Loading books...
+Bible.mjs Initializing for the first time
+Bible.mjs Initializing
+Bible.mjs singleton theBible created.
+Bible.mjs startStateMachine
+Bible.mjs =====================  stateMachine() beginning time= 23.512334  state= 1  iteration= 1
+Bible.mjs state_init
+Bible.mjs advance state to  2 loadBooks
+Bible.mjs Requesting the loading of books...
+Bible.mjs LoadAll() Loading books...
 promise has been made.?
-Bible.js next go around, advance state to  3 waitBooks
-Bible.js Ready state= 0 : null  stateNext= 3 : waitBooks
+Bible.mjs next go around, advance state to  3 waitBooks
+Bible.mjs Ready state= 0 : null  stateNext= 3 : waitBooks
 start nextTick
 scheduled
-Bible.js iteration  2  state= 3 : waitBooks
-Bible.js state is waiting for books to be done loading.
-Bible.js startWaitForBooks - setInterval
-Bible.js stillWaitingForBooks Waiting for all Books. There are  0  books loaded at time  25.893042
-Bible.js Still waiting for books to be done loading, time= 25.921167   10  seconds to go.
-Bible.js ===================== stateMachine() ending. time= 26.016042
+Bible.mjs iteration  2  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs startWaitForBooks - setInterval
+Bible.mjs stillWaitingForBooks Waiting for all Books. There are  0  books loaded at time  25.893042
+Bible.mjs Still waiting for books to be done loading, time= 25.921167   10  seconds to go.
+Bible.mjs ===================== stateMachine() ending. time= 26.016042
 nextTick callback
-Bible.js =====================  stateMachine() beginning time= 26.420875  state= 3  iteration= 2
-Bible.js state is waiting for books to be done loading.
-Bible.js ===================== stateMachine() ending. time= 26.472292
-Bible.js Book added: Genesis
-Bible.js Book added: Exodus
-Bible.js Book added: Leviticus
-Bible.js Book added: Numbers
-Bible.js Book added: Deuteronomy
-Bible.js Book added: Joshua
-Bible.js Book added: Judges
-Bible.js Book added: Ruth
-Bible.js Book added: 1 Samuel
-Bible.js Book added: 2 Samuel
-Bible.js Book added: 1 Kings
-Bible.js Book added: 2 Kings
-Bible.js Book added: 1 Chronicles
-Bible.js Book added: 2 Chronicles
-Bible.js Book added: Ezra
-Bible.js Book added: Nehemiah
-Bible.js Book added: Esther
-Bible.js Book added: Job
-Bible.js Book added: Psalms
-Bible.js Book added: Proverbs
-Bible.js Book added: Ecclesiastes
-Bible.js Book added: Song of Solomon
-Bible.js Book added: Isaiah
-Bible.js Book added: Jeremiah
-Bible.js Book added: Lamentations
-Bible.js Book added: Ezekiel
-Bible.js Book added: Daniel
-Bible.js Book added: Hosea
-Bible.js Book added: Joel
-Bible.js Book added: Amos
-Bible.js Book added: Obadiah
-Bible.js Book added: Jonah
-Bible.js Book added: Micah
-Bible.js Book added: Nahum
-Bible.js Book added: Habakkuk
-Bible.js Book added: Zephaniah
-Bible.js Book added: Haggai
-Bible.js Book added: Zechariah
-Bible.js Book added: Malachi
-Bible.js Book added: Matthew
-Bible.js Book added: Mark
-Bible.js Book added: Luke
-Bible.js Book added: John
-Bible.js Book added: Acts
-Bible.js Book added: Romans
-Bible.js Book added: 1 Corinthians
-Bible.js Book added: 2 Corinthians
-Bible.js Book added: Galatians
-Bible.js Book added: Ephesians
-Bible.js Book added: Philippians
-Bible.js Book added: Colossians
-Bible.js Book added: 1 Thessalonians
-Bible.js Book added: 2 Thessalonians
-Bible.js Book added: 1 Timothy
-Bible.js Book added: 2 Timothy
-Bible.js Book added: Titus
-Bible.js Book added: Philemon
-Bible.js Book added: Hebrews
-Bible.js Book added: James
-Bible.js Book added: 1 Peter
-Bible.js Book added: 2 Peter
-Bible.js Book added: 1 John
-Bible.js Book added: 2 John
-Bible.js Book added: 3 John
-Bible.js Book added: Jude
-Bible.js Book added: Revelation
-Bible.js stillWaitingForBooks Waiting for all Books. There are  66  books loaded at time  126.306334
+Bible.mjs =====================  stateMachine() beginning time= 26.420875  state= 3  iteration= 2
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs ===================== stateMachine() ending. time= 26.472292
+Bible.mjs Book added: Genesis
+Bible.mjs Book added: Exodus
+Bible.mjs Book added: Leviticus
+Bible.mjs Book added: Numbers
+Bible.mjs Book added: Deuteronomy
+Bible.mjs Book added: Joshua
+Bible.mjs Book added: Judges
+Bible.mjs Book added: Ruth
+Bible.mjs Book added: 1 Samuel
+Bible.mjs Book added: 2 Samuel
+Bible.mjs Book added: 1 Kings
+Bible.mjs Book added: 2 Kings
+Bible.mjs Book added: 1 Chronicles
+Bible.mjs Book added: 2 Chronicles
+Bible.mjs Book added: Ezra
+Bible.mjs Book added: Nehemiah
+Bible.mjs Book added: Esther
+Bible.mjs Book added: Job
+Bible.mjs Book added: Psalms
+Bible.mjs Book added: Proverbs
+Bible.mjs Book added: Ecclesiastes
+Bible.mjs Book added: Song of Solomon
+Bible.mjs Book added: Isaiah
+Bible.mjs Book added: Jeremiah
+Bible.mjs Book added: Lamentations
+Bible.mjs Book added: Ezekiel
+Bible.mjs Book added: Daniel
+Bible.mjs Book added: Hosea
+Bible.mjs Book added: Joel
+Bible.mjs Book added: Amos
+Bible.mjs Book added: Obadiah
+Bible.mjs Book added: Jonah
+Bible.mjs Book added: Micah
+Bible.mjs Book added: Nahum
+Bible.mjs Book added: Habakkuk
+Bible.mjs Book added: Zephaniah
+Bible.mjs Book added: Haggai
+Bible.mjs Book added: Zechariah
+Bible.mjs Book added: Malachi
+Bible.mjs Book added: Matthew
+Bible.mjs Book added: Mark
+Bible.mjs Book added: Luke
+Bible.mjs Book added: John
+Bible.mjs Book added: Acts
+Bible.mjs Book added: Romans
+Bible.mjs Book added: 1 Corinthians
+Bible.mjs Book added: 2 Corinthians
+Bible.mjs Book added: Galatians
+Bible.mjs Book added: Ephesians
+Bible.mjs Book added: Philippians
+Bible.mjs Book added: Colossians
+Bible.mjs Book added: 1 Thessalonians
+Bible.mjs Book added: 2 Thessalonians
+Bible.mjs Book added: 1 Timothy
+Bible.mjs Book added: 2 Timothy
+Bible.mjs Book added: Titus
+Bible.mjs Book added: Philemon
+Bible.mjs Book added: Hebrews
+Bible.mjs Book added: James
+Bible.mjs Book added: 1 Peter
+Bible.mjs Book added: 2 Peter
+Bible.mjs Book added: 1 John
+Bible.mjs Book added: 2 John
+Bible.mjs Book added: 3 John
+Bible.mjs Book added: Jude
+Bible.mjs Book added: Revelation
+Bible.mjs stillWaitingForBooks Waiting for all Books. There are  66  books loaded at time  126.306334
 stillWaitingForBooks: theBible.booksComplete. All books are loaded.
-Bible.js stillWaitingForBooks advance state to  4 booksLoaded
-Bible.js stillWaitingForBooks Waiting for all Books. There are  66  books loaded at time  1028.051917
+Bible.mjs stillWaitingForBooks advance state to  4 booksLoaded
+Bible.mjs stillWaitingForBooks Waiting for all Books. There are  66  books loaded at time  1028.051917
 stillWaitingForBooks: theBible.booksComplete. All books are loaded.

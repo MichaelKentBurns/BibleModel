@@ -1,0 +1,157 @@
+
+Node.js v23.3.0
+michael@Logos BibleModel % node Bible.mjs
+file:///Users/Michael/Bible/BibleModel/Book.mjs:71
+    import { DatabaseSync } from 'node:sqlite';
+           ^
+
+SyntaxError: Unexpected token '{'
+    at compileSourceTextModule (node:internal/modules/esm/utils:338:16)
+    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:103:18)
+    at #translate (node:internal/modules/esm/loader:437:12)
+    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:484:27)
+
+Node.js v23.3.0
+michael@Logos BibleModel % node --experimental-sqlite  Bible.mjs
+file:///Users/Michael/Bible/BibleModel/Book.mjs:71
+    import { DatabaseSync } from 'node:sqlite';
+           ^
+
+SyntaxError: Unexpected token '{'
+    at compileSourceTextModule (node:internal/modules/esm/utils:338:16)
+    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:103:18)
+    at #translate (node:internal/modules/esm/loader:437:12)
+    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:484:27)
+
+Node.js v23.3.0
+michael@Logos BibleModel % echo 'console.log(`Hello, ${process.argv[2]}!`);' > hello.js
+michael@Logos BibleModel % node hello.js
+Hello, undefined!
+michael@Logos BibleModel % echo '{ "main": "hello.js", "output": "sea-prep.blob" }' > sea-config.json
+michael@Logos BibleModel % node --experimental-sea-config sea-config.json 
+Wrote single executable preparation blob to sea-prep.blob
+michael@Logos BibleModel % cp $(command -v node) hello
+michael@Logos BibleModel % ls -latr
+total 248904
+drwxr-xr-x    3 michael  staff         96 Jul 27 15:00 Data
+-rw-r--r--@   1 michael  staff       2052 Aug  7 13:18 Location.mjs
+-rw-r--r--@   1 michael  staff        384 Aug 26 15:04 sleepTest.js
+-rw-r--r--@   1 michael  staff        106 Aug 31 10:43 BibleModel.json
+-rw-r--r--@   1 michael  staff        661 Sep  9 16:42 Testament.mjs
+-rw-r--r--@   1 michael  staff        494 Sep  9 16:53 Chapter.mjs
+-rw-r--r--@   1 michael  staff       3101 Sep  9 16:57 README.md
+-rw-r--r--@   1 michael  staff       1348 Sep  9 17:50 Verse.mjs
+-rw-r--r--@   1 michael  staff        264 Nov  6 15:23 BibleModel-preferences.json
+-rw-r--r--@   1 michael  staff        831 Nov 11 15:05 createTable.mjs
+-rw-r--r--    1 michael  staff       7631 Nov 12 15:55 books.txt
+-rw-r--r--@   1 michael  staff       2162 Nov 13 11:59 .gitignore
+drwxr-xr-x@ 110 michael  staff       3520 Nov 19 11:34 ..
+drwxr-xr-x    4 michael  staff        128 Nov 22 10:52 .vscode
+-rw-r--r--@   1 michael  staff        677 Nov 22 13:55 readJSON.mjs
+-rw-r--r--@   1 michael  staff        476 Nov 22 14:34 updateTable.mjs
+-rw-r--r--@   1 michael  staff       7581 Nov 22 14:43 books.json.mjs
+-rw-r--r--@   1 michael  staff      12292 Nov 22 15:28 .DS_Store
+-rw-r--r--@   1 michael  staff       7568 Nov 22 15:48 books.previous.json
+-rw-r--r--@   1 michael  staff        414 Nov 22 17:22 index.html
+-rw-r--r--@   1 michael  staff       7570 Nov 26 15:00 books.json
+drwxr-xr-x    6 michael  staff        192 Nov 26 15:03 testLibrary
+-rw-r--r--@   1 michael  staff      86257 Nov 26 17:29 test.log
+drwxr-xr-x@   6 michael  staff        192 Nov 26 17:29 Notes
+-rw-r--r--@   1 michael  staff     131940 Nov 26 17:29 log
+-rw-r--r--@   1 michael  staff       1988 Nov 26 17:29 books-1.0.html
+-rw-r--r--@   1 michael  staff     131956 Nov 26 17:29 Bible.test.js.log
+-rw-r--r--@   1 michael  staff       2614 Nov 26 17:29 DataModel.md
+drwxr-xr-x   14 michael  staff        448 Nov 26 17:29 ObjectModel
+-rw-r--r--@   1 michael  staff       2872 Nov 26 17:29 books.html
+-rw-r--r--@   1 michael  staff        414 Nov 26 17:29 package.json
+-rw-r--r--@   1 michael  staff       2897 Nov 26 17:29 books-0.1.html
+-rw-r--r--@   1 michael  staff       7078 Nov 26 17:32 Main.mjs
+-rw-r--r--@   1 michael  staff        914 Nov 26 17:34 Test.js
+-rw-r--r--@   1 michael  staff       2749 Nov 26 17:39 Xref.mjs
+-rw-r--r--@   1 michael  staff        301 Nov 26 17:41 Bible.test.mjs
+-rw-r--r--@   1 michael  staff        338 Nov 26 17:41 all.mjs
+-rw-r--r--@   1 michael  staff        734 Nov 26 17:44 Book.test.mjs
+-rw-r--r--@   1 michael  staff      17855 Nov 26 17:46 Bible.mjs
+drwxr-xr-x  294 michael  staff       9408 Nov 26 17:48 node_modules
+-rw-r--r--    1 michael  staff     168525 Nov 26 17:48 package-lock.json
+-rw-r--r--@   1 michael  staff        396 Nov 26 17:53 DataSource.mjs
+-rw-r--r--@   1 michael  staff       4834 Nov 27 08:47 Book.mjs
+drwxr-xr-x   10 michael  staff        320 Nov 27 10:59 .idea
+-rw-r--r--    1 michael  staff         43 Nov 27 11:03 hello.js
+-rw-r--r--    1 michael  staff         50 Nov 27 11:04 sea-config.json
+-rw-------    1 michael  staff         75 Nov 27 11:05 sea-prep.blob
+drwxr-xr-x   16 michael  staff        512 Nov 27 11:05 .git
+drwxr-xr-x   50 michael  staff       1600 Nov 27 11:05 .
+-rwxr-xr-x    1 michael  staff  126709488 Nov 27 11:05 hello
+michael@Logos BibleModel % codesign --remove-signature hello
+michael@Logos BibleModel % ls -latr                         
+total 246952
+drwxr-xr-x    3 michael  staff         96 Jul 27 15:00 Data
+-rw-r--r--@   1 michael  staff       2052 Aug  7 13:18 Location.mjs
+-rw-r--r--@   1 michael  staff        384 Aug 26 15:04 sleepTest.js
+-rw-r--r--@   1 michael  staff        106 Aug 31 10:43 BibleModel.json
+-rw-r--r--@   1 michael  staff        661 Sep  9 16:42 Testament.mjs
+-rw-r--r--@   1 michael  staff        494 Sep  9 16:53 Chapter.mjs
+-rw-r--r--@   1 michael  staff       3101 Sep  9 16:57 README.md
+-rw-r--r--@   1 michael  staff       1348 Sep  9 17:50 Verse.mjs
+-rw-r--r--@   1 michael  staff        264 Nov  6 15:23 BibleModel-preferences.json
+-rw-r--r--@   1 michael  staff        831 Nov 11 15:05 createTable.mjs
+-rw-r--r--    1 michael  staff       7631 Nov 12 15:55 books.txt
+-rw-r--r--@   1 michael  staff       2162 Nov 13 11:59 .gitignore
+drwxr-xr-x@ 110 michael  staff       3520 Nov 19 11:34 ..
+drwxr-xr-x    4 michael  staff        128 Nov 22 10:52 .vscode
+-rw-r--r--@   1 michael  staff        677 Nov 22 13:55 readJSON.mjs
+-rw-r--r--@   1 michael  staff        476 Nov 22 14:34 updateTable.mjs
+-rw-r--r--@   1 michael  staff       7581 Nov 22 14:43 books.json.mjs
+-rw-r--r--@   1 michael  staff      12292 Nov 22 15:28 .DS_Store
+-rw-r--r--@   1 michael  staff       7568 Nov 22 15:48 books.previous.json
+-rw-r--r--@   1 michael  staff        414 Nov 22 17:22 index.html
+-rw-r--r--@   1 michael  staff       7570 Nov 26 15:00 books.json
+drwxr-xr-x    6 michael  staff        192 Nov 26 15:03 testLibrary
+-rw-r--r--@   1 michael  staff      86257 Nov 26 17:29 test.log
+drwxr-xr-x@   6 michael  staff        192 Nov 26 17:29 Notes
+-rw-r--r--@   1 michael  staff     131940 Nov 26 17:29 log
+-rw-r--r--@   1 michael  staff       1988 Nov 26 17:29 books-1.0.html
+-rw-r--r--@   1 michael  staff     131956 Nov 26 17:29 Bible.test.js.log
+-rw-r--r--@   1 michael  staff       2614 Nov 26 17:29 DataModel.md
+drwxr-xr-x   14 michael  staff        448 Nov 26 17:29 ObjectModel
+-rw-r--r--@   1 michael  staff       2872 Nov 26 17:29 books.html
+-rw-r--r--@   1 michael  staff        414 Nov 26 17:29 package.json
+-rw-r--r--@   1 michael  staff       2897 Nov 26 17:29 books-0.1.html
+-rw-r--r--@   1 michael  staff       7078 Nov 26 17:32 Main.mjs
+-rw-r--r--@   1 michael  staff        914 Nov 26 17:34 Test.js
+-rw-r--r--@   1 michael  staff       2749 Nov 26 17:39 Xref.mjs
+-rw-r--r--@   1 michael  staff        301 Nov 26 17:41 Bible.test.mjs
+-rw-r--r--@   1 michael  staff        338 Nov 26 17:41 all.mjs
+-rw-r--r--@   1 michael  staff        734 Nov 26 17:44 Book.test.mjs
+-rw-r--r--@   1 michael  staff      17855 Nov 26 17:46 Bible.mjs
+drwxr-xr-x  294 michael  staff       9408 Nov 26 17:48 node_modules
+-rw-r--r--    1 michael  staff     168525 Nov 26 17:48 package-lock.json
+-rw-r--r--@   1 michael  staff        396 Nov 26 17:53 DataSource.mjs
+-rw-r--r--@   1 michael  staff       4834 Nov 27 08:47 Book.mjs
+drwxr-xr-x   10 michael  staff        320 Nov 27 10:59 .idea
+-rw-r--r--    1 michael  staff         43 Nov 27 11:03 hello.js
+-rw-r--r--    1 michael  staff         50 Nov 27 11:04 sea-config.json
+-rw-------    1 michael  staff         75 Nov 27 11:05 sea-prep.blob
+drwxr-xr-x   16 michael  staff        512 Nov 27 11:06 .git
+-rwxr-xr-x    1 michael  staff  125707840 Nov 27 11:06 hello
+drwxr-xr-x   50 michael  staff       1600 Nov 27 11:06 .
+michael@Logos BibleModel % file hello
+hello: Mach-O 64-bit executable arm64
+michael@Logos BibleModel % npx postject hello NODE_SEA_BLOB sea-prep.blob \
+    --sentinel-fuse NODE_SEA_FUSE_fce680ab2cc467b6e072b8b5df1996b2 \
+    --macho-segment-name NODE_SEA
+(node:72072) ExperimentalWarning: CommonJS module /Users/Michael/.nvm/versions/node/v23.3.0/lib/node_modules/npm/node_modules/debug/src/node.js is loading ES Module /Users/Michael/.nvm/versions/node/v23.3.0/lib/node_modules/npm/node_modules/supports-color/index.js using require().
+Support for loading ES Module in require() is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+Need to install the following packages:
+postject@1.0.0-alpha.6
+Ok to proceed? (y) y
+
+Start injection of NODE_SEA_BLOB in hello...
+💉 Injection done!
+npm notice
+npm notice New patch version of npm available! 10.9.0 -> 10.9.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v10.9.1
+npm notice To update run: npm install -g npm@10.9.1
+npm notice

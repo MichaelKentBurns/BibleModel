@@ -1,6 +1,7 @@
-let sqlite3 = require('sqlite3').verbose();
+
+import DatabaseSync from 'node:sqlite';
 const datafile = 'Data/bible-sqlite.db';
-var theDb = new sqlite3.Database(datafile);
+const theDb = new DatabaseSynch(datafile);
 
 class DataSource {
     constructor() {
@@ -10,9 +11,11 @@ class DataSource {
 
 DataSource.open = function open() {
     if ( this.db = undefined ) {
-        this.db = new sqlite3.Database(datafile);
+        this.db = new DatabaseSynch(datafile);
         console.log("DataSource is now open.");
     }
 }
 
-module.exports = DataSource;
+export default {
+    DataSource
+};

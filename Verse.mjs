@@ -60,3 +60,5 @@ class Verse {
 
 }
 //- - - - - - - - - - - end Class definition - - - - - - - - - - -
+
+export default { Verse };

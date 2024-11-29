@@ -1,22 +1,22 @@
-biblemodel-5687498:~/BibleModel{main}$ node Bible.js test
-Bible.js Initializing for the first time
-Bible.js Initializing
-Xref.js initializing.
-Xref.js initialized.
+biblemodel-5687498:~/BibleModel{main}$ node Bible.mjs test
+Bible.mjs Initializing for the first time
+Bible.mjs Initializing
+Xref.mjs initializing.
+Xref.mjs initialized.
 theBible created.
-Bible.js advance state to  2 loadBooks
+Bible.mjs advance state to  2 loadBooks
 Loading books...
 Loading books...
 Loading cross references...
 There are  0  cross references
-Bible.js advance state to  3 waitBooks
+Bible.mjs advance state to  3 waitBooks
 Waiting for books to be done loading.
 Waiting for all Books. There are  0  books loaded.
 Still waiting for books to be done loading,  10  seconds to go.
 There are  0  books loaded.
 We think they must be loaded.  Are they?
 Done.
-Bible.js Complete state= 3 : waitBooks  stateNext= 0 : null
+Bible.mjs Complete state= 3 : waitBooks  stateNext= 0 : null
 start nextTick
 scheduled
 nextTick callback
@@ -88,14 +88,14 @@ Book added: Jude
 Book added: Revelation
 Waiting for all Books. There are  66  books loaded.
 waitBooks: All books are loaded.
-Bible.js advance state to  4 booksLoaded
+Bible.mjs advance state to  4 booksLoaded
 Might as well try to save now...
 Books saved??
-Bible.js advance state to  5 saveBooks
+Bible.mjs advance state to  5 saveBooks
 Waiting for all Books. There are  66  books loaded.
 waitBooks: All books are loaded.
-Bible.js advance state to  6 booksSaved
+Bible.mjs advance state to  6 booksSaved
 Might as well try to save now...
 Books saved??
-Bible.js advance state to  7 whatsNext
+Bible.mjs advance state to  7 whatsNext
 biblemodel-5687498:~/BibleModel{main}$ 

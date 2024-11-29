@@ -1,28 +1,28 @@
-Bible.js Initializing for the first time
-Bible.js Initializing
-Book.js initializing.
-Book.js initialized.
-Bible.js =====================  stateMachine() beginning.  state= 1  iteration= 1
-Bible.js singleton theBible created.
-Bible.js advance state to  2 loadBooks
-Bible.js Requesting the loading of books...
-Bible.js LoadAll() Loading books...
+Bible.mjs Initializing for the first time
+Bible.mjs Initializing
+Book.mjs initializing.
+Book.mjs initialized.
+Bible.mjs =====================  stateMachine() beginning.  state= 1  iteration= 1
+Bible.mjs singleton theBible created.
+Bible.mjs advance state to  2 loadBooks
+Bible.mjs Requesting the loading of books...
+Bible.mjs LoadAll() Loading books...
 promise has been made.?
-Bible.js next go around, advance state to  3 waitBooks
-Bible.js Ready state= 0 : null  stateNext= 3 : waitBooks
+Bible.mjs next go around, advance state to  3 waitBooks
+Bible.mjs Ready state= 0 : null  stateNext= 3 : waitBooks
 start nextTick
 scheduled
-Bible.js sleep() for  1000  milliseconds. time= 23.024042
-Bible.js iteration  2  state= 3 : waitBooks
-Bible.js state is waiting for books to be done loading.
-Bible.js stillWaitingForBooks Waiting for all Books. There are  0  books loaded at time  23.482
-Bible.js Still waiting for books to be done loading,  10  seconds to go.
-Bible.js ===================== stateMachine() ending.
+Bible.mjs sleep() for  1000  milliseconds. time= 23.024042
+Bible.mjs iteration  2  state= 3 : waitBooks
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs stillWaitingForBooks Waiting for all Books. There are  0  books loaded at time  23.482
+Bible.mjs Still waiting for books to be done loading,  10  seconds to go.
+Bible.mjs ===================== stateMachine() ending.
 nextTick callback
-Bible.js =====================  stateMachine() beginning.  state= 3  iteration= 2
-Bible.js state is waiting for books to be done loading.
-Bible.js ===================== stateMachine() ending.
-Bible.js Book added: Genesis
+Bible.mjs =====================  stateMachine() beginning.  state= 3  iteration= 2
+Bible.mjs state is waiting for books to be done loading.
+Bible.mjs ===================== stateMachine() ending.
+Bible.mjs Book added: Genesis
 Book[1] Genesis loaded.
 Book {
   ordinal: 1,
@@ -31,7 +31,7 @@ Book {
   category: 'Law',
   nChapters: 50
 }
-Bible.js Book added: Exodus
+Bible.mjs Book added: Exodus
 Book[2] Exodus loaded.
 Book {
   ordinal: 2,
@@ -40,7 +40,7 @@ Book {
   category: 'Law',
   nChapters: 40
 }
-Bible.js Book added: Leviticus
+Bible.mjs Book added: Leviticus
 Book[3] Leviticus loaded.
 Book {
   ordinal: 3,
@@ -49,7 +49,7 @@ Book {
   category: 'Law',
   nChapters: 27
 }
-Bible.js Book added: Numbers
+Bible.mjs Book added: Numbers
 Book[4] Numbers loaded.
 Book {
   ordinal: 4,
@@ -58,7 +58,7 @@ Book {
   category: 'Law',
   nChapters: 36
 }
-Bible.js Book added: Deuteronomy
+Bible.mjs Book added: Deuteronomy
 Book[5] Deuteronomy loaded.
 Book {
   ordinal: 5,
@@ -67,7 +67,7 @@ Book {
   category: 'Law',
   nChapters: 34
 }
-Bible.js Book added: Joshua
+Bible.mjs Book added: Joshua
 Book[6] Joshua loaded.
 Book {
   ordinal: 6,
@@ -76,7 +76,7 @@ Book {
   category: 'Old Testament Narrative',
   nChapters: 24
 }
-Bible.js Book added: Judges
+Bible.mjs Book added: Judges
 Book[7] Judges loaded.
 Book {
   ordinal: 7,
@@ -85,7 +85,7 @@ Book {
   category: 'Old Testament Narrative',
   nChapters: 21
 }
-Bible.js Book added: Ruth
+Bible.mjs Book added: Ruth
 Book[8] Ruth loaded.
 Book {
   ordinal: 8,
@@ -94,7 +94,7 @@ Book {
   category: 'Old Testament Narrative',
   nChapters: 4
 }
-Bible.js Book added: 1 Samuel
+Bible.mjs Book added: 1 Samuel
 Book[9] 1 Samuel loaded.
 Book {
   ordinal: 9,
@@ -103,7 +103,7 @@ Book {
   category: 'Old Testament Narrative',
   nChapters: 31
 }
-Bible.js Book added: 2 Samuel
+Bible.mjs Book added: 2 Samuel
 Book[10] 2 Samuel loaded.
 Book {
   ordinal: 10,
@@ -112,7 +112,7 @@ Book {
   category: 'Old Testament Narrative',
   nChapters: 24
 }
-Bible.js Book added: 1 Kings
+Bible.mjs Book added: 1 Kings
 Book[11] 1 Kings loaded.
 Book {
   ordinal: 11,
@@ -121,7 +121,7 @@ Book {
   category: 'Old Testament Narrative',
   nChapters: 22
 }
-Bible.js Book added: 2 Kings
+Bible.mjs Book added: 2 Kings
 Book[12] 2 Kings loaded.
 Book {
   ordinal: 12,
@@ -130,7 +130,7 @@ Book {
   category: 'Old Testament Narrative',
   nChapters: 25
 }
-Bible.js Book added: 1 Chronicles
+Bible.mjs Book added: 1 Chronicles
 Book[13] 1 Chronicles loaded.
 Book {
   ordinal: 13,
@@ -139,7 +139,7 @@ Book {
   category: 'Old Testament Narrative',
   nChapters: 29
 }
-Bible.js Book added: 2 Chronicles
+Bible.mjs Book added: 2 Chronicles
 Book[14] 2 Chronicles loaded.
 Book {
   ordinal: 14,
@@ -148,7 +148,7 @@ Book {
   category: 'Old Testament Narrative',
   nChapters: 36
 }
-Bible.js Book added: Ezra
+Bible.mjs Book added: Ezra
 Book[15] Ezra loaded.
 Book {
   ordinal: 15,
@@ -157,7 +157,7 @@ Book {
   category: 'Old Testament Narrative',
   nChapters: 10
 }
-Bible.js Book added: Nehemiah
+Bible.mjs Book added: Nehemiah
 Book[16] Nehemiah loaded.
 Book {
   ordinal: 16,
@@ -166,7 +166,7 @@ Book {
   category: 'Old Testament Narrative',
   nChapters: 13
 }
-Bible.js Book added: Esther
+Bible.mjs Book added: Esther
 Book[17] Esther loaded.
 Book {
   ordinal: 17,
@@ -175,7 +175,7 @@ Book {
   category: 'Old Testament Narrative',
   nChapters: 10
 }
-Bible.js Book added: Job
+Bible.mjs Book added: Job
 Book[18] Job loaded.
 Book {
   ordinal: 18,
@@ -184,7 +184,7 @@ Book {
   category: 'Wisdom Literature',
   nChapters: 42
 }
-Bible.js Book added: Psalms
+Bible.mjs Book added: Psalms
 Book[19] Psalms loaded.
 Book {
   ordinal: 19,
@@ -193,7 +193,7 @@ Book {
   category: 'Wisdom Literature',
   nChapters: 150
 }
-Bible.js Book added: Proverbs
+Bible.mjs Book added: Proverbs
 Book[20] Proverbs loaded.
 Book {
   ordinal: 20,
@@ -202,7 +202,7 @@ Book {
   category: 'Wisdom Literature',
   nChapters: 31
 }
-Bible.js Book added: Ecclesiastes
+Bible.mjs Book added: Ecclesiastes
 Book[21] Ecclesiastes loaded.
 Book {
   ordinal: 21,
@@ -211,7 +211,7 @@ Book {
   category: 'Wisdom Literature',
   nChapters: 12
 }
-Bible.js Book added: Song of Solomon
+Bible.mjs Book added: Song of Solomon
 Book[22] Song of Solomon loaded.
 Book {
   ordinal: 22,
@@ -220,7 +220,7 @@ Book {
   category: 'Wisdom Literature',
   nChapters: 8
 }
-Bible.js Book added: Isaiah
+Bible.mjs Book added: Isaiah
 Book[23] Isaiah loaded.
 Book {
   ordinal: 23,
@@ -229,7 +229,7 @@ Book {
   category: 'Major Prophets',
   nChapters: 66
 }
-Bible.js Book added: Jeremiah
+Bible.mjs Book added: Jeremiah
 Book[24] Jeremiah loaded.
 Book {
   ordinal: 24,
@@ -238,7 +238,7 @@ Book {
   category: 'Major Prophets',
   nChapters: 52
 }
-Bible.js Book added: Lamentations
+Bible.mjs Book added: Lamentations
 Book[25] Lamentations loaded.
 Book {
   ordinal: 25,
@@ -247,7 +247,7 @@ Book {
   category: 'Major Prophets',
   nChapters: 5
 }
-Bible.js Book added: Ezekiel
+Bible.mjs Book added: Ezekiel
 Book[26] Ezekiel loaded.
 Book {
   ordinal: 26,
@@ -256,7 +256,7 @@ Book {
   category: 'Major Prophets',
   nChapters: 48
 }
-Bible.js Book added: Daniel
+Bible.mjs Book added: Daniel
 Book[27] Daniel loaded.
 Book {
   ordinal: 27,
@@ -265,7 +265,7 @@ Book {
   category: 'Major Prophets',
   nChapters: 12
 }
-Bible.js Book added: Hosea
+Bible.mjs Book added: Hosea
 Book[28] Hosea loaded.
 Book {
   ordinal: 28,
@@ -274,7 +274,7 @@ Book {
   category: 'Minor Prophets',
   nChapters: 14
 }
-Bible.js Book added: Joel
+Bible.mjs Book added: Joel
 Book[29] Joel loaded.
 Book {
   ordinal: 29,
@@ -283,7 +283,7 @@ Book {
   category: 'Minor Prophets',
   nChapters: 3
 }
-Bible.js Book added: Amos
+Bible.mjs Book added: Amos
 Book[30] Amos loaded.
 Book {
   ordinal: 30,
@@ -292,7 +292,7 @@ Book {
   category: 'Minor Prophets',
   nChapters: 9
 }
-Bible.js Book added: Obadiah
+Bible.mjs Book added: Obadiah
 Book[31] Obadiah loaded.
 Book {
   ordinal: 31,
@@ -301,7 +301,7 @@ Book {
   category: 'Minor Prophets',
   nChapters: 1
 }
-Bible.js Book added: Jonah
+Bible.mjs Book added: Jonah
 Book[32] Jonah loaded.
 Book {
   ordinal: 32,
@@ -310,7 +310,7 @@ Book {
   category: 'Minor Prophets',
   nChapters: 4
 }
-Bible.js Book added: Micah
+Bible.mjs Book added: Micah
 Book[33] Micah loaded.
 Book {
   ordinal: 33,
@@ -319,7 +319,7 @@ Book {
   category: 'Minor Prophets',
   nChapters: 7
 }
-Bible.js Book added: Nahum
+Bible.mjs Book added: Nahum
 Book[34] Nahum loaded.
 Book {
   ordinal: 34,
@@ -328,7 +328,7 @@ Book {
   category: 'Minor Prophets',
   nChapters: 3
 }
-Bible.js Book added: Habakkuk
+Bible.mjs Book added: Habakkuk
 Book[35] Habakkuk loaded.
 Book {
   ordinal: 35,
@@ -337,7 +337,7 @@ Book {
   category: 'Minor Prophets',
   nChapters: 3
 }
-Bible.js Book added: Zephaniah
+Bible.mjs Book added: Zephaniah
 Book[36] Zephaniah loaded.
 Book {
   ordinal: 36,
@@ -346,7 +346,7 @@ Book {
   category: 'Minor Prophets',
   nChapters: 3
 }
-Bible.js Book added: Haggai
+Bible.mjs Book added: Haggai
 Book[37] Haggai loaded.
 Book {
   ordinal: 37,
@@ -355,7 +355,7 @@ Book {
   category: 'Minor Prophets',
   nChapters: 2
 }
-Bible.js Book added: Zechariah
+Bible.mjs Book added: Zechariah
 Book[38] Zechariah loaded.
 Book {
   ordinal: 38,
@@ -364,7 +364,7 @@ Book {
   category: 'Minor Prophets',
   nChapters: 14
 }
-Bible.js Book added: Malachi
+Bible.mjs Book added: Malachi
 Book[39] Malachi loaded.
 Book {
   ordinal: 39,
@@ -373,7 +373,7 @@ Book {
   category: 'Minor Prophets',
   nChapters: 4
 }
-Bible.js Book added: Matthew
+Bible.mjs Book added: Matthew
 Book[40] Matthew loaded.
 Book {
   ordinal: 40,
@@ -382,7 +382,7 @@ Book {
   category: 'New Testament Narrative',
   nChapters: 28
 }
-Bible.js Book added: Mark
+Bible.mjs Book added: Mark
 Book[41] Mark loaded.
 Book {
   ordinal: 41,
@@ -391,7 +391,7 @@ Book {
   category: 'New Testament Narrative',
   nChapters: 16
 }
-Bible.js Book added: Luke
+Bible.mjs Book added: Luke
 Book[42] Luke loaded.
 Book {
   ordinal: 42,
@@ -400,7 +400,7 @@ Book {
   category: 'New Testament Narrative',
   nChapters: 24
 }
-Bible.js Book added: John
+Bible.mjs Book added: John
 Book[43] John loaded.
 Book {
   ordinal: 43,
@@ -409,7 +409,7 @@ Book {
   category: 'New Testament Narrative',
   nChapters: 21
 }
-Bible.js Book added: Acts
+Bible.mjs Book added: Acts
 Book[44] Acts loaded.
 Book {
   ordinal: 44,
@@ -418,7 +418,7 @@ Book {
   category: 'New Testament Narrative',
   nChapters: 28
 }
-Bible.js Book added: Romans
+Bible.mjs Book added: Romans
 Book[45] Romans loaded.
 Book {
   ordinal: 45,
@@ -427,7 +427,7 @@ Book {
   category: 'Pauline Epistles',
   nChapters: 16
 }
-Bible.js Book added: 1 Corinthians
+Bible.mjs Book added: 1 Corinthians
 Book[46] 1 Corinthians loaded.
 Book {
   ordinal: 46,
@@ -436,7 +436,7 @@ Book {
   category: 'Pauline Epistles',
   nChapters: 16
 }
-Bible.js Book added: 2 Corinthians
+Bible.mjs Book added: 2 Corinthians
 Book[47] 2 Corinthians loaded.
 Book {
   ordinal: 47,
@@ -445,7 +445,7 @@ Book {
   category: 'Pauline Epistles',
   nChapters: 13
 }
-Bible.js Book added: Galatians
+Bible.mjs Book added: Galatians
 Book[48] Galatians loaded.
 Book {
   ordinal: 48,
@@ -454,7 +454,7 @@ Book {
   category: 'Pauline Epistles',
   nChapters: 6
 }
-Bible.js Book added: Ephesians
+Bible.mjs Book added: Ephesians
 Book[49] Ephesians loaded.
 Book {
   ordinal: 49,
@@ -463,7 +463,7 @@ Book {
   category: 'Pauline Epistles',
   nChapters: 6
 }
-Bible.js Book added: Philippians
+Bible.mjs Book added: Philippians
 Book[50] Philippians loaded.
 Book {
   ordinal: 50,
@@ -472,7 +472,7 @@ Book {
   category: 'Pauline Epistles',
   nChapters: 4
 }
-Bible.js Book added: Colossians
+Bible.mjs Book added: Colossians
 Book[51] Colossians loaded.
 Book {
   ordinal: 51,
@@ -481,7 +481,7 @@ Book {
   category: 'Pauline Epistles',
   nChapters: 4
 }
-Bible.js Book added: 1 Thessalonians
+Bible.mjs Book added: 1 Thessalonians
 Book[52] 1 Thessalonians loaded.
 Book {
   ordinal: 52,
@@ -490,7 +490,7 @@ Book {
   category: 'Pauline Epistles',
   nChapters: 5
 }
-Bible.js Book added: 2 Thessalonians
+Bible.mjs Book added: 2 Thessalonians
 Book[53] 2 Thessalonians loaded.
 Book {
   ordinal: 53,
@@ -499,7 +499,7 @@ Book {
   category: 'Pauline Epistles',
   nChapters: 3
 }
-Bible.js Book added: 1 Timothy
+Bible.mjs Book added: 1 Timothy
 Book[54] 1 Timothy loaded.
 Book {
   ordinal: 54,
@@ -508,7 +508,7 @@ Book {
   category: 'Pauline Epistles',
   nChapters: 6
 }
-Bible.js Book added: 2 Timothy
+Bible.mjs Book added: 2 Timothy
 Book[55] 2 Timothy loaded.
 Book {
   ordinal: 55,
@@ -517,7 +517,7 @@ Book {
   category: 'Pauline Epistles',
   nChapters: 4
 }
-Bible.js Book added: Titus
+Bible.mjs Book added: Titus
 Book[56] Titus loaded.
 Book {
   ordinal: 56,
@@ -526,7 +526,7 @@ Book {
   category: 'Pauline Epistles',
   nChapters: 3
 }
-Bible.js Book added: Philemon
+Bible.mjs Book added: Philemon
 Book[57] Philemon loaded.
 Book {
   ordinal: 57,
@@ -535,7 +535,7 @@ Book {
   category: 'Pauline Epistles',
   nChapters: 1
 }
-Bible.js Book added: Hebrews
+Bible.mjs Book added: Hebrews
 Book[58] Hebrews loaded.
 Book {
   ordinal: 58,
@@ -544,7 +544,7 @@ Book {
   category: 'General Epistles',
   nChapters: 13
 }
-Bible.js Book added: James
+Bible.mjs Book added: James
 Book[59] James loaded.
 Book {
   ordinal: 59,
@@ -553,7 +553,7 @@ Book {
   category: 'General Epistles',
   nChapters: 5
 }
-Bible.js Book added: 1 Peter
+Bible.mjs Book added: 1 Peter
 Book[60] 1 Peter loaded.
 Book {
   ordinal: 60,
@@ -562,7 +562,7 @@ Book {
   category: 'General Epistles',
   nChapters: 5
 }
-Bible.js Book added: 2 Peter
+Bible.mjs Book added: 2 Peter
 Book[61] 2 Peter loaded.
 Book {
   ordinal: 61,
@@ -571,7 +571,7 @@ Book {
   category: 'General Epistles',
   nChapters: 3
 }
-Bible.js Book added: 1 John
+Bible.mjs Book added: 1 John
 Book[62] 1 John loaded.
 Book {
   ordinal: 62,
@@ -580,7 +580,7 @@ Book {
   category: 'General Epistles',
   nChapters: 5
 }
-Bible.js Book added: 2 John
+Bible.mjs Book added: 2 John
 Book[63] 2 John loaded.
 Book {
   ordinal: 63,
@@ -589,7 +589,7 @@ Book {
   category: 'General Epistles',
   nChapters: 1
 }
-Bible.js Book added: 3 John
+Bible.mjs Book added: 3 John
 Book[64] 3 John loaded.
 Book {
   ordinal: 64,
@@ -598,7 +598,7 @@ Book {
   category: 'General Epistles',
   nChapters: 1
 }
-Bible.js Book added: Jude
+Bible.mjs Book added: Jude
 Book[65] Jude loaded.
 Book {
   ordinal: 65,
@@ -607,7 +607,7 @@ Book {
   category: 'General Epistles',
   nChapters: 1
 }
-Bible.js Book added: Revelation
+Bible.mjs Book added: Revelation
 Book[66] Revelation loaded.
 Book {
   ordinal: 66,
@@ -616,9 +616,9 @@ Book {
   category: 'Apocalyptic Epistle',
   nChapters: 22
 }
-Bible.js stillWaitingForBooks Waiting for all Books. There are  66  books loaded at time  1024.939334
+Bible.mjs stillWaitingForBooks Waiting for all Books. There are  66  books loaded at time  1024.939334
 stillWaitingForBooks: theBible.booksComplete. All books are loaded.
-Bible.js stillWaitingForBooks advance state to  4 booksLoaded
-Bible.js stillWaitingForBooks Waiting for all Books. There are  66  books loaded at time  1026.037084
+Bible.mjs stillWaitingForBooks advance state to  4 booksLoaded
+Bible.mjs stillWaitingForBooks Waiting for all Books. There are  66  books loaded at time  1026.037084
 stillWaitingForBooks: theBible.booksComplete. All books are loaded.
-Bible.js stillWaitingForBooks advance state to  5 saveBooks
+Bible.mjs stillWaitingForBooks advance state to  5 saveBooks

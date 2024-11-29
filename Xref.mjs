@@ -1,11 +1,11 @@
 const traceXrefs = false;
-if ( traceXrefs ) console.log('Xref.js initializing.');
+if ( traceXrefs ) console.log('Xref.mjs initializing.');
 
-let DataSource = require('./DataSource.js');
-// const Bible = require('./Bible.js');
+//import DataSource from './DataSource.mjs';
+// import Bible from './Bible.mjs';
 let theBible;
 
-let Location   = require('./Location.js');
+import Location  from './Location.mjs';
 
 class Xref {
     constructor(row) {
@@ -75,5 +75,6 @@ Xref.load = function load(aBible) {
 
 if ( theBible != undefined )
     theBible.xrefInitialized = true;
-if ( traceXrefs ) console.log('Xref.js initialized.');
-    module.exports = Xref;
+if ( traceXrefs ) console.log('Xref.mjs initialized.');
+
+export default { Xref };

@@ -8,12 +8,12 @@ I have inserted this code into a Node.js file.   I have wrapped that simple quer
 
 What do I need to insert to get it to actually run the query and call the callback?  
 
-Here is my 'Book.js' file:
-- - - - - - - - - - - - start Book.js - - - - - - - - --
+Here is my 'Book.mjs' file:
+- - - - - - - - - - - - start Book.mjs - - - - - - - - --
 
 ```
     const fs = require('fs')
-    // const Bible = require('./Bible.js');
+    // const Bible = require('./Bible.mjs');
 
     class Bible {
         constructor() {
@@ -97,7 +97,7 @@ Here is my 'Book.js' file:
     module.exports = Book;
 ```
 
-- - - - - - - - - - - - end Book.js - - - - - - - - --
+- - - - - - - - - - - - end Book.mjs - - - - - - - - --
 
 
 Only after the final 5 lines of code are run and the program is done does the callback thread run.   

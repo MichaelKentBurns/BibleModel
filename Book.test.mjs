@@ -1,6 +1,6 @@
 
 
-const Book = require('./Book');
+import Book from './Book.mjs';
 const row = {"order":40,"title_short":"Matthew","title_full":"The Gospel According to Matthew","category":"New Testament Narrative","chapters":28};
 const  theBook = new Book(row);
 console.log(theBook);

@@ -1,7 +1,7 @@
-let DataSource = require('./DataSource.js');
-let Book = require('./Book.js');
-let Location = require('./Location.js');
-let Xref           =require('./Xref.js');
+import DataSource from './DataSource.mjs';
+import Book from './Book.mjs';
+import Location from './Location.mjs';
+import Xref from './Xref.mjs';
 
 locationTest = function() {
 	console.log('locationTest start.');

@@ -89,7 +89,7 @@ Location.locationTest = function() {
 	console.log('locationTest end.');
        }
 
-module.exports = Location, Passage;
+export default { Location, Passage };
 
 
       

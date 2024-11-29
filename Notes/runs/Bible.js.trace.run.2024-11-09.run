@@ -1,7 +1,7 @@
-Book.js initializing.
-Book.js initialized.
+Book.mjs initializing.
+Book.mjs initialized.
 promise has been made.?
-Bible.js complete, do normal shutdown.
+Bible.mjs complete, do normal shutdown.
 Book[1] Genesis loaded.
 Book {
   ordinal: 1,
@@ -530,7 +530,7 @@ Book {
   category: 'Apocalyptic Epistle',
   nChapters: 22
 }
-Bible.js booksComplete= false  books.length= 66
+Bible.mjs booksComplete= false  books.length= 66
 Data received: [
   [class Book] {
     setBible: [Function (anonymous)],

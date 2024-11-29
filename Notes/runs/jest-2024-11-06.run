@@ -3,104 +3,104 @@
 > jest
 
   console.log
-    Bible.js Initializing for the first time
+    Bible.mjs Initializing for the first time
 
-      at Object.log (Bible.js:30:31)
-
-  console.log
-    Bible.js Initializing
-
-      at Object.log (Bible.js:51:27)
+      at Object.log (Bible.mjs:30:31)
 
   console.log
-    Bible.js singleton theBible created.
+    Bible.mjs Initializing
 
-      at Object.log (Bible.js:116:25)
-
-  console.log
-    Bible.js startStateMachine
-
-      at Object.log (Bible.js:316:32)
+      at Object.log (Bible.mjs:51:27)
 
   console.log
-    Bible.js =====================  stateMachine() beginning time= 359.628375  state= 1  iteration= 1
+    Bible.mjs singleton theBible created.
 
-      at log (Bible.js:132:29)
-
-  console.log
-    Bible.js state_init
-
-      at log (Bible.js:137:37)
+      at Object.log (Bible.mjs:116:25)
 
   console.log
-    Bible.js advance state to  2 loadBooks
+    Bible.mjs startStateMachine
 
-      at log (Bible.js:147:37)
-
-  console.log
-    Bible.js Requesting the loading of books...
-
-      at log (Bible.js:152:37)
+      at Object.log (Bible.mjs:316:32)
 
   console.log
-    Bible.js LoadAll() Loading books...
+    Bible.mjs =====================  stateMachine() beginning time= 359.628375  state= 1  iteration= 1
 
-      at Bible.log [as loadAll] (Bible.js:96:35)
+      at log (Bible.mjs:132:29)
+
+  console.log
+    Bible.mjs state_init
+
+      at log (Bible.mjs:137:37)
+
+  console.log
+    Bible.mjs advance state to  2 loadBooks
+
+      at log (Bible.mjs:147:37)
+
+  console.log
+    Bible.mjs Requesting the loading of books...
+
+      at log (Bible.mjs:152:37)
+
+  console.log
+    Bible.mjs LoadAll() Loading books...
+
+      at Bible.log [as loadAll] (Bible.mjs:96:35)
 
   console.log
     promise has been made.?
 
-      at Function.log [as loadAll] (Book.js:121:13)
+      at Function.log [as loadAll] (Book.mjs:121:13)
 
   console.log
-    Bible.js next go around, advance state to  3 waitBooks
+    Bible.mjs next go around, advance state to  3 waitBooks
 
-      at log (Bible.js:156:37)
+      at log (Bible.mjs:156:37)
 
   console.log
-    Bible.js Ready state= 0 : null  stateNext= 3 : waitBooks
+    Bible.mjs Ready state= 0 : null  stateNext= 3 : waitBooks
 
-      at log (Bible.js:265:33)
+      at log (Bible.mjs:265:33)
 
   console.log
     start nextTick
 
-      at log (Bible.js:281:37)
+      at log (Bible.mjs:281:37)
 
   console.log
     scheduled
 
-      at log (Bible.js:289:37)
+      at log (Bible.mjs:289:37)
 
   console.log
-    Bible.js iteration  2  state= 3 : waitBooks
+    Bible.mjs iteration  2  state= 3 : waitBooks
 
-      at log (Bible.js:307:33)
-
-  console.log
-    Bible.js state is waiting for books to be done loading.
-
-      at log (Bible.js:214:37)
+      at log (Bible.mjs:307:33)
 
   console.log
-    Bible.js startWaitForBooks - setInterval
+    Bible.mjs state is waiting for books to be done loading.
 
-      at log (Bible.js:196:37)
-
-  console.log
-    Bible.js stillWaitingForBooks Waiting for all Books. There are  0  books loaded at time  366.073167
-
-      at log (Bible.js:171:25)
+      at log (Bible.mjs:214:37)
 
   console.log
-    Bible.js Still waiting for books to be done loading, time= 366.380458   10  seconds to go.
+    Bible.mjs startWaitForBooks - setInterval
 
-      at log (Bible.js:202:41)
+      at log (Bible.mjs:196:37)
 
   console.log
-    Bible.js ===================== stateMachine() ending. time= 366.747833
+    Bible.mjs stillWaitingForBooks Waiting for all Books. There are  0  books loaded at time  366.073167
 
-      at log (Bible.js:309:29)
+      at log (Bible.mjs:171:25)
+
+  console.log
+    Bible.mjs Still waiting for books to be done loading, time= 366.380458   10  seconds to go.
+
+      at log (Bible.mjs:202:41)
+
+  console.log
+    Bible.mjs ===================== stateMachine() ending. time= 366.747833
+
+      at log (Bible.mjs:309:29)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
@@ -115,57 +115,57 @@
       286 |                 }
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at log (Bible.js:283:41)
+      at log (Bible.mjs:283:41)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js =====================  stateMachine() beginning time= 370.380708  state= 3  iteration= 2".
+    Attempted to log "Bible.mjs =====================  stateMachine() beginning time= 370.380708  state= 3  iteration= 2".
 
       130 | // the function is called below. 
       131 | function stateMachine() {
-    > 132 |     if (traceBible) console.log('Bible.js =====================  stateMachine() beginning time=', performance.now(), ' state=', state, ' iteration=', iteration);
+    > 132 |     if (traceBible) console.log('Bible.mjs =====================  stateMachine() beginning time=', performance.now(), ' state=', state, ' iteration=', iteration);
           |                             ^
       133 |     // = = = = = = = = = = = Begin state machine logic = = = = = = = = = = = = = = = =
       134 |     while (state < state_shutdown) {
       135 |         // - - - - - - initialization state sets up the data structures for data loading
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at log (Bible.js:132:29)
-      at stateMachine (Bible.js:285:21)
+      at log (Bible.mjs:132:29)
+      at stateMachine (Bible.mjs:285:21)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js state is waiting for books to be done loading.".
+    Attempted to log "Bible.mjs state is waiting for books to be done loading.".
 
       212 |         // - - - - - - - After book loading is requested, this state calls above functions to check progress. 
       213 |         if (state == state_waitBooks) {
-    > 214 |             if (traceBible) console.log('Bible.js state is waiting for books to be done loading.')
+    > 214 |             if (traceBible) console.log('Bible.mjs state is waiting for books to be done loading.')
           |                                     ^
       215 |             if (!waitingForBooks) {
       216 |                 // If we have not been waiting, then kickoff the asynch loop.
       217 |                 startWaitForBooks();
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at log (Bible.js:214:37)
-      at stateMachine (Bible.js:285:21)
+      at log (Bible.mjs:214:37)
+      at stateMachine (Bible.mjs:285:21)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js ===================== stateMachine() ending. time= 371.635625".
+    Attempted to log "Bible.mjs ===================== stateMachine() ending. time= 371.635625".
 
-      307 |         if (traceBible) console.log('Bible.js iteration ', iteration, ' state=', state, ':', stateNames[state]);
+      307 |         if (traceBible) console.log('Bible.mjs iteration ', iteration, ' state=', state, ':', stateNames[state]);
       308 |     } // = = = = = = = = = = end of state machine loop. 
-    > 309 |     if (traceBible) console.log('Bible.js ===================== stateMachine() ending. time=', performance.now())
+    > 309 |     if (traceBible) console.log('Bible.mjs ===================== stateMachine() ending. time=', performance.now())
           |                             ^
       310 | }
       311 | // ===================== end of StateMachine function. ============
       312 |
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at log (Bible.js:309:29)
-      at stateMachine (Bible.js:285:21)
+      at log (Bible.mjs:309:29)
+      at stateMachine (Bible.mjs:285:21)
 
-PASS ./Bible.test.js
+PASS ./Bible.test.mjs
   ✓ Starts Bible and see if books are loaded (1 ms)
 
 Test Suites: 1 passed, 1 total
@@ -175,1338 +175,1338 @@ Time:        0.155 s, estimated 1 s
 Ran all test suites.
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Genesis".
+    Attempted to log "Bible.mjs Book added: Genesis".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Exodus".
+    Attempted to log "Bible.mjs Book added: Exodus".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Leviticus".
+    Attempted to log "Bible.mjs Book added: Leviticus".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Numbers".
+    Attempted to log "Bible.mjs Book added: Numbers".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Deuteronomy".
+    Attempted to log "Bible.mjs Book added: Deuteronomy".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Joshua".
+    Attempted to log "Bible.mjs Book added: Joshua".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Judges".
+    Attempted to log "Bible.mjs Book added: Judges".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Ruth".
+    Attempted to log "Bible.mjs Book added: Ruth".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: 1 Samuel".
+    Attempted to log "Bible.mjs Book added: 1 Samuel".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: 2 Samuel".
+    Attempted to log "Bible.mjs Book added: 2 Samuel".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: 1 Kings".
+    Attempted to log "Bible.mjs Book added: 1 Kings".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: 2 Kings".
+    Attempted to log "Bible.mjs Book added: 2 Kings".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: 1 Chronicles".
+    Attempted to log "Bible.mjs Book added: 1 Chronicles".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: 2 Chronicles".
+    Attempted to log "Bible.mjs Book added: 2 Chronicles".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Ezra".
+    Attempted to log "Bible.mjs Book added: Ezra".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Nehemiah".
+    Attempted to log "Bible.mjs Book added: Nehemiah".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Esther".
+    Attempted to log "Bible.mjs Book added: Esther".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Job".
+    Attempted to log "Bible.mjs Book added: Job".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Psalms".
+    Attempted to log "Bible.mjs Book added: Psalms".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Proverbs".
+    Attempted to log "Bible.mjs Book added: Proverbs".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Ecclesiastes".
+    Attempted to log "Bible.mjs Book added: Ecclesiastes".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Song of Solomon".
+    Attempted to log "Bible.mjs Book added: Song of Solomon".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Isaiah".
+    Attempted to log "Bible.mjs Book added: Isaiah".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Jeremiah".
+    Attempted to log "Bible.mjs Book added: Jeremiah".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Lamentations".
+    Attempted to log "Bible.mjs Book added: Lamentations".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Ezekiel".
+    Attempted to log "Bible.mjs Book added: Ezekiel".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Daniel".
+    Attempted to log "Bible.mjs Book added: Daniel".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Hosea".
+    Attempted to log "Bible.mjs Book added: Hosea".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Joel".
+    Attempted to log "Bible.mjs Book added: Joel".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Amos".
+    Attempted to log "Bible.mjs Book added: Amos".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Obadiah".
+    Attempted to log "Bible.mjs Book added: Obadiah".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Jonah".
+    Attempted to log "Bible.mjs Book added: Jonah".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Micah".
+    Attempted to log "Bible.mjs Book added: Micah".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Nahum".
+    Attempted to log "Bible.mjs Book added: Nahum".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Habakkuk".
+    Attempted to log "Bible.mjs Book added: Habakkuk".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Zephaniah".
+    Attempted to log "Bible.mjs Book added: Zephaniah".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Haggai".
+    Attempted to log "Bible.mjs Book added: Haggai".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Zechariah".
+    Attempted to log "Bible.mjs Book added: Zechariah".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Malachi".
+    Attempted to log "Bible.mjs Book added: Malachi".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Matthew".
+    Attempted to log "Bible.mjs Book added: Matthew".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Mark".
+    Attempted to log "Bible.mjs Book added: Mark".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Luke".
+    Attempted to log "Bible.mjs Book added: Luke".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: John".
+    Attempted to log "Bible.mjs Book added: John".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Acts".
+    Attempted to log "Bible.mjs Book added: Acts".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Romans".
+    Attempted to log "Bible.mjs Book added: Romans".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: 1 Corinthians".
+    Attempted to log "Bible.mjs Book added: 1 Corinthians".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: 2 Corinthians".
+    Attempted to log "Bible.mjs Book added: 2 Corinthians".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Galatians".
+    Attempted to log "Bible.mjs Book added: Galatians".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Ephesians".
+    Attempted to log "Bible.mjs Book added: Ephesians".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Philippians".
+    Attempted to log "Bible.mjs Book added: Philippians".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Colossians".
+    Attempted to log "Bible.mjs Book added: Colossians".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: 1 Thessalonians".
+    Attempted to log "Bible.mjs Book added: 1 Thessalonians".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: 2 Thessalonians".
+    Attempted to log "Bible.mjs Book added: 2 Thessalonians".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: 1 Timothy".
+    Attempted to log "Bible.mjs Book added: 1 Timothy".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: 2 Timothy".
+    Attempted to log "Bible.mjs Book added: 2 Timothy".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Titus".
+    Attempted to log "Bible.mjs Book added: Titus".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Philemon".
+    Attempted to log "Bible.mjs Book added: Philemon".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Hebrews".
+    Attempted to log "Bible.mjs Book added: Hebrews".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: James".
+    Attempted to log "Bible.mjs Book added: James".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: 1 Peter".
+    Attempted to log "Bible.mjs Book added: 1 Peter".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: 2 Peter".
+    Attempted to log "Bible.mjs Book added: 2 Peter".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: 1 John".
+    Attempted to log "Bible.mjs Book added: 1 John".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: 2 John".
+    Attempted to log "Bible.mjs Book added: 2 John".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: 3 John".
+    Attempted to log "Bible.mjs Book added: 3 John".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Jude".
+    Attempted to log "Bible.mjs Book added: Jude".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js Book added: Revelation".
+    Attempted to log "Bible.mjs Book added: Revelation".
 
       82 |     addBook(book) {
       83 |         this.books.push(book);
-    > 84 |         if ( traceBible ) console.log('Bible.js Book added: ' + book.name);
+    > 84 |         if ( traceBible ) console.log('Bible.mjs Book added: ' + book.name);
          |                                   ^
       85 |     }
       86 |
       87 |     // called from cross reference loading to add a new xref to the list
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Bible.log [as addBook] (Bible.js:84:35)
-      at addBook (Book.js:95:26)
+      at Bible.log [as addBook] (Bible.mjs:84:35)
+      at addBook (Book.mjs:95:26)
           at Array.forEach (<anonymous>)
-      at Statement.forEach (Book.js:93:18)
+      at Statement.forEach (Book.mjs:93:18)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
       at Statement.replacement (node_modules/sqlite3/lib/trace.js:25:27)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js stillWaitingForBooks Waiting for all Books. There are  66  books loaded at time  467.896708".
+    Attempted to log "Bible.mjs stillWaitingForBooks Waiting for all Books. There are  66  books loaded at time  467.896708".
 
       169 |             // Check to see if the books are loaded yet or not. 
       170 |             if (traceBible)
-    > 171 |                 console.log('Bible.js stillWaitingForBooks Waiting for all Books. There are ',
+    > 171 |                 console.log('Bible.mjs stillWaitingForBooks Waiting for all Books. There are ',
           |                         ^
       172 |                     theBible.books.length, ' books loaded at time ', performance.now());
       173 |             // When the PromiseToLoadBooks completes it will have set booksComplete to true.
       174 |             if (theBible.booksComplete) {   // The signal has been set, so it should be done.
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Timeout.log [as _onTimeout] (Bible.js:171:25)
+      at Timeout.log [as _onTimeout] (Bible.mjs:171:25)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
@@ -1521,38 +1521,38 @@ Ran all test suites.
       178 |                 if (state == state_waitBooks) {
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Timeout.log [as _onTimeout] (Bible.js:175:41)
+      at Timeout.log [as _onTimeout] (Bible.mjs:175:41)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js stillWaitingForBooks advance state to  4 booksLoaded".
+    Attempted to log "Bible.mjs stillWaitingForBooks advance state to  4 booksLoaded".
 
       180 |                     stateNext = 0;
       181 |                     state += 1;     // If they are all loaded then move on to next state. 
-    > 182 |                     if (traceBible) console.log('Bible.js stillWaitingForBooks advance state to ', state, stateNames[state]);
+    > 182 |                     if (traceBible) console.log('Bible.mjs stillWaitingForBooks advance state to ', state, stateNames[state]);
           |                                             ^
       183 |                 }
       184 |                 return true;   // Return true so know it's complete.
       185 |             }
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at Timeout.log (Bible.js:182:45)
+      at Timeout.log (Bible.mjs:182:45)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
-    Attempted to log "Bible.js stillWaitingForBooks Waiting for all Books. There are  66  books loaded at time  1366.4405".
+    Attempted to log "Bible.mjs stillWaitingForBooks Waiting for all Books. There are  66  books loaded at time  1366.4405".
 
       169 |             // Check to see if the books are loaded yet or not. 
       170 |             if (traceBible)
-    > 171 |                 console.log('Bible.js stillWaitingForBooks Waiting for all Books. There are ',
+    > 171 |                 console.log('Bible.mjs stillWaitingForBooks Waiting for all Books. There are ',
           |                         ^
       172 |                     theBible.books.length, ' books loaded at time ', performance.now());
       173 |             // When the PromiseToLoadBooks completes it will have set booksComplete to true.
       174 |             if (theBible.booksComplete) {   // The signal has been set, so it should be done.
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at log (Bible.js:171:25)
-      at stillWaitingForBooks (Bible.js:201:21)
+      at log (Bible.mjs:171:25)
+      at stillWaitingForBooks (Bible.mjs:201:21)
 
 
   ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
@@ -1567,6 +1567,6 @@ Ran all test suites.
       178 |                 if (state == state_waitBooks) {
 
       at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
-      at log (Bible.js:175:41)
-      at stillWaitingForBooks (Bible.js:201:21)
+      at log (Bible.mjs:175:41)
+      at stillWaitingForBooks (Bible.mjs:201:21)
 

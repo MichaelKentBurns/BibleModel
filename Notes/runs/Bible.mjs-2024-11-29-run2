@@ -1,10 +1,17 @@
-Bible.mjs Initializing for the first time
-Bible.mjs Initializing
+(node:32726) ExperimentalWarning: CommonJS module /Users/Michael/.nvm/versions/node/v23.3.0/lib/node_modules/npm/node_modules/debug/src/node.js is loading ES Module /Users/Michael/.nvm/versions/node/v23.3.0/lib/node_modules/npm/node_modules/supports-color/index.js using require().
+Support for loading ES Module in require() is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+> biblemodel@1.0.0 main
+> node --experimental-sqlite Bible.mjs
+
 Book.mjs initializing.
 Book.mjs initialized.
+Bible.mjs Initializing for the first time
+Bible.mjs Initializing
 Bible.mjs singleton theBible created.
 Bible.mjs startStateMachine
-Bible.mjs =====================  stateMachine() beginning time= 28.358666  state= 1  iteration= 1
+Bible.mjs =====================  stateMachine() beginning time= 17.677875  state= 1  iteration= 1
 Bible.mjs state_init
 Bible.mjs advance state to  2 loadBooks
 Bible.mjs Requesting the loading of books...
@@ -491,7 +498,9 @@ Bible.mjs Ready state= 8 : shutdown  stateNext= 0 : null
 start nextTick
 scheduled
 Bible.mjs iteration  2  state= 8 : shutdown
-Bible.mjs ===================== stateMachine() ending. time= 32.330666
+Bible.mjs ===================== stateMachine() ending. time= 19.370792
 Bible.mjs complete, do normal shutdown.
+(node:32742) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
 nextTick callback
 Books JSON data is saved.

@@ -1,5 +1,5 @@
 
-const Bible = require('./Bible');
+import Bible from './Bible.mjs';
 const  theBible = new Bible();
 
 theBible.loadAll();
