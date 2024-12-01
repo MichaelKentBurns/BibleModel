@@ -13,7 +13,7 @@
 //      Books - a sequence of writings by various authors that constitutes the Holy Canon of a faith.
 //
 
-const traceBible = true;  // Set this true to have the inner workings of this class traced to console log.
+const traceBible = false;  // Set this true to have the inner workings of this class traced to console log.
 
 // - - - - - - - - - Issue #1, state machine works better
 // Setup state machine globals.  

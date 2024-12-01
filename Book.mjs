@@ -19,7 +19,7 @@
 //      Chapters - A sequence of numbered chapters that form this book.
 //
 
-const traceBook = true;
+const traceBook = false;
 if (traceBook) console.log('Book.mjs initializing.');
 //import allBooks from './books.json' assert { type: 'json' };
 import  { DatabaseSync }  from 'node:sqlite';
