@@ -148,7 +148,7 @@ stateMachine = async function stateMachine() {
             if (traceBible) console.log('Bible.mjs Requesting the loading of books...');
             this.promiseToLoadBooks = undefined;
             theBible.loadAll();   // ask the Bible class to load the books. 
-            if ( this.promiseToLoadBooks != undefined ) {
+            if ( this.promiseToLoadBooks != undefined && this.promiseToLoadBooks.PromisedState == 'pending' ) {
                 if (traceBible) console.log('Bible.mjs we have a promise to read books. Change state to wait.');
                 state = state + 1;  // it will take time, so let it go to end of loop before bumping the state.
                 stateNext = 0;         // Don't consider any other states until we have come around again. 

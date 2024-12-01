@@ -87,8 +87,7 @@ export class Book {
             let sql = `SELECT *
                        FROM book_info`;
             const query = database.prepare(sql);
-
-            console.log(query);
+            console.log("Database query '",sql,"'. prepared. Query=",query);
             const rows = query.all();
 
                 // As each row is read from the database this
@@ -104,7 +103,10 @@ export class Book {
                 });
                 // When all rows have been read, we notify the Bible
                 // that the query is all finished.
-                if (theBible !== undefined) theBible.booksComplete = true;
+                if (theBible !== undefined) {
+                    theBible.booksComplete = true;
+                    if (traceBook) console.log("Bible notified booksComplete.");
+                }
                 resolve(newBooks);
             });
             // close the database connection
