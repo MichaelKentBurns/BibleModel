@@ -25,11 +25,12 @@ if (traceBook) console.log('Book.mjs initializing.');
 import  { DatabaseSync }  from 'node:sqlite';
 import fs from 'node:fs';
 
-let allBooks;
-const readBooksJson = true;
+let allBooks;  // array of books loaded
+// In saveBooks below we cache the list of books in a JSON file.
+// If we find it still there, this will read it in to avoid a trip to database.
+const readBooksJson = true;      // Can turn this off to avoid using the cached copy.
 const booksPath = './books.json';
 if (readBooksJson) {
-
     if (fs.existsSync(booksPath)) {
         const booksData = fs.readFileSync(booksPath, (error) => {
             if (error) {
@@ -42,7 +43,6 @@ if (readBooksJson) {
         if (booksData !== undefined && booksData.length > 2) {
             allBooks = JSON.parse(booksData);
         }
-
     }
 }
 
