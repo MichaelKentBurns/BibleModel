@@ -1,0 +1,35 @@
+(node:37959) ExperimentalWarning: CommonJS module /Users/Michael/.nvm/versions/node/v23.3.0/lib/node_modules/npm/node_modules/debug/src/node.js is loading ES Module /Users/Michael/.nvm/versions/node/v23.3.0/lib/node_modules/npm/node_modules/supports-color/index.js using require().
+Support for loading ES Module in require() is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+> biblemodel@1.0.0 main
+> node --experimental-sqlite Bible.mjs
+
+Bible.mjs Initializing for the first time
+Bible.mjs Initializing
+Bible.mjs singleton theBible created.
+Bible.mjs startStateMachine
+Bible.mjs =====================  stateMachine() beginning time= 16.231083  state= 1  iteration= 1
+Bible.mjs state_init
+Bible.mjs advance state to  2 loadBooks
+Bible.mjs Requesting the loading of books...
+Bible.mjs LoadAll() Loading books...
+Bible.mjs books are complete and not empty. Move to booksLoaded without waiting.
+Bible.mjs Books are done loading.
+Bible.mjs advance state to  4 saveBooks
+Bible.mjs Saving books as json.
+Bible.mjs Books saved.
+Bible.mjs advance state to  5 booksSaved
+Bible.mjs Now books are saved.
+Bible.mjs advance state to  6 whatsNext
+Bible.mjs What is next?.
+Bible.mjs advance state to  7 shutdown
+Bible.mjs Ready state= 7 : shutdown  stateNext= 0 : null
+start nextTick
+Bible.mjs - scheduled for re-iteration.
+Bible.mjs iteration  2  state= 7 : shutdown
+Bible.mjs ===================== stateMachine() ending. time= 17.233833
+Bible.mjs complete, do normal shutdown.
+(node:37976) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+nextTick callback

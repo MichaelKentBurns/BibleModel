@@ -21,7 +21,6 @@
 
 const traceBook = false;
 if (traceBook) console.log('Book.mjs initializing.');
-//import allBooks from './books.json' assert { type: 'json' };
 import  { DatabaseSync }  from 'node:sqlite';
 import fs from 'node:fs';
 
@@ -46,11 +45,7 @@ if (readBooksJson) {
     }
 }
 
-import Bible from './Bible.mjs';
-
-let theBible;
-
-// let theBible = new Bible();
+let theBible;   // Books' memory of the singleton Bible
 
 export class Book {
     constructor(row) {
@@ -67,6 +62,7 @@ export class Book {
 
     static loadAll(aBible) {
 
+        // If we loaded all books from the json cache file then just return them now.
         if (allBooks !== undefined) {
             if (theBible !== undefined) {
                 theBible.booksComplete = true;
@@ -76,59 +72,43 @@ export class Book {
         }
         if (aBible !== undefined && theBible === undefined) theBible = aBible;
 
-// open the database
+        try {
+
+        // open the database
         const database = new DatabaseSync('./Data/bible-sqlite.db');
 
-        // StateMachine:  This is where it gets weird.  This Promise
-        // calls db.all which is run in a separate task.  The db.all
-        // loop does asych i/o.
-        let promiseToReadBooks = new Promise((resolve, reject) => {
             let newBooks = [Book];
             let sql = `SELECT *
                        FROM book_info`;
             const query = database.prepare(sql);
-            console.log("Database query '",sql,"'. prepared. Query=",query);
+            console.log("Database query '", sql, "'. prepared. Query=", query);
             const rows = query.all();
 
-                // As each row is read from the database this
-                // forEach loop is run.  In that loop the row
-                // is used to build a new Book object which is
-                // then added to the array of books in theBible.
-                rows.forEach((row) => {
-                    const book = new Book(row);
-                    if (traceBook) console.log(`Book[${book.ordinal}] ${book.name} loaded.`)
-                    if (traceBook) console.log(book);
-                    theBible.addBook(book);
-                    newBooks.push(book);
-                });
-                // When all rows have been read, we notify the Bible
-                // that the query is all finished.
-                if (theBible !== undefined) {
-                    theBible.booksComplete = true;
-                    if (traceBook) console.log("Bible notified booksComplete.");
-                }
-                resolve(newBooks);
+            // As each row is read from the database this
+            // forEach loop is run.  In that loop the row
+            // is used to build a new Book object which is
+            // then added to the array of books in theBible.
+            rows.forEach((row) => {
+                const book = new Book(row);
+                if (traceBook) console.log(`Book[${book.ordinal}] ${book.name} loaded.`)
+                if (traceBook) console.log(book);
+                theBible.addBook(book);
+                newBooks.push(book);
             });
-            // close the database connection
-            database.close();
-            //  resolve('Books sent to theBible');
-
-        // I still don't fully understand how this works.
-        promiseToReadBooks.then(
-            // .then gets called when the entire promise is fulfilled
-            function (value) {
+            // When all rows have been read, we notify the Bible
+            // that the query is all finished.
+            if (theBible !== undefined) {
                 theBible.booksComplete = true;
-            },
-            // but if it failed, then the error function is called
-            // to register the failure.  That gets returned to
-            // the Bible's
-            function (error) {
-                theBible.booksReadError = error;
+                if (traceBook) console.log("Bible notified booksComplete.");
             }
-        );
-
-        console.log('promise has been made.?');
-        return promiseToReadBooks;
+        // close the database connection
+        database.close();
+        return undefined; // no errors.
+        }
+        catch (error) {
+            if (traceBook) console.log("Books ERROR: encountered reading books from database.", error);
+            return error;
+        }
     }
 
     static saveAll = function saveAll(theBible) {

@@ -1,0 +1,104 @@
+(node:37938) ExperimentalWarning: CommonJS module /Users/Michael/.nvm/versions/node/v23.3.0/lib/node_modules/npm/node_modules/debug/src/node.js is loading ES Module /Users/Michael/.nvm/versions/node/v23.3.0/lib/node_modules/npm/node_modules/supports-color/index.js using require().
+Support for loading ES Module in require() is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+> biblemodel@1.0.0 main
+> node --experimental-sqlite Bible.mjs
+
+Bible.mjs Initializing for the first time
+Bible.mjs Initializing
+Bible.mjs singleton theBible created.
+Bible.mjs startStateMachine
+Bible.mjs =====================  stateMachine() beginning time= 16.829375  state= 1  iteration= 1
+Bible.mjs state_init
+Bible.mjs advance state to  2 loadBooks
+Bible.mjs Requesting the loading of books...
+Bible.mjs LoadAll() Loading books...
+Database query ' SELECT *
+                       FROM book_info '. prepared. Query= StatementSync { sourceSQL: [Getter], expandedSQL: [Getter] }
+Bible.mjs Book added: Genesis
+Bible.mjs Book added: Exodus
+Bible.mjs Book added: Leviticus
+Bible.mjs Book added: Numbers
+Bible.mjs Book added: Deuteronomy
+Bible.mjs Book added: Joshua
+Bible.mjs Book added: Judges
+Bible.mjs Book added: Ruth
+Bible.mjs Book added: 1 Samuel
+Bible.mjs Book added: 2 Samuel
+Bible.mjs Book added: 1 Kings
+Bible.mjs Book added: 2 Kings
+Bible.mjs Book added: 1 Chronicles
+Bible.mjs Book added: 2 Chronicles
+Bible.mjs Book added: Ezra
+Bible.mjs Book added: Nehemiah
+Bible.mjs Book added: Esther
+Bible.mjs Book added: Job
+Bible.mjs Book added: Psalms
+Bible.mjs Book added: Proverbs
+Bible.mjs Book added: Ecclesiastes
+Bible.mjs Book added: Song of Solomon
+Bible.mjs Book added: Isaiah
+Bible.mjs Book added: Jeremiah
+Bible.mjs Book added: Lamentations
+Bible.mjs Book added: Ezekiel
+Bible.mjs Book added: Daniel
+Bible.mjs Book added: Hosea
+Bible.mjs Book added: Joel
+Bible.mjs Book added: Amos
+Bible.mjs Book added: Obadiah
+Bible.mjs Book added: Jonah
+Bible.mjs Book added: Micah
+Bible.mjs Book added: Nahum
+Bible.mjs Book added: Habakkuk
+Bible.mjs Book added: Zephaniah
+Bible.mjs Book added: Haggai
+Bible.mjs Book added: Zechariah
+Bible.mjs Book added: Malachi
+Bible.mjs Book added: Matthew
+Bible.mjs Book added: Mark
+Bible.mjs Book added: Luke
+Bible.mjs Book added: John
+Bible.mjs Book added: Acts
+Bible.mjs Book added: Romans
+Bible.mjs Book added: 1 Corinthians
+Bible.mjs Book added: 2 Corinthians
+Bible.mjs Book added: Galatians
+Bible.mjs Book added: Ephesians
+Bible.mjs Book added: Philippians
+Bible.mjs Book added: Colossians
+Bible.mjs Book added: 1 Thessalonians
+Bible.mjs Book added: 2 Thessalonians
+Bible.mjs Book added: 1 Timothy
+Bible.mjs Book added: 2 Timothy
+Bible.mjs Book added: Titus
+Bible.mjs Book added: Philemon
+Bible.mjs Book added: Hebrews
+Bible.mjs Book added: James
+Bible.mjs Book added: 1 Peter
+Bible.mjs Book added: 2 Peter
+Bible.mjs Book added: 1 John
+Bible.mjs Book added: 2 John
+Bible.mjs Book added: 3 John
+Bible.mjs Book added: Jude
+Bible.mjs Book added: Revelation
+Bible.mjs booksComplete= false  books.length= 66
+Bible.mjs books are complete and not empty. Move to booksLoaded without waiting.
+Bible.mjs Books are done loading.
+Bible.mjs advance state to  4 saveBooks
+Bible.mjs Saving books as json.
+Bible.mjs Books saved.
+Bible.mjs advance state to  5 booksSaved
+Bible.mjs Now books are saved.
+Bible.mjs advance state to  6 whatsNext
+Bible.mjs What is next?.
+Bible.mjs advance state to  7 shutdown
+Bible.mjs Ready state= 7 : shutdown  stateNext= 0 : null
+start nextTick
+Bible.mjs - scheduled for re-iteration.
+Bible.mjs iteration  2  state= 7 : shutdown
+Bible.mjs ===================== stateMachine() ending. time= 19.682458
+Bible.mjs complete, do normal shutdown.
+(node:37954) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+nextTick callback
