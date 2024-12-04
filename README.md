@@ -29,6 +29,21 @@ Javascript is a very widely used language because of the web explosion.
 But, to be fair, I have decided to try this first in Javascript because that is what my mentees use and 
 I need to learn it better and give it a fair chance.
 
+### What I have learned about JavaScript in the process (so far).
+1. My initial rant about too many runtimes, too much history, too many ways to do things, and wierd asynch.  Has pretty much been resolved by learning more history and particularly ECMAScript initiative.
+   See Wikipedia articles:  https://en.wikipedia.org/wiki/ECMAScript and https://en.wikipedia.org/wiki/ECMAScript_version_history .  The good stuff I needed is in the 14th edition ECMAScript 2023.
+2. Related is the set of documents that details the ECMAScript API docs that are referenced at the end of the second of those two Wikipedia pages.  Specifically https://262.ecma-international.org/14.0/
+3. The Node.js effort including the programs
+    - node - executes node programs
+    - npm - Node Package Manager - manages packages (like this one BibleModel) and executes target scripts according to the details in the package.json file.  Finally, it will also execute test scripts (see issue #4  We need a robust set of unit tests written.  )
+    - nvm - Node Version Manager - manages a collection of different versions of Node.js so you can install new versions but also use any particular version for specific projects.   I found this VERY helpful.
+4. The Node.js "latest" documentation: https://nodejs.org/docs/latest/api/   I mentioned this in issue #7
+5. One of the major lessons there was the node:sqlite section and DatabaseSync as described in issue #1
+6. Some other things I learned along the way is a variety of new IDEs available.   Several of them are different packaging of the IDE from VS Code.
+     - WebStorm (like it's sibling PhpStorm) from JetBrains.   Still a PC (Mac, Linux, Windows) based IDE application.
+     - Google IDX (https://idx.dev) is a containerized version of VS Code that is accessible from any web browser.  I like this one a lot because it allows me to do my work from my Mac or PC using a browser, or better yet, my iPad Pro using my browser.
+     - And related is GitHub Codespace (https://github.com/features/codespaces) which very quickly builds a docker container with all the Linux development tools, the VS Code IDE, and GitHub with your GitHub repository pre cloned, all rolled into one neet package.  You can access it very easily from https://GitHub.com.  All you need is a browser. 
+
 ## Real Life Object Model
 See the article titled **Object Design of a Bible Study Application**
 https://michaelkentburns.com/index.php/software-design/object-design-of-a-bible-study-application/
