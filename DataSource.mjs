@@ -19,7 +19,7 @@ export class DataSource {
         return this.db.prepare(sqlStatement);
     }
 
-    finish(statement) {
+    finish() {
         theDb.close();
     }
 

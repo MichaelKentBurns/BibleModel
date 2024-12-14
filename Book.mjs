@@ -87,7 +87,7 @@ export class Book {
             abbreviations = new Map();   // keyed by a name, result is book ordinal.
             try {
                 let sql = `SELECT *
-                           FROM key_abbreviations_english`;
+                           FROM "key_abbreviations_english";
                 const dSource = theBible.dSource;
                 const query = dSource.prepare(sql);
                 console.log("Database query '", sql, "'. prepared. Query=", query);
