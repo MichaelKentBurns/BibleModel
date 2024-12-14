@@ -1,9 +1,7 @@
 
-
-import Book from './Book.mjs';
-const row = {"order":40,"title_short":"Matthew","title_full":"The Gospel According to Matthew","category":"New Testament Narrative","chapters":28};
-const  theBook = new Book(row);
-console.log(theBook);
+import test from 'node:test';
+import { Book } from './Book.mjs';
+import * as assert from "node:assert";
 
 const ordinal = 40;
 const name = "Matthew";
@@ -11,13 +9,20 @@ const cat = "New Testament Narrative";
 const title = "The Gospel According to Matthew";
 const nChapters = 28;
 
-test('Create a simple book and check the attributes', () => {
-    expect(theBook.ordinal).toEqual(ordinal);
-    expect(theBook.name.length).toEqual(name.length);
-    expect(theBook.name).toEqual(name);
-    expect(theBook.title).toEqual(title);
-    expect(theBook.category).toEqual(cat);
-    expect(theBook.nChapters).toEqual(nChapters);
+const row = {"order":ordinal,"title_short":name,"title_full":title,"category":cat,"chapters":nChapters};
+let theBook = new Book();
 
+test('Create a simple book', () => {
+    theBook = new Book(row);
+    console.log(theBook);
+})
 
+test('Check the attributes', () => {
+    assert.strictEqual(theBook.ordinal,ordinal);
+    assert.strictEqual(theBook.name.length,name.length);
+    assert.strictEqual(theBook.name,name);
+    assert.strictEqual(theBook.title,title);
+    assert.strictEqual(theBook.category,cat);
+    assert.strictEqual(theBook.nChapters,nChapters);
 });
+

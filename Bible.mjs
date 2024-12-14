@@ -52,6 +52,7 @@ const config = JSON.parse(configData);
 // - - - - - - - - - - Initialize other modules. 
 if (traceBible) console.log('Bible.mjs Initializing');
 import {Book} from './Book.mjs';  // makes promiseToReadBooks
+import { DataSource } from './DataSource.mjs';
 // import Location from './Location.mjs';
 //import Xref from './Xref.mjs';
 
@@ -79,6 +80,7 @@ export class Bible {
         this.xrefInitialized = false;     // they are ready to be used
 
         this.bibleInitialized = false;    // basic setup is complete and ready for further requests.
+        this.dSource = new DataSource();
     }
 
     getBooks() {
@@ -109,6 +111,7 @@ export class Bible {
         if (traceBible) console.log('Bible.mjs LoadAll() Loading books...');
         this.booksComplete = false;
         this.booksReadError = Book.loadAll(theBible);
+        if ( this.booksReadError && traceBible ) console.log(this.booksReadError);
 
         // Next cross references might be loaded, or may be deferred for lazy loads. 
         //  console.log('Loading cross references...');

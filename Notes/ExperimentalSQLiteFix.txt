@@ -70,7 +70,7 @@ drwxr-xr-x   14 michael  staff        448 Nov 26 17:29 ObjectModel
 -rw-r--r--@   1 michael  staff       2749 Nov 26 17:39 Xref.mjs
 -rw-r--r--@   1 michael  staff        301 Nov 26 17:41 Bible.test.mjs
 -rw-r--r--@   1 michael  staff        338 Nov 26 17:41 all.mjs
--rw-r--r--@   1 michael  staff        734 Nov 26 17:44 Book.test.mjs
+-rw-r--r--@   1 michael  staff        734 Nov 26 17:44 Book.test.js
 -rw-r--r--@   1 michael  staff      17855 Nov 26 17:46 Bible.mjs
 drwxr-xr-x  294 michael  staff       9408 Nov 26 17:48 node_modules
 -rw-r--r--    1 michael  staff     168525 Nov 26 17:48 package-lock.json
@@ -123,7 +123,7 @@ drwxr-xr-x   14 michael  staff        448 Nov 26 17:29 ObjectModel
 -rw-r--r--@   1 michael  staff       2749 Nov 26 17:39 Xref.mjs
 -rw-r--r--@   1 michael  staff        301 Nov 26 17:41 Bible.test.mjs
 -rw-r--r--@   1 michael  staff        338 Nov 26 17:41 all.mjs
--rw-r--r--@   1 michael  staff        734 Nov 26 17:44 Book.test.mjs
+-rw-r--r--@   1 michael  staff        734 Nov 26 17:44 Book.test.js
 -rw-r--r--@   1 michael  staff      17855 Nov 26 17:46 Bible.mjs
 drwxr-xr-x  294 michael  staff       9408 Nov 26 17:48 node_modules
 -rw-r--r--    1 michael  staff     168525 Nov 26 17:48 package-lock.json

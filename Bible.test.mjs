@@ -1,14 +1,16 @@
 
-import Bible from './Bible.mjs';
+import test from 'node:test';
+import * as assert from "node:assert";
+
+import { Bible } from './Bible.mjs';
 const  theBible = new Bible();
 
 theBible.loadAll();
 
 test('Starts Bible and see if books are loaded', () => {
-	expect(theBible.books)
-	expect(theBible.books != undefined )
+	assert.ok(theBible.books)
+	assert.notEqual(theBible.books,undefined )
 	theBible.loadAll();
-	expect(theBible.promiseToLoadBooks)
-	expect(theBible.booksComplete)
-
+//	assert.ok(theBible.promiseToLoadBooks)  // promise is no longer need with DatabaseSync
+	assert.ok(theBible.booksComplete)
 });

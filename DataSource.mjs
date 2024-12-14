@@ -1,19 +1,28 @@
-
-import DatabaseSync from 'node:sqlite';
 const datafile = 'Data/bible-sqlite.db';
-const theDb = new DatabaseSynch(datafile);
+import {DatabaseSync} from 'node:sqlite';
 
-class DataSource {
+const theDb = new DatabaseSync(datafile);
+
+export class DataSource {
     constructor() {
         this.db = theDb;
     }
-}
 
-DataSource.open = function open() {
-    if ( this.db = undefined ) {
-        this.db = new DatabaseSynch(datafile);
-        console.log("DataSource is now open.");
+    open() {
+        if (this.db === undefined) {
+            this.db = new DatabaseSync(datafile);
+            console.log("DataSource is now open.");
+        }
     }
+
+    prepare(sqlStatement) {
+        return this.db.prepare(sqlStatement);
+    }
+
+    finish(statement) {
+        theDb.close();
+    }
+
 }
 
 export default {

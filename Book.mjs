@@ -19,9 +19,8 @@
 //      Chapters - A sequence of numbered chapters that form this book.
 //
 
-const traceBook = false;
+const traceBook = true;
 if (traceBook) console.log('Book.mjs initializing.');
-import  { DatabaseSync }  from 'node:sqlite';
 import fs from 'node:fs';
 
 let allBooks;  // array of books loaded
@@ -46,14 +45,34 @@ if (readBooksJson) {
 }
 
 let theBible;   // Books' memory of the singleton Bible
+let abbreviations;
 
 export class Book {
     constructor(row) {
-        this.ordinal = row.order;
-        this.name = row.title_short;
-        this.title = row.title_full;
-        this.category = row.category;
-        this.nChapters = row.chapters;
+        if ( !row ) {
+            this.ordinal = row.order;
+            this.name = row.title_short;
+            this.title = row.title_full;
+            this.category = row.category;
+            this.nChapters = row.chapters;
+        }
+        else
+        {
+            this.ordinal = 0;
+            this.name = '';
+            this.title = '';
+            this.category =  '';
+            this.nChapters = 0;
+        }
+    }
+
+    static getBookByName(name) {
+        let ord = abbreviations(name);
+        return allBooks[ord];
+    }
+
+    static getBookByNumber(ord) {
+        return allBooks[ord];
     }
 
     static setBible(aBible) {
@@ -61,6 +80,33 @@ export class Book {
     }
 
     static loadAll(aBible) {
+        let databaseError = undefined;
+
+        if (!abbreviations) {
+            // If abbreviations are not yet loaded, do so now.
+            abbreviations = new Map();   // keyed by a name, result is book ordinal.
+            try {
+                let sql = `SELECT *
+                           FROM key_abbreviations_english`;
+                const dSource = theBible.dSource;
+                const query = dSource.prepare(sql);
+                console.log("Database query '", sql, "'. prepared. Query=", query);
+                const rows = query.all();
+                //  dSource.finish(query);
+
+                // As each row is read from the database this
+                // forEach loop is run.  In that loop the row
+                // is used to build a new Book object which is
+                // then added to the array of books in theBible.
+                rows.forEach((arow) => {
+                    if (traceBook) console.log(`${arow.a} is abbreviation for book ${arow.b} .`)
+                    abbreviations.set(arow.a, arow.b);
+                });
+            } catch (error) {
+                databaseError = error;
+                if (traceBook) console.log("Books ERROR: encountered reading abbreviations from database.", error);
+            }
+        }
 
         // If we loaded all books from the json cache file then just return them now.
         if (allBooks !== undefined) {
@@ -73,16 +119,14 @@ export class Book {
         if (aBible !== undefined && theBible === undefined) theBible = aBible;
 
         try {
-
-        // open the database
-        const database = new DatabaseSync('./Data/bible-sqlite.db');
-
             let newBooks = [Book];
             let sql = `SELECT *
                        FROM book_info`;
-            const query = database.prepare(sql);
+            const dSource = theBible.dSource;
+            const query = dSource.prepare(sql);
             console.log("Database query '", sql, "'. prepared. Query=", query);
             const rows = query.all();
+            // dSource.finish(query);
 
             // As each row is read from the database this
             // forEach loop is run.  In that loop the row
@@ -101,13 +145,13 @@ export class Book {
                 theBible.booksComplete = true;
                 if (traceBook) console.log("Bible notified booksComplete.");
             }
-        // close the database connection
-        database.close();
-        return undefined; // no errors.
-        }
-        catch (error) {
+            // close the database connection
+            // database.close();
+            return undefined; // no errors.
+        } catch (error) {
+            databaseError = error;
             if (traceBook) console.log("Books ERROR: encountered reading books from database.", error);
-            return error;
+            return databaseError;
         }
     }
 
