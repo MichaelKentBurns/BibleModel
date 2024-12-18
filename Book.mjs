@@ -81,7 +81,7 @@ export class Book {
     }
 
     static setBible(aBible) {
-        Bible.theBible = aBible;
+        this.theBible = aBible;
     }
 
     static loadAll(aBible) {
