@@ -19,7 +19,7 @@
 //      Chapters - A sequence of numbered chapters that form this book.
 //
 
-const traceBook = false;
+const traceBook = true;
 if (traceBook) console.log('Book.mjs initializing.');
 import fs from 'node:fs';
 
@@ -44,6 +44,15 @@ if (readBooksJson) {
     }
 }
 
+class BookAbbreviation {
+    constructor(row) {
+        this.id = row.id;
+        this.name = row.a;
+        this.bookNumber = row.b;
+        this.primary = row.p;
+    }
+}
+
 export class Book {
     constructor(row) {
         if ( row ) {
@@ -64,9 +73,10 @@ export class Book {
     }
 
     static theBible;
-    static abbreviations;
+    static abbreviationList;
+    static abbreviationMap;
     static getBookByName(name) {
-        let ord = Book.abbreviations.get(name);
+        let ord = Book.abbreviationMap.get(name);
         let books = allBooks;
         if ( books === undefined )
             books = Book.theBible.books;
@@ -87,9 +97,10 @@ export class Book {
     static loadAll(aBible) {
         let databaseError = undefined;
 
-        if (!Book.abbreviations) {
+        if (!Book.abbreviationMap) {
             // If abbreviations are not yet loaded, do so now.
-            Book.abbreviations = new Map();   // keyed by a name, result is book ordinal.
+            Book.abbreviationMap = new Map();   // keyed by a name, result is book ordinal.
+            Book.abbreviationList = [];
             try {
                 let sql = `SELECT *
                            FROM key_abbreviations_english`;
@@ -107,12 +118,16 @@ export class Book {
                 // then added to the array of books in theBible.
                 arows.forEach((arow) => {
                     if (traceBook) console.log(arow.a," is abbreviation for book ", arow.b)
-                    Book.abbreviations.set(arow.a, arow.b);
+                    Book.abbreviationMap.set(arow.a, arow.b);
+                    const newAbbreviation = new BookAbbreviation(arow);
+                    Book.abbreviationList.push(newAbbreviation);
                 });
             } catch (error) {
                 databaseError = error;
                 if (traceBook) console.log("Books ERROR: encountered reading abbreviations from database.", error);
             }
+            // Since we just loaded them from the database, save a json version.
+            this.saveAbbreviations(Book.theBible);
         }
 
         // If we loaded all books from the json cache file then just return them now.
@@ -178,6 +193,26 @@ export class Book {
                     throw err
                 }
                 if (traceBook) console.log('Books JSON data is saved.')
+            })
+
+        }
+    }
+
+
+    static saveAbbreviations = function saveAbbreviations(theBible) {
+        // Save the abbreviations table
+        if (Book.abbreviationList !== undefined) {
+            if (traceBook) console.log(Book.abbreviationList);
+
+            // convert JSON object to a string
+            const jsonData = JSON.stringify(Book.abbreviationList)
+
+            // write JSON string to a file
+            fs.writeFile('book-abbreviations.json', jsonData, err => {
+                if (err) {
+                    throw err
+                }
+                if (traceBook) console.log('book-abbreviations JSON data is saved.')
             })
 
         }
