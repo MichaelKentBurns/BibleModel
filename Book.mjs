@@ -19,7 +19,7 @@
 //      Chapters - A sequence of numbered chapters that form this book.
 //
 
-const traceBook = true;
+const traceBook = false;
 if (traceBook) console.log('Book.mjs initializing.');
 import fs from 'node:fs';
 
@@ -44,12 +44,9 @@ if (readBooksJson) {
     }
 }
 
-let theBible;   // Books' memory of the singleton Bible
-let abbreviations;
-
 export class Book {
     constructor(row) {
-        if ( !row ) {
+        if ( row ) {
             this.ordinal = row.order;
             this.name = row.title_short;
             this.title = row.title_full;
@@ -66,41 +63,51 @@ export class Book {
         }
     }
 
+    static theBible;
+    static abbreviations;
     static getBookByName(name) {
-        let ord = abbreviations(name);
-        return allBooks[ord];
+        let ord = Book.abbreviations.get(name);
+        let books = allBooks;
+        if ( books === undefined )
+            books = Book.theBible.books;
+        return books[ord-1];
     }
 
     static getBookByNumber(ord) {
-        return allBooks[ord];
+        let books = allBooks;
+        if ( books === undefined )
+            books = theBible.books;
+        return books[ord-1];
     }
 
     static setBible(aBible) {
-        theBible = aBible;
+        Bible.theBible = aBible;
     }
 
     static loadAll(aBible) {
         let databaseError = undefined;
 
-        if (!abbreviations) {
+        if (!Book.abbreviations) {
             // If abbreviations are not yet loaded, do so now.
-            abbreviations = new Map();   // keyed by a name, result is book ordinal.
+            Book.abbreviations = new Map();   // keyed by a name, result is book ordinal.
             try {
                 let sql = `SELECT *
-                           FROM "key_abbreviations_english";
-                const dSource = theBible.dSource;
+                           FROM key_abbreviations_english`;
+                let dSource = aBible.dSource;
+                if (dSource === undefined )
+                    dSource = Book.theBible.dSource;
                 const query = dSource.prepare(sql);
-                console.log("Database query '", sql, "'. prepared. Query=", query);
-                const rows = query.all();
+                if (traceBook) console.log("Database query '", sql, "'. prepared. Query=", query);
+                const arows = query.all();
                 //  dSource.finish(query);
 
                 // As each row is read from the database this
                 // forEach loop is run.  In that loop the row
                 // is used to build a new Book object which is
                 // then added to the array of books in theBible.
-                rows.forEach((arow) => {
-                    if (traceBook) console.log(`${arow.a} is abbreviation for book ${arow.b} .`)
-                    abbreviations.set(arow.a, arow.b);
+                arows.forEach((arow) => {
+                    if (traceBook) console.log(arow.a," is abbreviation for book ", arow.b)
+                    Book.abbreviations.set(arow.a, arow.b);
                 });
             } catch (error) {
                 databaseError = error;
@@ -110,21 +117,21 @@ export class Book {
 
         // If we loaded all books from the json cache file then just return them now.
         if (allBooks !== undefined) {
-            if (theBible !== undefined) {
-                theBible.booksComplete = true;
-                theBible.books = allBooks;
+            if (Book.theBible !== undefined) {
+                Book.theBible.booksComplete = true;
+                Book.theBible.books = allBooks;
             }
             return;
         }
-        if (aBible !== undefined && theBible === undefined) theBible = aBible;
+        if (aBible !== undefined && Book.theBible === undefined) Book.theBible = aBible;
 
         try {
             let newBooks = [Book];
             let sql = `SELECT *
                        FROM book_info`;
-            const dSource = theBible.dSource;
+            const dSource = Book.theBible.dSource;
             const query = dSource.prepare(sql);
-            console.log("Database query '", sql, "'. prepared. Query=", query);
+            if (traceBook) console.log("Database query '", sql, "'. prepared. Query=", query);
             const rows = query.all();
             // dSource.finish(query);
 
@@ -136,15 +143,17 @@ export class Book {
                 const book = new Book(row);
                 if (traceBook) console.log(`Book[${book.ordinal}] ${book.name} loaded.`)
                 if (traceBook) console.log(book);
-                theBible.addBook(book);
+                Book.theBible.addBook(book);
                 newBooks.push(book);
             });
             // When all rows have been read, we notify the Bible
             // that the query is all finished.
-            if (theBible !== undefined) {
-                theBible.booksComplete = true;
-                if (traceBook) console.log("Bible notified booksComplete.");
-            }
+            if ( aBible === undefined )
+                aBible = Book.theBible;
+
+            aBible.booksComplete = true;
+            if (traceBook) console.log("Bible notified booksComplete.");
+
             // close the database connection
             // database.close();
             return undefined; // no errors.
@@ -179,7 +188,7 @@ export class Book {
 //Book.load(theBible);
 // if ( traceBook ) console.log("loaded, now to Strange execution timing.txt it all.")
 //Book.saveAll(theBible);
-if (theBible !== undefined) theBible.bookInitialized = true;
+if (Book.theBible !== undefined) theBible.bookInitialized = true;
 if (traceBook) console.log('Book.mjs initialized.');
 
 export default {

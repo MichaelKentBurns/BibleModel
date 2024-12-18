@@ -4,7 +4,9 @@
   "description": "database model for the Bible",
   "main": "Bible.mjs",
   "scripts": {
-    "test": "jest",
+    "testBook": "node --experimental-sqlite Book.test.mjs",
+    "testBible": "node --experimental-sqlite Bible.test.mjs",
+    "testAll": "node --experimental-sqlite Book.test.mjs Bible.test.mjs",
     "main": "node --experimental-sqlite Bible.mjs"
   },
   "repository": {

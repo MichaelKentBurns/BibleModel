@@ -13,7 +13,7 @@
 //      Books - a sequence of writings by various authors that constitutes the Holy Canon of a faith.
 //
 
-const traceBible = true;  // Set this true to have the inner workings of this class traced to console log.
+const traceBible = false;  // Set this true to have the inner workings of this class traced to console log.
 
 // - - - - - - - - - Issue #1, state machine works better
 // Setup state machine globals.  
@@ -26,7 +26,7 @@ var stateNext;  // Set this from one state to indicate next state after current 
 var iteration;  // Everytime we run through the whole state machine section, we increment this.  
 const iterationMax = 20;  // don't get stuck in a perpetual loop. 
 const iterationInterval = 100;   // ms to wait between checking for asynch task done.
-if (state == undefined) {    // Initial state sets up the infrastructure.
+if (state === undefined) {    // Initial state sets up the infrastructure.
     state = state_init;
     iteration = 1;
     if (traceBible) console.log('Bible.mjs Initializing for the first time');
@@ -63,11 +63,19 @@ function sleep(ms) {
 }
 
 // - - - - Globals 
-export let theBible;   // The Bible class is a singleton and the root of the whole data model.
+
+let theBible;   // The Bible class is a singleton and the root of the whole data model.
+let numBibles = 0;
+let allBibles = [];
 
 //- - - - - - - - - - - begin Class definition - - - - - - - - - - -
 export class Bible {
     constructor() {
+        numBibles += 1;   // count them all
+        this.bibleNumber = numBibles;  // each is numbered sequentially
+        if ( traceBible ) console.log("Bible.mjs - Bible #", this.bibleNumber, " created");
+        allBibles.push(this);
+
         this.libraryPath = undefined;
         this.books = [];                  // array of the books of the Bible.
         this.promiseWaitIteration = 0;
@@ -87,13 +95,22 @@ export class Bible {
         return this.books;
     }
 
+    static getBibleNumber(n) {
+        if ( n > 0 && n < numBibles )
+            return allBibles[n-1];
+        else return null;
+    }
+
+    static getNumberOfBibles() {
+        return numBibles;
+    }
 
     // called from book loading to add each book to the collection of books
     addBook(book) {
         this.books.push(book);
-        if (traceBible) console.log('Bible.mjs Book added: ' + book.name);
+        if (traceBible) console.log('Bible.mjs Book added: ' + book.name + ' added to Bible #' + this.bibleNumber);
         if (this.booksComplete || this.booksReadError || this.books.length >= 66) {
-            console.log('Bible.mjs booksComplete=', this.booksComplete, ' books.length=', this.books.length);
+            if (traceBible) console.log('Bible.mjs booksComplete=', this.booksComplete, ' books.length=', this.books.length);
             if (this.books.length >= 66) this.booksComplete = true;
         }
 

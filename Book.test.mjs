@@ -2,9 +2,11 @@
 import test from 'node:test';
 import { Book } from './Book.mjs';
 import * as assert from "node:assert";
+import {Bible} from "./Bible.mjs";
 
 const ordinal = 40;
 const name = "Matthew";
+const abbreviation = "Mt";
 const cat = "New Testament Narrative";
 const title = "The Gospel According to Matthew";
 const nChapters = 28;
@@ -25,4 +27,16 @@ test('Check the attributes', () => {
     assert.strictEqual(theBook.category,cat);
     assert.strictEqual(theBook.nChapters,nChapters);
 });
+
+test('find Matthew by name and an abbreviation', () => {
+    // Load all books and abbreviations
+    if ( ! Book.theBible)
+        Book.theBible = new Bible();
+    Book.loadAll(Book.theBible);
+    let matthewByName = Book.getBookByName(name);
+    assert.ok(matthewByName);
+    let matthewByAbbreviation = Book.getBookByName(abbreviation);
+    assert.ok(matthewByAbbreviation);
+    assert.equal(matthewByName.order,matthewByAbbreviation.order);
+})
 
