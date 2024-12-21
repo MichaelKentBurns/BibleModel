@@ -13,15 +13,16 @@
 //      Books - a sequence of writings by various authors that constitutes the Holy Canon of a faith.
 //
 
-const traceBible = false;  // Set this true to have the inner workings of this class traced to console log.
+const traceBible = true;  // Set this true to have the inner workings of this class traced to console log.
+const useHttp2 = false;
 
 // - - - - - - - - - Issue #1, state machine works better
 // Setup state machine globals.  
 // Actual state machine function is coded and called later on. 
 var state;      // state number, defined in next two lines.   Can simply increment to move to next state sequentially. 
 let state_init = 1, state_loadBooks = 2, state_booksLoaded = 3, state_saveBooks = 4, state_booksSaved = 5,
-    state_whatsNext = 6, state_shutdown = 7, state_abort = 8;
-const stateNames = ['null', 'init', 'loadBooks', 'booksLoaded', 'saveBooks', 'booksSaved', 'whatsNext', 'shutdown', 'abort'];
+    state_httpServer = 6, state_shutdown = 7, state_abort = 8;
+const stateNames = ['null', 'init', 'loadBooks', 'booksLoaded', 'saveBooks', 'booksSaved', 'httpServer', 'shutdown', 'abort'];
 var stateNext;  // Set this from one state to indicate next state after current iteration.
 var iteration;  // Everytime we run through the whole state machine section, we increment this.  
 const iterationMax = 20;  // don't get stuck in a perpetual loop. 
@@ -55,6 +56,9 @@ import {Book} from './Book.mjs';  // makes promiseToReadBooks
 import { DataSource } from './DataSource.mjs';
 // import Location from './Location.mjs';
 //import Xref from './Xref.mjs';
+ //   import {Http2Server} from './Http2Server.mjs';
+    import {HttpServer} from './HttpServer.mjs';
+
 
 // utility function to pause this main event loop to allow asynch tasks to run
 function sleep(ms) {
@@ -89,6 +93,11 @@ export class Bible {
 
         this.bibleInitialized = false;    // basic setup is complete and ready for further requests.
         this.dSource = new DataSource();
+    }
+
+
+    static getBible() {
+        return theBible;
     }
 
     getBooks() {
@@ -211,8 +220,18 @@ export class Bible {
             }
 
             // - - - - - - - - - Placeholder for future additions, but for now do nothing.
-            if (state == state_whatsNext) {
-                if (traceBible) console.log('Bible.mjs What is next?.')
+            if (state == state_httpServer) {
+                if (traceBible) console.log('Bible.mjs Initialize and start http server...')
+                if ( useHttp2 ) {
+                    Http2Server.setup();
+                    Http2Server.activateServer();
+                } else
+                {
+                    HttpServer.setup();
+                    HttpServer.activateServer();
+                }
+
+                // Not sure how we get here, and what triggers it?
                 stateNext = 0;
                 state += 1;
                 if (traceBible) console.log('Bible.mjs advance state to ', state, stateNames[state]);
