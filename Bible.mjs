@@ -1,17 +1,18 @@
+
+//mm # Class:  Bible
 //mm
-//mm  Class:  Bible
-//mm
-//mm  An online version of a Study Bible.
+//mm An online version of a Study Bible.
 //mm This is the top level (primary) class that represents a web based study Bible.
 //mm
-//mm  Responsibilities:
-//mm      Provide access to all contained parts.
+//mm ## Responsibilities:
+//mm Provide access to all contained parts.
 //mm
-//mm  Collaborators:
-//mm      Testaments - a sequence of Holy texts from different faith communities,
+//mm ## Collaborators:
+//mm * Testaments - a sequence of Holy texts from different faith communities,
 //mm                  specifically Judaism and Christianity.
-//mm      Books - a sequence of writings by various authors that constitutes the Holy Canon of a faith.
+//mm * Books - a sequence of writings by various authors that constitutes the Holy Canon of a faith.
 //mm
+//mm ```mermaid
 //mm classDiagram
 
 const traceBible = true;  // Set this true to have the inner workings of this class traced to console log.
@@ -79,8 +80,8 @@ export class Bible {
     constructor() {
         numBibles += 1;   // count them all
         // Private ///////////////////////  Only used by this class itself
-        //mm  -bibleNumber   // ordinal among all of the Bibles loaded
-        this.bibleNumber = numBibles;  // each is numbered sequentially
+        //mm  -bibleNumber              // ordinal among all of the Bibles loaded
+        this.bibleNumber = numBibles;   // each is numbered sequentially
         if ( traceBible ) console.log("Bible.mjs - Bible #", this.bibleNumber, " created");
         allBibles.push(this);
         //mm  -libraryPath
@@ -354,6 +355,18 @@ if (state == state_shutdown) {
     process.abort();
 }
 //mm }
+//mm class Book {
+//mm  +integer ordinal
+//mm  +String  name
+//mm }
+//mm Bible *-- Book
+//mm class Testament {
+//mm   +integer ordinal
+//mm   +String  name
+//mm }
+//mm Bible *-- Testament
+//mm Testament *-- Book
+//mm ```
 
 // - - - - - - - - - - - - 
 export default {

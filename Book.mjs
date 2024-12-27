@@ -1,23 +1,23 @@
-//mm
-//mm  Class:  Book
+//mm  # Class:  Book
 //mm
 //mm  A holy writing considered as part of the Canon of a faith.
 //mm  A Book is ultimately a sequence of words with appropriate punctuation.
 //mm  In modern forms it is composed of a sequence of chapters.
 //mm  Usually attributed to a specific author.
 //mm
-//mm  Responsibilities:
-//mm      The formal name.
-//mm      A longer descriptive name.
-//mm      Abbreviations for the name.
-//mm      The name of the author.
-//mm      Introductory text.
+//mm  ### Responsibilities:
+//mm  * The formal name.
+//mm  * A longer descriptive name.
+//mm  * Abbreviations for the name.
+//mm  * The name of the author.
+//mm  * Introductory text.
 //mm
-//mm  Collaborators:
-//mm      The Bible that contains this book.
-//mm      The Testament that contains this book.
-//mm      Chapters - A sequence of numbered chapters that form this book.
+//mm  ### Collaborators:
+//mm  * The Bible that contains this book.
+//mm  * The Testament that contains this book.
+//mm  * Chapters - A sequence of numbered chapters that form this book.
 //mm
+//mm ```mermaid
 //mm classDiagram
 
 const traceBook = true;
@@ -45,17 +45,21 @@ if (readBooksJson) {
     }
 }
 
-//mm   class BookAbbreviation{     // internal class for book name abbreviations
+//mm  class BookAbbreviation{     // internal class for book name abbreviations
 class BookAbbreviation {
     constructor(row) {
+        //mm ~integer id
         this.id = row.id;
+        //mm ~String name
         this.name = row.a;
+        //mm ~integer bookNumber
         this.bookNumber = row.b;
+        //mm ~boolean isPrimary
         this.primary = row.p;
     }
 }
 //mm }
-
+//mm Book *-- BookAbbreviation
 //mm  class Book {
 export class Book {
     constructor(row) {
@@ -83,11 +87,11 @@ export class Book {
 
     //mm Bible theBible$   // first and possibly only Bible loaded
     static theBible;
-    //mm BookAbbreviation[]  abbreviationList$   // array of abbreviation names
+    //mm BookAbbreviation abbreviationList[]$   // array of abbreviation names
     static abbreviationList;
     //mm Map[String name: integer bookOrdinal]$   // map of names to book ordinals
     static abbreviationMap;
-    //mm getBookByName(String name) Book$   // returns a book by name or abbreviation
+    //mm getBookByName(String name)$ Book   // returns a book by name or abbreviation
     static getBookByName(name) {
         let ord = Book.abbreviationMap.get(name);
         let books = allBooks;
@@ -96,7 +100,7 @@ export class Book {
         return books[ord-1];
     }
 
-    //mm getBookByNumber(ordinal) Book$   // returns a book by it's ordinal
+    //mm getBookByNumber(ordinal)$ Book   // returns a book by it's ordinal
     static getBookByNumber(ord) {
         let books = allBooks;
         if ( books === undefined )
@@ -235,7 +239,8 @@ export class Book {
         }
     }
 }
-//mm }
+//mm   }
+//mm ```
 
 //if ( traceBook ) console.log('ready to load');
 //Book.load(theBible);
