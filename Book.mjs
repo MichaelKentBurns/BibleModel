@@ -1,23 +1,24 @@
-//
-//  Class:  Book
-//
-//  A holy writing considered as part of the Canon of a faith.
-//  A Book is ultimately a sequence of words with appropriate punctuation.
-//  In modern forms it is composed of a sequence of chapters.
-//  Usually attributed to a specific author.
-//
-//  Responsibilities:
-//      The formal name.
-//      A longer descriptive name.
-//      Abbreviations for the name.
-//      The name of the author.
-//      Introductory text.
-//
-//  Collaborators:
-//      The Bible that contains this book.
-//      The Testament that contains this book.
-//      Chapters - A sequence of numbered chapters that form this book.
-//
+//mm
+//mm  Class:  Book
+//mm
+//mm  A holy writing considered as part of the Canon of a faith.
+//mm  A Book is ultimately a sequence of words with appropriate punctuation.
+//mm  In modern forms it is composed of a sequence of chapters.
+//mm  Usually attributed to a specific author.
+//mm
+//mm  Responsibilities:
+//mm      The formal name.
+//mm      A longer descriptive name.
+//mm      Abbreviations for the name.
+//mm      The name of the author.
+//mm      Introductory text.
+//mm
+//mm  Collaborators:
+//mm      The Bible that contains this book.
+//mm      The Testament that contains this book.
+//mm      Chapters - A sequence of numbered chapters that form this book.
+//mm
+//mm classDiagram
 
 const traceBook = true;
 if (traceBook) console.log('Book.mjs initializing.');
@@ -44,6 +45,7 @@ if (readBooksJson) {
     }
 }
 
+//mm   class BookAbbreviation{     // internal class for book name abbreviations
 class BookAbbreviation {
     constructor(row) {
         this.id = row.id;
@@ -52,14 +54,21 @@ class BookAbbreviation {
         this.primary = row.p;
     }
 }
+//mm }
 
+//mm  class Book {
 export class Book {
     constructor(row) {
         if ( row ) {
+            //mm +integer ordinal   // ordinal among all Books in a Bible
             this.ordinal = row.order;
+            //mm +String name  // short and unique name of the book
             this.name = row.title_short;
+            //mm +String title  // longer descriptive name of the book
             this.title = row.title_full;
+            //mm +String category  // one of several categories of books
             this.category = row.category;
+            //mm +integer nChapters  // number of chapters in this book
             this.nChapters = row.chapters;
         }
         else
@@ -72,9 +81,13 @@ export class Book {
         }
     }
 
+    //mm Bible theBible$   // first and possibly only Bible loaded
     static theBible;
+    //mm BookAbbreviation[]  abbreviationList$   // array of abbreviation names
     static abbreviationList;
+    //mm Map[String name: integer bookOrdinal]$   // map of names to book ordinals
     static abbreviationMap;
+    //mm getBookByName(String name) Book$   // returns a book by name or abbreviation
     static getBookByName(name) {
         let ord = Book.abbreviationMap.get(name);
         let books = allBooks;
@@ -83,6 +96,7 @@ export class Book {
         return books[ord-1];
     }
 
+    //mm getBookByNumber(ordinal) Book$   // returns a book by it's ordinal
     static getBookByNumber(ord) {
         let books = allBooks;
         if ( books === undefined )
@@ -90,10 +104,12 @@ export class Book {
         return books[ord-1];
     }
 
+    //mm ~setBible(aBible)$   // sets the Bible that contains this book
     static setBible(aBible) {
         this.theBible = aBible;
     }
 
+    //mm ~loadAll(aBible)$   // loads all books into the specified Bible
     static loadAll(aBible) {
         let databaseError = undefined;
 
@@ -179,6 +195,7 @@ export class Book {
         }
     }
 
+    //mm ~saveAll(theBible)$   // saves all the Books in a Bible to books json file
     static saveAll = function saveAll(theBible) {
 
         if (theBible !== undefined && theBible.books !== undefined) {
@@ -198,7 +215,7 @@ export class Book {
         }
     }
 
-
+    //mm ~saveAbbreviations(theBible)$   // saves all of the book abbreviations to a json file
     static saveAbbreviations = function saveAbbreviations(theBible) {
         // Save the abbreviations table
         if (Book.abbreviationList !== undefined) {
@@ -218,6 +235,7 @@ export class Book {
         }
     }
 }
+//mm }
 
 //if ( traceBook ) console.log('ready to load');
 //Book.load(theBible);

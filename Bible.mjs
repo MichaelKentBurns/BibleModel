@@ -1,17 +1,18 @@
-//
-//  Class:  Bible
-//
-//  An online version of a Study Bible.
-// This is the top level (primary) class that represents a web based study Bible.
-//
-//  Responsibilities:
-//      Provide access to all contained parts.
-//
-//  Collaborators:
-//      Testaments - a sequence of Holy texts from different faith communities,
-//                  specifically Judaism and Christianity.
-//      Books - a sequence of writings by various authors that constitutes the Holy Canon of a faith.
-//
+//mm
+//mm  Class:  Bible
+//mm
+//mm  An online version of a Study Bible.
+//mm This is the top level (primary) class that represents a web based study Bible.
+//mm
+//mm  Responsibilities:
+//mm      Provide access to all contained parts.
+//mm
+//mm  Collaborators:
+//mm      Testaments - a sequence of Holy texts from different faith communities,
+//mm                  specifically Judaism and Christianity.
+//mm      Books - a sequence of writings by various authors that constitutes the Holy Canon of a faith.
+//mm
+//mm classDiagram
 
 const traceBible = true;  // Set this true to have the inner workings of this class traced to console log.
 const useHttp2 = false;
@@ -73,48 +74,78 @@ let numBibles = 0;
 let allBibles = [];
 
 //- - - - - - - - - - - begin Class definition - - - - - - - - - - -
+//mm    class Bible {
 export class Bible {
     constructor() {
         numBibles += 1;   // count them all
+        // Private ///////////////////////  Only used by this class itself
+        //mm  -bibleNumber   // ordinal among all of the Bibles loaded
         this.bibleNumber = numBibles;  // each is numbered sequentially
         if ( traceBible ) console.log("Bible.mjs - Bible #", this.bibleNumber, " created");
         allBibles.push(this);
-
+        //mm  -libraryPath
         this.libraryPath = undefined;
-        this.books = [];                  // array of the books of the Bible.
+
         this.promiseWaitIteration = 0;
         this.booksComplete = false;       // true once the books have been loaded into array.
         this.booksReadError = undefined;  // if it fails, this is why
         this.bookInitialized = false;     // signal that books are ready.
 
-        this.xrefs = [];                  // array of cross references 
-        this.xrefsComplete = false;       // true when cross refs are all loaded 
-        this.xrefInitialized = false;     // they are ready to be used
+        // Protected /////////// Only to be used by other classes in this package
 
         this.bibleInitialized = false;    // basic setup is complete and ready for further requests.
+        this.xrefsComplete = false;       // true when cross refs are all loaded
+        this.xrefInitialized = false;     // they are ready to be used
+
+        // Public  ////////////////////////////////  Can be used by code outside this package
+        //mm   +String  translationCode
+        this.translationCode = undefined;
+        //mm   +String  translationName
+        this.translationName = undefined;
+        //mm   +Testament[] testaments
+        this.testaments = []
+        //mm   +Book[] books
+        this.books = [];                  // array of the books of the Bible.
+        //mm   +Xrefs[] Xref              // array of cross references
+        this.xrefs = [];                  // array of cross references
+
+        //mm   +DataSource dSource          // database containing persisted data
         this.dSource = new DataSource();
     }
 
-
+    //mm ///// statics - medhods belonging to the class, not an instance  ed.  Bible.getBible()
+    //mm  getBible()$    // returns the singleton Bible
     static getBible() {
         return theBible;
     }
 
-    getBooks() {
-        return this.books;
-    }
-
+    //mm  getBibleNumber(n)$  // returns the nth Bible open
     static getBibleNumber(n) {
         if ( n > 0 && n < numBibles )
             return allBibles[n-1];
         else return null;
     }
 
+    //mm  getNumberOfBibles()$ number     // returns the number of open Bibles
     static getNumberOfBibles() {
         return numBibles;
     }
 
+    //mm ///// instance methods - belong to a specific Bible   eg.  aBible.getBooks()
+    //mm +getBooks()   Book[]   // returns array of all the books
+    getBooks() {
+        return this.books;
+    }
+
+
+    //mm ~addTestament(testament)  // add a new testament to the Bible
+    addTestament(testament) {
+        this.testaments.push(testament);
+        if (traceBible) console.log('Bible.mjs Testament added: ' + testament);
+    }
+
     // called from book loading to add each book to the collection of books
+    //mm ~addBook(book)  // add a new book to the Bible
     addBook(book) {
         this.books.push(book);
         if (traceBible) console.log('Bible.mjs Book added: ' + book.name + ' added to Bible #' + this.bibleNumber);
@@ -125,13 +156,13 @@ export class Bible {
 
     }
 
-    // called from cross reference loading to add a new xref to the list
+    //mm ~addXref(xref)  // called from cross reference loading to add a new xref to the list
     addXref(xref) {
         this.xrefs.push(xref);
         if (traceBible) console.log('Bible.mjs Xref added: ' + xref);
     }
 
-    // Called during Bible init to trigger loading of the various components. 
+    //mm ~loadAll()    // Called during Bible init to trigger loading of the various components.
     loadAll() {
         // Books get loaded first 
         if (traceBible) console.log('Bible.mjs LoadAll() Loading books...');
@@ -153,6 +184,7 @@ export class Bible {
     // state machine diagram.
     // The function is coded here but obviously does not run until
     // the function is called below.
+    //mm  -stateMachine()       // starts or continues execution of state machine
     stateMachine = async function stateMachine() {
         if (traceBible) console.log('Bible.mjs =====================  stateMachine() beginning time=', performance.now(), ' state=', state, ' iteration=', iteration);
         // = = = = = = = = = = = Begin state machine logic = = = = = = = = = = = = = = = =
@@ -321,7 +353,7 @@ if (state == state_shutdown) {
     if (traceBible) console.log('Bible.mjs abnormal shutdown.');
     process.abort();
 }
-
+//mm }
 
 // - - - - - - - - - - - - 
 export default {
