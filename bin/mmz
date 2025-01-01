@@ -1,0 +1,22 @@
+#!/usr/bin/zsh
+## mm - extract Mermaid markup from source file into .md file.
+## usage: mm <sourceFiles> 
+for source in $*; do
+   echo "@------------- extracting $source ------------------"
+   base=$source:r
+   ext=$source:e
+   echo @base=$base
+   echo @ext=$ext
+   grep '^ *//mm' $source | sed 's?//mm??' >$base.mdTmp
+   nLines=`wc -l <$base.mdTmp`
+   echo @nLines=$nLines
+   if (($nLines == 0)); then
+     echo @None.
+     rm -f $base.mdTmp 
+   else
+     echo "@Mermaid markup extracted from $source" >$base.md
+     cat $base.mdTmp                             >>$base.md
+     mv $base.md ObjectModel 
+     rm $base.mdTmp
+   fi
+done
