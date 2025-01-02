@@ -6,7 +6,8 @@
   "scripts": {
     "testBook": "node --experimental-sqlite Book.test.mjs",
     "testBible": "node --experimental-sqlite Bible.test.mjs",
-    "testAll": "node --experimental-sqlite Book.test.mjs Bible.test.mjs",
+    "testChapter": "node --experimental-sqlite Chapter.test.mjs",
+    "testAll": "node --experimental-sqlite Book.test.mjs Bible.test.mjs Chapter.test.mjs",
     "main": "node --experimental-sqlite Bible.mjs"
   },
   "repository": {

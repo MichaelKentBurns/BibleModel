@@ -25,6 +25,7 @@ Request:\n\
 /books to receive list of books.\n\
 /bookAbbreviation to receive list of all abbreviated book names.\n\
 /book/{name} to receive a specific book.\n\
+/book/{name}/contents to receive a specific book and it\'s contents.\n\
 /stop to shut-down this server.'
                         );
             }
@@ -40,11 +41,13 @@ Request:\n\
             }
             else if (urlArray[1] === "book") {
                 const bookName = urlArray[2];
-                const book = Book.getBookByName(bookName);
-                if (book != undefined && book != null) {
+                const aBook = Book.getBookByName(bookName);
+                if (aBook != undefined && aBook != null) {
+                    if ( urlArray[3] == 'contents' ) 
+                        Book.loadContents(aBook);
                 res.writeHead(200, {"Content-Type": "application/json"});
                 res.end(
-                    JSON.stringify(book) + '\n');
+                    JSON.stringify(aBook) + '\n');
                 }
             }
             else if (urlPath === "/bookAbbreviations") {

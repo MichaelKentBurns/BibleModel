@@ -1,4 +1,6 @@
 
+import {Book} from './Book.mjs';  // makes promiseToReadBooks
+
 //mm # Class:  Chapter
 //mm
 //mm A somewhat arbitrary sequence of Verses that are a logical subdivision of a Book.

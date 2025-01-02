@@ -23,7 +23,7 @@
 const traceBook = true;
 if (traceBook) console.log('Book.mjs initializing.');
 import fs from 'node:fs';
-import Chapter from './Chapter.mjs';
+import { Chapter } from './Chapter.mjs';
 
 let allBooks;  // array of books loaded
 // In saveBooks below we cache the list of books in a JSON file.
@@ -77,10 +77,6 @@ export class Book {
             this.nChapters = row.chapters;
             //mm +Chapter chapters[]
             this.chapters = [];
-            for ( let chapterNum = 1; chapterNum < this.nChapters; chapterNum++ ) {
-                newChapter = new Chapter(this,chapterNum);
-                this.chapters.push( newChapter );
-            }
         }
         else
         {
@@ -91,6 +87,15 @@ export class Book {
             this.nChapters = 0;
             this.chapters = [];
         }
+    }
+
+    loadMyContents() {
+        if ( traceBook )  console.log("Book.mjs - Loading contents of Book #", this.ordinal, " ", this.name , " has ", this.nChapters, " chapters.");
+        // for ( let chapterNum = 1; chapterNum < this.nChapters; chapterNum++ ) {
+        //     newChapter = new Chapter(this,chapterNum);
+        //     this.chapters.push( newChapter );
+        // }
+        // if ( traceBook )  console.log("Book.mjs - results: ", this);
     }
 
     //mm Bible theBible$   // first and possibly only Bible loaded
@@ -121,6 +126,18 @@ export class Book {
         this.theBible = aBible;
     }
 
+    //mm ~loadConetnts(aBook)$   
+    static loadContents(aBook) {
+       // aBook.loadMyContents();
+       if ( traceBook )  console.log("Book.mjs - Loading contents of Book #", aBook.ordinal, " ", aBook.name ,
+               " has ", aBook.nChapters, " chapters.");
+    //    for ( let chapterNum = 1; chapterNum < aBook.nChapters; chapterNum++ ) {
+    //        newChapter = new Chapter(aBook,chapterNum);
+    //        aBook.chapters.push( newChapter );
+    //    }
+       if ( traceBook )  console.log("Book.mjs - results: ", aBook);
+        return aBook;
+    }
     //mm ~loadAll(aBible)$   // loads all books into the specified Bible
     static loadAll(aBible) {
         let databaseError = undefined;
@@ -258,6 +275,5 @@ if (Book.theBible !== undefined) theBible.bookInitialized = true;
 if (traceBook) console.log('Book.mjs initialized.');
 
 export default {
-    Book //, loadAll
-    //   setBible
+    Book
 };
