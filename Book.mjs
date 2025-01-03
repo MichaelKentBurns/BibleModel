@@ -23,7 +23,7 @@
 const traceBook = true;
 if (traceBook) console.log('Book.mjs initializing.');
 import fs from 'node:fs';
-import { Chap } from './Chapter.mjs';
+import { Chapter } from './Chapter.mjs';
 
 let allBooks;  // array of books loaded
 // In saveBooks below we cache the list of books in a JSON file.
@@ -132,7 +132,7 @@ export class Book {
        if ( traceBook )  console.log("Book.mjs - Loading contents of Book #", aBook.ordinal, " ", aBook.name ,
                " has ", aBook.nChapters, " chapters.");
        for ( let chapterNum = 1; chapterNum < aBook.nChapters; chapterNum++ ) {
-           let newChapter = new Chap(aBook,chapterNum);
+           let newChapter = new Chapter(aBook,chapterNum);
            aBook.chapters.push( newChapter );
        }
        if ( traceBook )  console.log("Book.mjs - results: ", aBook);

@@ -39,7 +39,7 @@ import {Book} from './Book.mjs';  // makes promiseToReadBooks
 //mm classDiagram
 //mm 
 //mm    class Chapter {     
-export class Chap {
+export class Chapter {
     constructor(book,chapterNumber) {
         //mm +Book book;  // The book that this chapter is part of.
         this.bookNumber = book.bookNumber;
@@ -65,5 +65,5 @@ export class Chap {
 //mm ```
 
 export default{
-    Chap: Chap
+    Chap: Chapter
 };
