@@ -6,15 +6,6 @@
     "configurations": [
         
         {
-            "name": "Launch Animal example",
-            "program": "${workspaceFolder}/testLibrary/Animal.mjs",
-            "request": "launch",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "node"
-        },
-        {
             "name": "debug Bible.mjs",
             "request": "launch",
             "runtimeArgs": [
@@ -28,57 +19,65 @@
             "type": "node"
         },
         {
+            "command": "npm run testBible",
+            "name": "testBible",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+
+        {
+            "command": "npm run testBook",
+            "name": "testBook",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
+            "command": "npm run testChapter",
+            "name": "testChapter",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+
+        {
+            "command": "npm run testAll",
+            "name": "testAll",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+
+        {
+            "command": "npm run testStar",
+            "name": "testStar",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
             "command": "npm start",
             "name": "Run npm start",
             "request": "launch",
             "type": "node-terminal"
         },
         {
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/app.js",
-            "request": "launch",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "node"
-        },
-
-        {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Launch Bible.mjs ?",
             "skipFiles": [
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/Bible.mjs"
         },
         {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch fetchDemo1.js",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}/newTestLibrary/fetchDemo1.js"
-        },
-        {
-            "name": "Launch books.html",
+            "name": "Open books.html",
             "type": "chrome",
             "request": "launch",
             "file": "${workspaceFolder}/books.html"
         },
 
         {
-            "name": "Launch new and improved books2.html",
+            "name": "Open new and improved books2.html",
             "type": "chrome",
             "request": "launch",
             "file": "${workspaceFolder}/books2.html"
-        },
-        {
-            "name": "Launch fetch tests.html",
-            "type": "chrome",
-            "request": "launch",
-            "file": "${workspaceFolder}/testLibrary/fetch/fetchAPI1.html"
         }
     ]
 }

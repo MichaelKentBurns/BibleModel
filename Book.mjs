@@ -20,7 +20,7 @@
 //mm ```mermaid
 //mm classDiagram
 
-const traceBook = true;
+const traceBook = false;
 if (traceBook) console.log('Book.mjs initializing.');
 import fs from 'node:fs';
 import { Chapter } from './Chapter.mjs';

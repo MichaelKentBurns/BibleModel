@@ -122,7 +122,7 @@ export class Bible {
 
     //mm  getBibleNumber(n)$  // returns the nth Bible open
     static getBibleNumber(n) {
-        if ( n > 0 && n < numBibles )
+        if ( n > 0 && n <= numBibles )
             return allBibles[n-1];
         else return null;
     }

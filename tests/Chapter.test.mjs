@@ -1,8 +1,10 @@
 
 import test from 'node:test';
-import { Book } from './Book.mjs';
 import * as assert from "node:assert";
-import {Bible} from "./Bible.mjs";
+import {Bible} from "../Bible.mjs";
+import { Book } from '../Book.mjs';
+import {Chapter} from "../Chapter.mjs";
+
 
 const ordinal = 40;
 const name = "Matthew";
@@ -40,3 +42,11 @@ test('find Matthew by name and an abbreviation', () => {
     assert.equal(matthewByName.order,matthewByAbbreviation.order);
 })
 
+test('Add a chapter to Matthew',  () => {
+    const chapter1 = new Chapter(theBook,1);
+    theBook.chapters.push(chapter1);
+    chapter1.addNote("Matthew's gospel proves that Jesus is Messiah, the Christ");
+  //  chapter1.caption("The beginning of the story...")
+    console.log("The Chapter: ",chapter1);
+    console.log("The Book: ", theBook);
+});

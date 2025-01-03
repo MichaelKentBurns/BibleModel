@@ -4,10 +4,12 @@
   "description": "database model for the Bible",
   "main": "Bible.mjs",
   "scripts": {
-    "testBook": "node --experimental-sqlite Book.test.mjs",
-    "testBible": "node --experimental-sqlite Bible.test.mjs",
-    "testChapter": "node --experimental-sqlite Chapter.test.mjs",
-    "testAll": "node --experimental-sqlite Book.test.mjs Bible.test.mjs Chapter.test.mjs",
+    "testBook": "node --experimental-sqlite tests/Book.test.mjs",
+    "testBible": "node --experimental-sqlite tests/Bible.test.mjs",
+    "testChapter": "node --experimental-sqlite tests/Chapter.test.mjs",
+    "testAll": "node --experimental-sqlite tests/Bible.test.mjs tests/Book.test.mjs tests/Chapter.test.mjs",
+    "testStar": "node --experimental-sqlite tests/*.test.mjs",
+
     "main": "node --experimental-sqlite Bible.mjs"
   },
   "repository": {
