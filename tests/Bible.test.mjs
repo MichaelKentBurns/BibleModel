@@ -3,6 +3,9 @@ import test from 'node:test';
 import * as assert from "node:assert";
 
 import { Bible } from '../Bible.mjs';
+import { HttpServer } from '../HttpServer.mjs';
+
+
 let bible1 = undefined;
 let bible2 = undefined;
 
@@ -22,4 +25,8 @@ test('Create a second Bible and see if books are loaded', () => {
 	bible2.loadAll();
 //	assert.ok(bible2.promiseToLoadBooks)  // promise is no longer need with DatabaseSync
 	assert.ok(bible2.booksComplete)
+});
+
+test('Stop the http server', () => {
+    HttpServer.stopServer();
 });

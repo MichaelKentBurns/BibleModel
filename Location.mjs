@@ -1,8 +1,11 @@
 
-const million     	= 1_000_000;
-const allVerses     =       999;
-const allChapters   =   999_999;
-const thousand 	  	=     1_000;
+const million     	 = 1_000_000;
+const allVerses      =       999;
+const allChapters    =   999_999;
+const thousand 	  	 =     1_000;
+const bookPathIdx    = 0
+const chapterPathIdx = 1
+const versePathIdx   = 2
 
 function idToBPath(id){
 	let millions =  Math.trunc( id / million );
@@ -16,7 +19,7 @@ function idToBPath(id){
 }
 
 
-class Location {
+export class Location {
 
     constructor(name,id) {
         this.name 	= name;
@@ -24,9 +27,32 @@ class Location {
 		this.path	= idToBPath(id);
 	}
 
+	getId() {
+		if (this.id == undefined) {
+			this.id = 0;
+			if (this.path[0]) this.id += ( this.path[0] * million );
+			if (this.path[1]) this.id += ( this.path[1] * thousand );
+			if (this.path[2]) this.id += ( this.path[2]  );
+		}
+		return this.id;
+	}
+
+	setBook(bookNumber) {
+         this.path[bookPathIdx] = bookNumber;
+	}
+
+	setChapter(chapterNumber) {
+		this.path[chapterPathIdx = chapterNumber];
+   }
+
+	setVerse(verseNumber) {
+		this.path[versePathIdx] = verseNumber;
+   }
+
 	path() {
 		return this.path;
 	}
+
 	cpath(id){
 		let millions =  Math.trunc( id / million );
 		let thousands = Math.trunc(  ( id % million ) / thousand );
@@ -39,7 +65,7 @@ class Location {
 	}
 }
 
-class Passage {
+export class Passage {
 
     constructor( name, startLoc, endLoc) {
         this.name 	= name;

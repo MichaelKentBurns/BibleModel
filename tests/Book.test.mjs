@@ -3,6 +3,9 @@ import test from 'node:test';
 import { Book } from '../Book.mjs';
 import * as assert from "node:assert";
 import {Bible} from "../Bible.mjs";
+import {Location} from "../Location.mjs";
+import { HttpServer } from '../HttpServer.mjs';
+
 
 const ordinal = 40;
 const name = "Matthew";
@@ -26,6 +29,9 @@ test('Check the attributes', () => {
     assert.strictEqual(theBook.title,title);
     assert.strictEqual(theBook.category,cat);
     assert.strictEqual(theBook.nChapters,nChapters);
+    assert.notEqual(theBook.location,null);
+    assert.strictEqual(theBook.location.id,40_000_000);
+
 });
 
 test('find Matthew by name and an abbreviation', () => {
@@ -38,5 +44,11 @@ test('find Matthew by name and an abbreviation', () => {
     let matthewByAbbreviation = Book.getBookByName(abbreviation);
     assert.ok(matthewByAbbreviation);
     assert.equal(matthewByName.order,matthewByAbbreviation.order);
+    assert.notEqual(matthewByAbbreviation.location,null);
+    assert.strictEqual(matthewByAbbreviation.location.id,40_000_000);
 })
+
+test('Stop the http server', () => {
+    HttpServer.stopServer();
+});
 

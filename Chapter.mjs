@@ -1,5 +1,7 @@
 
 import {Book} from './Book.mjs';  // makes promiseToReadBooks
+import { Location } from './Location.mjs';
+
 
 //mm # Class:  Chapter
 //mm

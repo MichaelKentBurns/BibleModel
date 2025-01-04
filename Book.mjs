@@ -24,6 +24,8 @@ const traceBook = false;
 if (traceBook) console.log('Book.mjs initializing.');
 import fs from 'node:fs';
 import { Chapter } from './Chapter.mjs';
+import { Location } from './Location.mjs';
+
 
 let allBooks;  // array of books loaded
 // In saveBooks below we cache the list of books in a JSON file.
@@ -65,8 +67,6 @@ class BookAbbreviation {
 export class Book {
     constructor(row) {
         if ( row ) {
-            //mm +Location location;   // location within the Bible
-            this.location = new Location();      
             //mm +integer ordinal;     // ordinal among all Books in a Bible
             this.ordinal = row.order;
             //mm +String name  // short and unique name of the book
@@ -79,6 +79,11 @@ export class Book {
             this.nChapters = row.chapters;
             //mm +Chapter chapters[]
             this.chapters = [];
+
+            //mm +Location location;   // location within the Bible
+            this.location = new Location();      
+            this.location.setBook(this.ordinal);
+            this.location.getId();  // establishes id from path. 
         }
         else
         {

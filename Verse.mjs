@@ -1,3 +1,4 @@
+import { Location } from './Location.mjs';
 
 //mm # Class: Verse
 //mm

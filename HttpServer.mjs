@@ -17,7 +17,7 @@ export class HttpServer {
             const urlPath = req.url;
             const urlArray = urlPath.split("/");
             if ( traceHttpServer) console.log("HttpServer: url=" + urlPath);
-            if (urlPath === "/overview") {
+            if (urlPath === "/overview"|| urlPath === "/" ) {
                 res.end(
 'Welcome to the "overview page" of the BibleModel REST server.\n\
 Request:\n\
@@ -57,24 +57,34 @@ Request:\n\
             }
             else if (urlPath === "/stop") {
                 res.end("BibleModel REST server stopping.");
-                 // Close the server after 10 seconds
-                    setTimeout(() => {
-                        HttpServer.server.close(() => {
-                            console.log('BibleModel REST server on port ',HttpServer.port,' closed successfully');
-                        });
-                    }, 10000);
+                this.stopServer();
             }
             else {
                 res.writeHead(404, {"Content-Type": "text/plain"});
                 res.end("Page Not Found\n");
             }
         });
+        console.log("HttpServer - started.")
+        console.log(HttpServer.server);
     }
 
     static activateServer() {
         HttpServer.server.listen( HttpServer.port, "localhost", () => {
                     console.log( "Listening for request on port ", HttpServer.port );
         });
+    }
+
+    static stopServer() {
+        console.log("HttpServer being asked to stop.");
+
+                 // Close the server after 10 seconds
+                 setTimeout(() => {
+                    HttpServer.server.close(() => {
+                        console.log('BibleModel REST server on port ',HttpServer.port,' closed successfully');
+                    });
+                }, 5000);
+        console.log("HttpServer should be stopped now.");
+    
     }
 
 }

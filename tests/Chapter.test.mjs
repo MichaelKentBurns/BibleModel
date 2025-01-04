@@ -4,7 +4,7 @@ import * as assert from "node:assert";
 import {Bible} from "../Bible.mjs";
 import { Book } from '../Book.mjs';
 import {Chapter} from "../Chapter.mjs";
-
+import { HttpServer } from '../HttpServer.mjs';
 
 const ordinal = 40;
 const name = "Matthew";
@@ -49,4 +49,8 @@ test('Add a chapter to Matthew',  () => {
   //  chapter1.caption("The beginning of the story...")
     console.log("The Chapter: ",chapter1);
     console.log("The Book: ", theBook);
+});
+
+test('Stop the http server', () => {
+    HttpServer.stopServer();
 });
