@@ -39,6 +39,11 @@ export class Chapter {
         this.notes = []; 
         //mm +Verse[] verses   // an array of enclosed verses.
         this.verses = [];
+
+        this.location.setBook(book.bookNumber);
+        this.location.setChapter(this.chapterNumber);
+        this.location.getId();  // establishes id from path. 
+
     }
     addNote(aNote) {
         this.notes.push(aNote);

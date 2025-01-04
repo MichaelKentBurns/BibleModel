@@ -3,9 +3,9 @@ const million     	 = 1_000_000;
 const allVerses      =       999;
 const allChapters    =   999_999;
 const thousand 	  	 =     1_000;
-const bookPathIdx    = 0
-const chapterPathIdx = 1
-const versePathIdx   = 2
+const bookPathIdx    = 0;
+const chapterPathIdx = 1;
+const versePathIdx   = 2;
 
 function idToBPath(id){
 	let millions =  Math.trunc( id / million );
@@ -42,7 +42,7 @@ export class Location {
 	}
 
 	setChapter(chapterNumber) {
-		this.path[chapterPathIdx = chapterNumber];
+		this.path[chapterPathIdx] = chapterNumber;
    }
 
 	setVerse(verseNumber) {

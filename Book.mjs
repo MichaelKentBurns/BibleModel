@@ -69,6 +69,8 @@ export class Book {
         if ( row ) {
             //mm +integer ordinal;     // ordinal among all Books in a Bible
             this.ordinal = row.order;
+            //mm +integer bookNumber;   // same as ordinal
+            this.bookNumber = row.order;
             //mm +String name  // short and unique name of the book
             this.name = row.title_short;
             //mm +String title  // longer descriptive name of the book
