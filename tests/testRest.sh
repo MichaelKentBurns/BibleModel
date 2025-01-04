@@ -13,7 +13,7 @@ curl http://localhost:3001/bookAbbreviations
 echo "======== Get the first book of the new testament:"
 curl http://localhost:3001/book/Matthew
 
-echo "======== Get the first book of the new testament and it's contents::"
+echo "======== Get the first book of the new testament and it's contents:"
 curl http://localhost:3001/book/Matthew/contents
 
 echo "======== Get the first book of the old testament:"

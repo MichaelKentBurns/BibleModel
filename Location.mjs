@@ -1,7 +1,7 @@
 
 const million     	= 1_000_000;
-const allVerses     	=       999;
-const allChapters   	=   999_999;
+const allVerses     =       999;
+const allChapters   =   999_999;
 const thousand 	  	=     1_000;
 
 function idToBPath(id){

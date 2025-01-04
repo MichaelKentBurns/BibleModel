@@ -46,7 +46,7 @@ if (readBooksJson) {
     }
 }
 
-//mm  class BookAbbreviation{     // internal class for book name abbreviations
+//mm  class BookAbbreviation {     // internal class for book name abbreviations
 class BookAbbreviation {
     constructor(row) {
         //mm ~integer id
@@ -65,7 +65,9 @@ class BookAbbreviation {
 export class Book {
     constructor(row) {
         if ( row ) {
-            //mm +integer ordinal   // ordinal among all Books in a Bible
+            //mm +Location location;   // location within the Bible
+            this.location = new Location();      
+            //mm +integer ordinal;     // ordinal among all Books in a Bible
             this.ordinal = row.order;
             //mm +String name  // short and unique name of the book
             this.name = row.title_short;
@@ -263,9 +265,14 @@ export class Book {
 
         }
     }
-}
-//mm   }
+//mm }
+//mm Bible *-- Book
+//mm Book *-- Chapter
+//mm Chapter *-- Verse
+//mm Book *-- Note
 //mm ```
+
+}
 
 //if ( traceBook ) console.log('ready to load');
 //Book.load(theBible);

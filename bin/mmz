@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/usr/bin/env zsh
 ## mm - extract Mermaid markup from source file into .md file.
 ## usage: mm <sourceFiles> 
 for source in $*; do

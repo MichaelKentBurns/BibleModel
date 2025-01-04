@@ -3,7 +3,9 @@ import {Book} from './Book.mjs';  // makes promiseToReadBooks
 
 //mm # Class:  Chapter
 //mm
-//mm A somewhat arbitrary sequence of Verses that are a logical subdivision of a Book.
+//mm A sequence of verses, usually a logical division of the text.
+//mm Chapter divisions are NOT part of the inspired holy text, but were imposed by
+//mm copyists to break the text into more manageable parts.
 //mm 
 //mm ## Responsibilities: 
 //mm One of a collection of Chapters that make up a Book.  Identified by a number starting with 1.
@@ -16,24 +18,6 @@ import {Book} from './Book.mjs';  // makes promiseToReadBooks
 //mm * Note - A textual note associated with any other object in the model.
 //mm * Xref -  A cross reference between two objects with locations in the Bible.
 //mm * Verse - Chapter contains a sequence of verses. 
-//mm 
-//mm ```mermaid
-//mm classDiagram
-//mm
-//mm # Class: Chapter
-//mm
-//mm A sequence of verses, usually a logical division of the text.
-//mm Chapter divisions are NOT part of the inspired holy text, but were imposed by
-//mm copyists to break the text into more manageable parts.
-//mm 
-//mm ## Responsibilities:
-//mm * author - the name of the person considered to have written it.
-//mm * number - a sequence number in the book
-//mm * Provides access to verses by number or a range of numbers.
-//mm 
-//mm ## Collaborators:
-//mm * book - the book that contains this chapter
-//mm * verses - a numbered sequence of verses
 //mm
 //mm ```mermaid
 //mm classDiagram
@@ -41,15 +25,17 @@ import {Book} from './Book.mjs';  // makes promiseToReadBooks
 //mm    class Chapter {     
 export class Chapter {
     constructor(book,chapterNumber) {
-        //mm +Book book;  // The book that this chapter is part of.
+        //mm +Location location    // Location within the Bible.
+        this.location = new Location();      
+        //mm +integer bookNumber  // The book that this chapter is part of.
         this.bookNumber = book.bookNumber;
-        //mm +integer chapterNumber; 
+        //mm +integer chapterNumber // The chapter number within the book
         this.chapterNumber = chapterNumber;
-        //mm +String caption;   // A short caption for the chapter.
+        //mm +String caption   // A short caption for the chapter.
         this.caption = "";
-        //mm +Note[] notes;     // descriptive notes.
+        //mm +Note[] notes    // descriptive notes.
         this.notes = []; 
-        //mm +Verse[] verses;   // an array of enclosed verses.
+        //mm +Verse[] verses   // an array of enclosed verses.
         this.verses = [];
     }
     addNote(aNote) {
@@ -60,8 +46,9 @@ export class Chapter {
         aVerse.chapter = this;
     }
 }
-//mm Book *== Chapter
-//mm Chapter *== Verse
+//mm }
+//mm Book *-- Chapter
+//mm Chapter *-- Verse
 //mm ```
 
 export default{

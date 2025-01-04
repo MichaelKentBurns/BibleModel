@@ -1,64 +1,87 @@
-//
-// Class: Verse
-//
-// A sequence of words and punctuation usually forming one or more sentences.
-//
-// Responsibilities:
-//      number - the sequence number within the chapter
-//      text - the text of the verse.
-//
-// Collaborators:
-//      chapter - the chapter that this verse belongs in.
-//      xrefs - one or more cross-references originating with this verse.
-//      footnotes - usually one, but possibly more footnotes that pertain to this verse.
-//
+
+//mm # Class: Verse
+//mm
+//mm A sequence of words and punctuation usually forming one or more sentences.
+//mm
+//mm ## Responsibilities:
+//mm * number - the sequence number within the chapter
+//mm * text - the text of the verse.
+//mm
+//mm ## Collaborators:
+//mm * chapter - the chapter that this verse belongs in.
+//mm * xrefs - one or more cross-references originating with this verse.
+//mm * footnotes - usually one, but possibly more footnotes that pertain to this verse.
+//mm ```mermaid
+//mm classDiagram
+//mm    class Verse {
 
 //- - - - - - - - - - - begin Class definition - - - - - - - - - - -
-class Verse {
+export class Verse {
     constructor() {
-        this.number = 0;
+        //mm +Location location     // Location within the Bible.
+        this.location = new Location();      
+        //mm +integer verseNumber  // The verse number within the chapter.
+        this.verseNumber = 0;
+        //mm +String text        // The actual text of the verse.
         this.text = '';
-        this.chapter = undefined;
+        //mm +integer chapterNumber  // The chapter number within the book.
+        this.chapterNumber;
+        //mm +Xref[] xrefs      // array of cross references
         this.xrefs = [];
+        //mm +Note[] footnotes  // array of footnotes
         this.footnotes = [];
     }
 
-    Number(anInteger) {
-        this.number = anInteger;
+    setVerseNumber(anInteger) {
+        this.verseNumber = anInteger;
     }
-    Number() {
-        return this.number;
+    verseNumber() {
+        return this.verseNumber;
     }
 
-    Text(someText) {
+    setText(someText) {
         this.text = someText;
     }
-    Text() {
+    text() {
         return this.text;
     }
 
-    Chapter(aChapter) {
+    setChapter(aChapter) {
         this.chapter = aChapter;
     }
-    Chapter() {
+
+    chapterNumber() {
+        return this.chapterNumber;
+    }
+
+    chapter() {
         return this.chapter;
     }
 
-    AddXref(anXref) {
+    addXref(anXref) {
         this.xrefs.push(xref);
     }
-    Xrefs() {
+
+    xrefs() {
         return this.xrefs;
     }
 
-    AddFootnote(aFootnote) {
+    addFootnote(aFootnote) {
         this.footnotes.push(aFootnote);
     }
-    Footnotes() {
+
+    footnotes() {
         return this.footnotes;
     }
 
 }
+//mm }
+//mm Bible *-- Book
+//mm Book *-- Chapter
+//mm Chapter *-- Verse
+//mm Verse *-- Note
+//mm Verse *-- Xref 
+//mm ```
 //- - - - - - - - - - - end Class definition - - - - - - - - - - -
 
 export default { Verse };
