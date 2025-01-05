@@ -1,6 +1,8 @@
 
-import {Book} from './Book.mjs';  // makes promiseToReadBooks
+import { Book } from './Book.mjs';  // makes promiseToReadBooks
 import { Location } from './Location.mjs';
+import { Verse } from './Verse.mjs';
+
 
 
 //mm # Class:  Chapter
@@ -26,9 +28,9 @@ import { Location } from './Location.mjs';
 //mm 
 //mm    class Chapter {     
 export class Chapter {
-    constructor(book,chapterNumber) {
+    constructor(book, chapterNumber) {
         //mm +Location location    // Location within the Bible.
-        this.location = new Location();      
+        this.location = new Location();
         //mm +integer bookNumber  // The book that this chapter is part of.
         this.bookNumber = book.bookNumber;
         //mm +integer chapterNumber // The chapter number within the book
@@ -36,7 +38,7 @@ export class Chapter {
         //mm +String caption   // A short caption for the chapter.
         this.caption = "";
         //mm +Note[] notes    // descriptive notes.
-        this.notes = []; 
+        this.notes = [];
         //mm +Verse[] verses   // an array of enclosed verses.
         this.verses = [];
 
@@ -45,19 +47,27 @@ export class Chapter {
         this.location.getId();  // establishes id from path. 
 
     }
+
     addNote(aNote) {
         this.notes.push(aNote);
     }
     addVerse(aVerse) {
+        aVerse.chapterNumber = this.chapterNumber ;
         this.verses.push(aVerse);
-        aVerse.chapter = this;
     }
+
+    //mm ~loadConetnts(aChapter)$   
+    static loadContents(aChapter) {
+        Verse.loadAll(aChapter);
+        return aChapter;
+    }
+
 }
 //mm }
 //mm Book *-- Chapter
 //mm Chapter *-- Verse
 //mm ```
 
-export default{
+export default {
     Chap: Chapter
 };

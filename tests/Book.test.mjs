@@ -13,6 +13,7 @@ const abbreviation = "Mt";
 const cat = "New Testament Narrative";
 const title = "The Gospel According to Matthew";
 const nChapters = 28;
+let matthewByName;
 
 const row = {"order":ordinal,"title_short":name,"title_full":title,"category":cat,"chapters":nChapters};
 let theBook = new Book();
@@ -39,7 +40,7 @@ test('find Matthew by name and an abbreviation', () => {
     if ( ! Book.theBible)
         Book.theBible = new Bible();
     Book.loadAll(Book.theBible);
-    let matthewByName = Book.getBookByName(name);
+    matthewByName = Book.getBookByName(name);
     assert.ok(matthewByName);
     let matthewByAbbreviation = Book.getBookByName(abbreviation);
     assert.ok(matthewByAbbreviation);
@@ -47,6 +48,12 @@ test('find Matthew by name and an abbreviation', () => {
     assert.notEqual(matthewByAbbreviation.location,null);
     assert.strictEqual(matthewByAbbreviation.location.id,40_000_000);
 })
+
+test('Load all chapters and verse for Matthew', () => {
+    Book.loadContents(matthewByName);
+    console.log("Matthew Contents: ", matthewByName );
+    
+});
 
 test('Stop the http server', () => {
     HttpServer.stopServer();

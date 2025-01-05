@@ -143,6 +143,7 @@ export class Book {
        for ( let chapterNum = 1; chapterNum < aBook.nChapters; chapterNum++ ) {
            let newChapter = new Chapter(aBook,chapterNum);
            aBook.chapters.push( newChapter );
+           Chapter.loadContents(newChapter);
        }
        if ( traceBook )  console.log("Book.mjs - results: ", aBook);
         return aBook;
