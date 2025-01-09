@@ -24,7 +24,12 @@
             "request": "launch",
             "type": "node-terminal"
         },
-
+        {
+            "command": "npm run main",
+            "name": "main",
+            "request": "launch",
+            "type": "node-terminal"
+        },
         {
             "command": "npm run testBook",
             "name": "testBook",

@@ -54,6 +54,7 @@ const config = JSON.parse(configData);
 
 // - - - - - - - - - - Initialize other modules. 
 if (traceBible) console.log('Bible.mjs Initializing');
+import {Version} from './Version.mjs';
 import {Book} from './Book.mjs';  // makes promiseToReadBooks
 import { DataSource } from './DataSource.mjs';
 // import Location from './Location.mjs';
@@ -73,6 +74,8 @@ function sleep(ms) {
 let theBible;   // The Bible class is a singleton and the root of the whole data model.
 let numBibles = 0;
 let allBibles = [];
+let defaultBible = undefined;
+let defaultBibleTableName = undefined;
 
 //- - - - - - - - - - - begin Class definition - - - - - - - - - - -
 //mm    class Bible {
@@ -85,7 +88,7 @@ export class Bible {
         if ( traceBible ) console.log("Bible.mjs - Bible #", this.bibleNumber, " created");
         allBibles.push(this);
         //mm  -libraryPath
-        this.libraryPath = undefined;
+        this.bibleLibraryPath = undefined;
 
         this.promiseWaitIteration = 0;
         this.booksComplete = false;       // true once the books have been loaded into array.
@@ -112,6 +115,8 @@ export class Bible {
 
         //mm   +DataSource dSource          // database containing persisted data
         this.dSource = new DataSource();
+        //mm   +Object  config            // preferences configuration
+        this.config = config;
     }
 
     //mm ///// statics - medhods belonging to the class, not an instance  ed.  Bible.getBible()
@@ -165,7 +170,21 @@ export class Bible {
 
     //mm ~loadAll()    // Called during Bible init to trigger loading of the various components.
     loadAll() {
-        // Books get loaded first 
+
+        // If versions are not already load them, then do it once. 
+        let currentVersions = Version.getVersions();
+        if ( currentVersions == undefined || currentVersions.length == 0 ) {
+            Version.loadAll();
+            currentVersions = Version.getVersions();
+            if ( config.Translation != undefined )
+            {
+                let translation = config.Translation;
+                defaultBible = Version.getVersionNamed(translation);
+                defaultBibleTableName = Version.getVersionNamedTableName(translation);
+            }
+        }
+
+        // Books get loaded
         if (traceBible) console.log('Bible.mjs LoadAll() Loading books...');
         this.booksComplete = false;
         this.booksReadError = Book.loadAll(theBible);
@@ -330,11 +349,11 @@ if (state == state_init) {
     theBible = new Bible();
     if (traceBible) console.log('Bible.mjs singleton theBible created.');
     // A Bible requires a Library directory to store data.
-    let libraryPath = config.LibraryPath;
-    theBible.libraryPath = libraryPath;
-    if (!fs.existsSync(libraryPath)) {
-        fs.mkdirSync(libraryPath, {recursive: true});
-        if (traceBible) console.log('Bible Library directory created: ', libraryPath);
+    let MyBiblePath = config.MyBiblePath;
+    theBible.bibleLibraryPath = MyBiblePath;
+    if (!fs.existsSync(MyBiblePath)) {
+        fs.mkdirSync(MyBiblePath, {recursive: true});
+        if (traceBible) console.log('Bible Library directory created: ', MyBiblePath);
     }
 }
 

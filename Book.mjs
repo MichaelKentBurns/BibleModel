@@ -23,6 +23,7 @@
 const traceBook = false;
 if (traceBook) console.log('Book.mjs initializing.');
 import fs from 'node:fs';
+import { Bible } from './Bible.mjs';
 import { Chapter } from './Chapter.mjs';
 import { Location } from './Location.mjs';
 
@@ -31,22 +32,6 @@ let allBooks;  // array of books loaded
 // In saveBooks below we cache the list of books in a JSON file.
 // If we find it still there, this will read it in to avoid a trip to database.
 const readBooksJson = true;      // Can turn this off to avoid using the cached copy.
-const booksPath = './books.json';
-if (readBooksJson) {
-    if (fs.existsSync(booksPath)) {
-        const booksData = fs.readFileSync(booksPath, (error) => {
-            if (error) {
-                console.log('An error has occurred reading books', error);
-                return;
-            }
-            if (traceBook) console.log('Books data read successfully from disk');
-        });
-
-        if (booksData !== undefined && booksData.length > 2) {
-            allBooks = JSON.parse(booksData);
-        }
-    }
-}
 
 //mm  class BookAbbreviation {     // internal class for book name abbreviations
 class BookAbbreviation {
@@ -65,7 +50,9 @@ class BookAbbreviation {
 //mm Book *-- BookAbbreviation
 //mm  class Book {
 export class Book {
+
     constructor(row) {
+
         if ( row ) {
             //mm +integer ordinal;     // ordinal among all Books in a Bible
             this.ordinal = row.order;
@@ -133,6 +120,7 @@ export class Book {
     //mm ~setBible(aBible)$   // sets the Bible that contains this book
     static setBible(aBible) {
         this.theBible = aBible;
+        Bible.booksPath = this.theBible.bibleLibraryPath + '/books.json';
     }
 
     //mm ~loadConetnts(aBook)$   
@@ -150,6 +138,22 @@ export class Book {
     }
     //mm ~loadAll(aBible)$   // loads all books into the specified Bible
     static loadAll(aBible) {
+
+if (readBooksJson) {
+    if (fs.existsSync(Bible.booksPath)) {
+        const booksData = fs.readFileSync(Bible.booksPath, (error) => {
+            if (error) {
+                console.log('An error has occurred reading books', error);
+                return;
+            }
+            if (traceBook) console.log('Books data read successfully from disk');
+        });
+
+        if (booksData !== undefined && booksData.length > 2) {
+            allBooks = JSON.parse(booksData);
+        }
+    }
+}
         let databaseError = undefined;
 
         if (!Book.abbreviationMap) {
@@ -244,7 +248,7 @@ export class Book {
             const jsonData = JSON.stringify(theBible.books)
 
             // write JSON string to a file
-            fs.writeFile('books.json', jsonData, err => {
+            fs.writeFile(Bible.booksPath, jsonData, err => {
                 if (err) {
                     throw err
                 }
@@ -256,6 +260,8 @@ export class Book {
 
     //mm ~saveAbbreviations(theBible)$   // saves all of the book abbreviations to a json file
     static saveAbbreviations = function saveAbbreviations(theBible) {
+
+        Bible.booksAbbreviationPath = theBible.bibleLibraryPath + '/book-abbreviations.json';
         // Save the abbreviations table
         if (Book.abbreviationList !== undefined) {
             if (traceBook) console.log(Book.abbreviationList);
@@ -264,11 +270,11 @@ export class Book {
             const jsonData = JSON.stringify(Book.abbreviationList)
 
             // write JSON string to a file
-            fs.writeFile('book-abbreviations.json', jsonData, err => {
+            fs.writeFile(Bible.booksAbbreviationPath, jsonData, err => {
                 if (err) {
                     throw err
                 }
-                if (traceBook) console.log('book-abbreviations JSON data is saved.')
+                if (traceBook) console.log('book abbreviations JSON data is saved.')
             })
 
         }

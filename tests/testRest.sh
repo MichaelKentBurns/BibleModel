@@ -14,6 +14,9 @@ curl http://$url:3001/overview
 sleep 5
 curl http://localhost:3001/overview
 
+echo "======== Get the current preferences settings:"
+curl http://localhost:3001/preferences
+
 echo "======== Get the entire state of the Bible object:"
 curl http://localhost:3001/bible
 

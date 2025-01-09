@@ -3,6 +3,7 @@ const traceHttpServer = true;
 import http from 'node:http';
 import { Bible } from "./Bible.mjs";
 import { Book } from "./Book.mjs";
+import { Version } from "./Version.mjs";
 
 
 export class HttpServer {
@@ -21,6 +22,8 @@ export class HttpServer {
                 res.end(
 'Welcome to the "overview page" of the BibleModel REST server.\n\
 Request:\n\
+/preferences to receive the current preferences.\n\
+/versions to receive the list of Bible versions.\n\
 /bible to receive entire Bible current state.\n\
 /books to receive list of books.\n\
 /bookAbbreviation to receive list of all abbreviated book names.\n\
@@ -28,6 +31,16 @@ Request:\n\
 /book/{name}/contents to receive a specific book and it\'s contents.\n\
 /stop to shut-down this server.'
                         );
+            }
+            else if (urlPath === "/preferences") {
+                res.writeHead(200, {"Content-Type": "application/json"});
+                res.end(
+                    JSON.stringify( Bible.getBible().config ) + '\n');
+            }
+            else if (urlPath === "/versions") {
+                res.writeHead(200, {"Content-Type": "application/json"});
+                res.end(
+                    JSON.stringify( Version.getVersions() ) + '\n');
             }
             else if (urlPath === "/bible") {
                 res.writeHead(200, {"Content-Type": "application/json"});

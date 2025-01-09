@@ -101,7 +101,7 @@ export class Verse {
         try {
             let newVerses = [Verse];
             let sql = 
-                        "SELECT * FROM t_web where b="+bookNum+" and  c="+chapterNum+""
+                        `SELECT * FROM t_web where b=${bookNum} and  c=${chapterNum}`
                         ;
 
             const dSource = Book.theBible.dSource;
