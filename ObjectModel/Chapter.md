@@ -27,6 +27,7 @@
          +String caption   // A short caption for the chapter.
          +Note[] notes    // descriptive notes.
          +Verse[] verses   // an array of enclosed verses.
+     ~loadConetnts(aChapter)$   
  }
  Book *-- Chapter
  Chapter *-- Verse

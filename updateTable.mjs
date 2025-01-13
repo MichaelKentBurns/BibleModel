@@ -10,7 +10,8 @@ function updateTable(tableId, jsonData){
       tableHTML += "<tr>";
       var dataObj = jsonData[eachItem];
       for (var eachValue in dataObj){
-        tableHTML += "<td>" + dataObj[eachValue] + "</td>";
+          if ( ! eachValue.isArray )
+             tableHTML += "<td>" + dataObj[eachValue] + "</td>";
       }
       tableHTML += "</tr>";
     }

@@ -23,6 +23,7 @@
            +Book[] books
            +Xrefs[] Xref              // array of cross references
            +DataSource dSource          // database containing persisted data
+           +Object  config            // preferences configuration
      ///// statics - medhods belonging to the class, not an instance  ed.  Bible.getBible()
       getBible()$    // returns the singleton Bible
       getBibleNumber(n)$  // returns the nth Bible open

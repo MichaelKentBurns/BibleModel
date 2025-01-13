@@ -28,13 +28,14 @@
  }
  Book *-- BookAbbreviation
   class Book {
-             +Location location;   // location within the Bible
              +integer ordinal;     // ordinal among all Books in a Bible
+             +integer bookNumber;   // same as ordinal
              +String name  // short and unique name of the book
              +String title  // longer descriptive name of the book
              +String category  // one of several categories of books
              +integer nChapters  // number of chapters in this book
              +Chapter chapters[]
+             +Location location;   // location within the Bible
      Bible theBible$   // first and possibly only Bible loaded
      BookAbbreviation abbreviationList[]$   // array of abbreviation names
      Map[String name: integer bookOrdinal]$   // map of names to book ordinals

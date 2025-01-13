@@ -79,6 +79,19 @@
         },
 
         {
+            "name": "Open books.html",
+            "type": "chrome",
+            "request": "launch",
+            "file": "${workspaceFolder}/books.html"
+        },
+        {
+            "name": "Open book.html",
+            "type": "chrome",
+            "request": "launch",
+            "file": "${workspaceFolder}/book.html"
+        },
+
+        {
             "name": "Open new and improved books2.html",
             "type": "chrome",
             "request": "launch",

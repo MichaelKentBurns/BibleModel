@@ -9,7 +9,6 @@
     "testChapter": "node --experimental-sqlite tests/Chapter.test.mjs",
     "testAll": "node --experimental-sqlite tests/Bible.test.mjs tests/Book.test.mjs tests/Chapter.test.mjs",
     "testStar": "node --experimental-sqlite tests/*.test.mjs",
-
     "main": "node --experimental-sqlite Bible.mjs"
   },
   "repository": {

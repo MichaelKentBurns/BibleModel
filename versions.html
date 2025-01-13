@@ -1,0 +1,78 @@
+<html>
+
+<head>
+  <Title>Versions of the Bible</Title>
+
+  <script src="updateTable.mjs"></script>
+</head>
+
+<body>
+  <H1>Versions of the Bible</H1>
+
+  <p id="context">
+    In <b>BibleModel</b> initialization of the class <b>Bible</b> stage 2 of the state machine reads a database and
+    creates a json file named <STRONG>defaultBible/versions.json</STRONG>.
+  </p>
+
+  <p id="what">
+    This page simply reads that in and displays it as a Table.
+  <p>
+
+  <h2>Table of versions of the Bible.</h2>
+  	<table id="versionsTable">
+          HTML Table should go here. 
+ 	</table>
+
+  <h2>JSON Data read from versions.json:</h2>
+    	<p id="versionsParagraph">
+        This is where the raw json text read from versions.json should show.
+    	</p>
+
+  <h2>Access the raw data file <a href="defaultBible/versions.json">defaultBible/versions.json:</a> </h2>
+
+  <script type="module">
+
+    const versionsJsonPathname = "defaultBible/versions.json";
+    let versionsText = 'initialized text';
+    let versionsParagraph = document.getElementById('versionsParagraph');
+    let versionsTable = document.getElementById('versionsTable');
+    let versionsError;
+    let versionsArray;
+    let enable = true;
+    if (enable == true) {
+      try {
+        console.log('Next step is to fetch defaultBible/versions.json file.');
+        // url = versionsJsonPathname 
+        let url = "http://localhost:3001/versions";
+         await fetch(url,
+                {
+                  method: "GET",
+                  mode: 'no-cors'
+                }
+        ).then((response) => response.json())
+                .then((versionsResult) =>
+                {
+                  console.log("versionsJSON=", versionsArray);
+                  versionsArray = versionsResult;
+                  versionsText = JSON.stringify(versionsArray);
+                });
+      } catch(error) {
+        console.log("Error trying to fetch defaultBible/versions.json: ",error);
+        versionsError = JSON.stringify(error);
+        console.log("Error fetching file ", versionsJsonPathname, " : ", versionsError);
+      }
+
+    }
+    else
+      console.log('fetch disabled.');
+
+    // Display the results on the web page.
+    versionsParagraph.innerHTML = versionsText;
+    updateTable(versionsTable,versionsArray);
+
+  </script>
+
+</body>
+
+</html>
+

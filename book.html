@@ -1,0 +1,108 @@
+<html>
+
+<head>
+  <Title>One single books of the Bible</Title>
+
+  <script src="updateTable.mjs"></script>
+</head>
+
+<body>
+  <H1>One single Book of the Bible</H1>
+
+  <p id="context">
+    In <b>BibleModel</b> a program can now fetch an entire book of the Bible, 
+    with or without the actual chapter and verse text. 
+  </p>
+
+  <p id="what">
+    This page simply reads that in and displays it as a Table and Text.
+  <p>
+
+  <p>
+  <h2>One book of the Bible.</h2>
+  	<table id="booksTable">
+ 	</table>
+
+  <div id="BookDiv">
+     <p id="bookIntro"></p>
+     <p id="bookText"></p>
+  </div>
+
+
+  <h2>JSON Data read from books.json:</h2>
+    	<p id="booksJson">
+    	</p>
+
+  <script type="module">
+
+    const booksJsonPathname = "./defaultBible/1John.json";
+    const booksJsonURL = "http://localhost:3001/book/1 John/contents"; 
+    let booksText = 'initialized text';
+    let booksJson = document.getElementById('booksJson');
+    let booksTable = document.getElementById('booksTable');
+    let booksError;
+    let booksArray;
+    let enable = true;
+
+    let target = booksJsonPathname;
+    if (enable == true) {
+      try {
+        console.log(`Next step is to fetch the data from ${target}.`);
+         await fetch(target,
+                {
+                  mode: 'no-cors',
+                  method: "GET"
+                }
+        ).then((response) => response.json())
+                .then((booksResult) =>
+                {
+                  console.log("JSON=", booksResult);
+                  booksArray = booksResult;
+                  booksText = JSON.stringify(booksArray);
+                });
+      } catch(error) {
+        console.log("Error trying to fetch books.json: ",error);
+        booksError = JSON.stringify(error);
+        console.log("Error fetching ", target, " : ", booksError);
+      }
+
+    }
+    else
+      console.log('fetch disabled.');
+
+    // Display the results on the web page.
+    booksJson.innerHTML = booksText;
+    // updateTable(booksTable,booksArray);
+
+    // source of information
+    let book = booksArray;
+    let bookChapters = book.chapters;
+
+    // destination of information
+    let bookDiv = document.getElementById("BookDiv");
+    let bookIntro = document.getElementById("bookIntro");
+    let bookHeader = document.createElement("h2");
+        bookIntro.appendChild(bookHeader);
+    let bookName = document.createTextNode(book.name + " : " + book.title);
+    let bookTitleHeader = document.createElement("h2");
+        bookTitleHeader.appendChild(bookName);
+        bookIntro.appendChild(bookTitleHeader);
+
+    let bookText = document.getElementById("bookText");
+
+    book.chapters.forEach( (chap) => {
+       let header2 = document.createElement("h3");
+       header2.appendChild( document.createTextNode("Chapter " + chap.chapterNumber) );
+       bookText.appendChild(header2);
+       let verses = chap.verses;
+       verses.forEach( (verse) => {
+         bookText.appendChild( document.createTextNode(" " + verse.verseNumber + " " + verse.text));
+         bookText.appendChild( document.createElement("br") );
+       });
+    } );
+
+  </script>
+
+</body>
+
+</html>

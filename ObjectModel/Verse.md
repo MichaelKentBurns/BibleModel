@@ -20,6 +20,7 @@
          +integer chapterNumber  // The chapter number within the book.
          +Xref[] xrefs      // array of cross references
          +Note[] footnotes  // array of footnotes
+     ~loadAll(aBible)$   // loads all books into the specified Bible
  }
  Bible *-- Book
  Book *-- Chapter
