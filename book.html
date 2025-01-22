@@ -1,9 +1,10 @@
 <html>
 
 <head>
-  <Title>One single books of the Bible</Title>
+  <Title>One single book of the Bible</Title>
 
   <script src="updateTable.mjs"></script>
+
 </head>
 
 <body>
@@ -35,16 +36,50 @@
 
   <script type="module">
 
-    const booksJsonPathname = "./defaultBible/1John.json";
-    const booksJsonURL = "http://localhost:3001/book/1 John/contents"; 
+    let trace = true;
+    // Look for book selection and other details in the URL options.
+    let book = null;
+    let details = null;
+    let source = null;
+
+    let url = document.URL;
+    if ( trace ) console.log("URL="+url);
+    let urlOptions = url.split('?')[1];
+    if ( trace ) console.log("URL options="+urlOptions);
+
+    let optionArray = urlOptions.split('&');
+    if ( trace ) console.log("URL option array="+optionArray);
+
+    for (let i = 0; i < optionArray.length; i++) {
+      let item = optionArray[i].split('=');
+      if ( item[0] === "book" ) {
+        book = item[1];
+      }
+      else if ( item[0] === "details" ) {
+        details = item[1];
+      }
+      else if ( item[0] === "source" ) {
+        source = item[1];
+      }
+    }
+    if ( trace ) console.log("book="+book+" details="+details+" source="+source);
+
+    const booksJsonPathname = "./defaultBible/"+book+".json";
+    const booksJsonURL = "http://localhost:3001/book/"+book+"/contents";
     let booksText = 'initialized text';
     let booksJson = document.getElementById('booksJson');
     let booksTable = document.getElementById('booksTable');
     let booksError;
     let booksArray;
     let enable = true;
+    let target = null;
 
-    let target = booksJsonPathname;
+    if ( source == null || source == "file" ) {
+      target = booksJsonPathname;
+    } else {  // for now assume URL for the server.
+      target = booksJsonURL;
+    }
+
     if (enable == true) {
       try {
         console.log(`Next step is to fetch the data from ${target}.`);
@@ -75,8 +110,8 @@
     // updateTable(booksTable,booksArray);
 
     // source of information
-    let book = booksArray;
-    let bookChapters = book.chapters;
+    let bookData = booksArray;
+    let bookChapters = bookData.chapters;
 
     // destination of information
     let bookDiv = document.getElementById("BookDiv");
@@ -90,7 +125,7 @@
 
     let bookText = document.getElementById("bookText");
 
-    book.chapters.forEach( (chap) => {
+    bookData.chapters.forEach( (chap) => {
        let header2 = document.createElement("h3");
        header2.appendChild( document.createTextNode("Chapter " + chap.chapterNumber) );
        bookText.appendChild(header2);

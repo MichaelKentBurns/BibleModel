@@ -50,7 +50,9 @@ test('find Matthew by name and an abbreviation', () => {
 })
 
 test('Load all chapters and verse for Matthew', () => {
+
     Book.loadContents(matthewByName);
+    assert.equal(matthewByName.nChapters,matthewByName.chapters.length);
     console.log("Matthew Contents: ", matthewByName );
     
 });

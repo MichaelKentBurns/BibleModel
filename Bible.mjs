@@ -57,8 +57,8 @@ if (traceBible) console.log('Bible.mjs Initializing');
 import {Version} from './Version.mjs';
 import {Book} from './Book.mjs';  // makes promiseToReadBooks
 import { DataSource } from './DataSource.mjs';
-// import Location from './Location.mjs';
-//import Xref from './Xref.mjs';
+import { Location } from './Location.mjs';
+import { Xref } from './Xref.mjs';
  //   import {Http2Server} from './Http2Server.mjs';
     import {HttpServer} from './HttpServer.mjs';
 
@@ -191,11 +191,11 @@ export class Bible {
         if ( this.booksReadError && traceBible ) console.log(this.booksReadError);
 
         // Next cross references might be loaded, or may be deferred for lazy loads. 
-        //  console.log('Loading cross references...');
-        // Xref.load(theBible);
-        //  if (theBible.xrefs != undefined) {
-        //      if ( traceBible ) console.log('There are ', theBible.xrefs.length, ' cross references');
-        //  }
+          if ( traceBible ) console.log('Bible.mjs Loading cross references...');
+          Xref.loadAll(theBible);
+          if (theBible.xrefs != undefined) {
+              if ( traceBible ) console.log('There are ', theBible.xrefs.length, ' cross references');
+          }
     }
 
     // ======================== State Machine ======================

@@ -20,11 +20,12 @@
 //mm ```mermaid
 //mm classDiagram
 
-const traceBook = false;
+const traceBook = true;
 if (traceBook) console.log('Book.mjs initializing.');
 import fs from 'node:fs';
 import { Bible } from './Bible.mjs';
 import { Chapter } from './Chapter.mjs';
+import { Verse } from './Verse.mjs';
 import { Location } from './Location.mjs';
 
 
@@ -133,7 +134,40 @@ export class Book {
            aBook.chapters.push( newChapter );
            Chapter.loadContents(newChapter);
        }
-       if ( traceBook )  console.log("Book.mjs - results: ", aBook);
+        if ( traceBook )  console.log("Book.mjs - Checking for cross references for Book #",
+            aBook.ordinal, " ", aBook.name );
+        let allXrefs = this.theBible.xrefs;
+        allXrefs.every((xref) => {
+            if ( xref.sourceBook == aBook.bookNumber ){
+                // currently books don't have arrays of xrefs
+                //   aBook.xrefs.push(xref);
+                let aChap = aBook.chapters[xref.sourceChapter-1];
+                // currently chapters don't have arrays of xrefs either
+                //    aChap.xrefs.push(xref);
+                if ( aChap === null || aChap === undefined || xref.sourceId > 1050000)
+                    console.log( JSON.stringify(xref) );
+
+                if ( aChap.verses === undefined || aChap.chapterNumber > 49  )
+                {
+                    console.log( JSON.stringify(aChap) );
+                    console.log( JSON.stringify(xref) );
+                }
+                let aVerse = aChap.verses[xref.sourceVerse-1];
+                    aVerse.xrefs.push(xref);
+                    if ( traceBook ) console.log("Xref from "+aBook.name+" "
+                        +aChap.chapterNumber+":"+aVerse.verseNumber+ JSON.stringify(xref));
+                return true;
+            }
+            if ( xref.sourceBook > aBook.bookNumber )
+                return false;
+        })
+
+
+
+
+
+
+        if ( traceBook )  console.log("Book.mjs - results: ", aBook);
         return aBook;
     }
     //mm ~loadAll(aBible)$   // loads all books into the specified Bible
