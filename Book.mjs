@@ -129,7 +129,7 @@ export class Book {
        // aBook.loadMyContents();
        if ( traceBook )  console.log("Book.mjs - Loading contents of Book #", aBook.ordinal, " ", aBook.name ,
                " has ", aBook.nChapters, " chapters.");
-       for ( let chapterNum = 1; chapterNum < aBook.nChapters; chapterNum++ ) {
+       for ( let chapterNum = 1; chapterNum <= aBook.nChapters; chapterNum++ ) {
            let newChapter = new Chapter(aBook,chapterNum);
            aBook.chapters.push( newChapter );
            Chapter.loadContents(newChapter);

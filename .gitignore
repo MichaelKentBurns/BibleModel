@@ -136,6 +136,9 @@ dist
 # a directory I use to play with snippets and sample programs
 testLibrary
 
+# a default bible directory where the json and related files are created at runtime.
+defaultBible 
+
 
 log
 log
