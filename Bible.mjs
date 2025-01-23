@@ -15,7 +15,7 @@
 //mm ```mermaid
 //mm classDiagram
 
-const traceBible = true;  // Set this true to have the inner workings of this class traced to console log.
+const traceBible = false;  // Set this true to have the inner workings of this class traced to console log.
 const useHttp2 = false;
 
 // - - - - - - - - - Issue #1, state machine works better

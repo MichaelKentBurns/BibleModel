@@ -24,7 +24,7 @@ test('Create a second Bible and see if books are loaded', () => {
 	assert.notEqual(bible2.books,null )
 	bible2.loadAll();
 //	assert.ok(bible2.promiseToLoadBooks)  // promise is no longer need with DatabaseSync
-	assert.ok(bible2.booksComplete)
+	assert.ok(bible2.booksComplete)   // for some reason this fails, probably issue #9, ok for now.
 });
 
 test('Stop the http server', () => {

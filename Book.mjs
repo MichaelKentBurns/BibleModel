@@ -23,10 +23,10 @@
 const traceBook = true;
 if (traceBook) console.log('Book.mjs initializing.');
 import fs from 'node:fs';
-import { Bible } from './Bible.mjs';
-import { Chapter } from './Chapter.mjs';
-import { Verse } from './Verse.mjs';
-import { Location } from './Location.mjs';
+import {Bible} from './Bible.mjs';
+import {Chapter} from './Chapter.mjs';
+// import {Verse} from './Verse.mjs';
+import {Location} from './Location.mjs';
 
 
 let allBooks;  // array of books loaded
@@ -47,6 +47,7 @@ class BookAbbreviation {
         this.primary = row.p;
     }
 }
+
 //mm }
 //mm Book *-- BookAbbreviation
 //mm  class Book {
@@ -54,7 +55,9 @@ export class Book {
 
     constructor(row) {
 
-        if ( row ) {
+        this.chapsLoaded = false;
+        this.xrefsLoaded = false;
+        if (row) {
             //mm +integer ordinal;     // ordinal among all Books in a Bible
             this.ordinal = row.order;
             //mm +integer bookNumber;   // same as ordinal
@@ -71,23 +74,26 @@ export class Book {
             this.chapters = [];
 
             //mm +Location location;   // location within the Bible
-            this.location = new Location();      
+            this.location = new Location();
             this.location.setBook(this.ordinal);
             this.location.getId();  // establishes id from path. 
-        }
-        else
-        {
+        } else {
             this.ordinal = 0;
             this.name = '';
             this.title = '';
-            this.category =  '';
+            this.category = '';
             this.nChapters = 0;
             this.chapters = [];
         }
+
+        //mm  integer firstXref
+        this.firstXref = 0;
+        //mm  integer lastXref
+        this.lastXref = 0;
     }
 
     loadMyContents() {
-        if ( traceBook )  console.log("Book.mjs - Loading contents of Book #", this.ordinal, " ", this.name , " has ", this.nChapters, " chapters.");
+        if (traceBook) console.log("Book.mjs - Loading contents of Book #", this.ordinal, " ", this.name, " has ", this.nChapters, " chapters.");
         // for ( let chapterNum = 1; chapterNum < this.nChapters; chapterNum++ ) {
         //     newChapter = new Chapter(this,chapterNum);
         //     this.chapters.push( newChapter );
@@ -101,21 +107,22 @@ export class Book {
     static abbreviationList;
     //mm Map[String name: integer bookOrdinal]$   // map of names to book ordinals
     static abbreviationMap;
+
     //mm getBookByName(String name)$ Book   // returns a book by name or abbreviation
     static getBookByName(name) {
         let ord = Book.abbreviationMap.get(name);
         let books = allBooks;
-        if ( books === undefined )
+        if (books === undefined)
             books = Book.theBible.books;
-        return books[ord-1];
+        return books[ord - 1];
     }
 
     //mm getBookByNumber(ordinal)$ Book   // returns a book by it's ordinal
     static getBookByNumber(ord) {
         let books = allBooks;
-        if ( books === undefined )
+        if (books === undefined)
             books = theBible.books;
-        return books[ord-1];
+        return books[ord - 1];
     }
 
     //mm ~setBible(aBible)$   // sets the Bible that contains this book
@@ -126,68 +133,68 @@ export class Book {
 
     //mm ~loadConetnts(aBook)$   
     static loadContents(aBook) {
-       // aBook.loadMyContents();
-       if ( traceBook )  console.log("Book.mjs - Loading contents of Book #", aBook.ordinal, " ", aBook.name ,
-               " has ", aBook.nChapters, " chapters.");
-       for ( let chapterNum = 1; chapterNum <= aBook.nChapters; chapterNum++ ) {
-           let newChapter = new Chapter(aBook,chapterNum);
-           aBook.chapters.push( newChapter );
-           Chapter.loadContents(newChapter);
-       }
-        if ( traceBook )  console.log("Book.mjs - Checking for cross references for Book #",
-            aBook.ordinal, " ", aBook.name );
-        let allXrefs = this.theBible.xrefs;
-        allXrefs.every((xref) => {
-            if ( xref.sourceBook == aBook.bookNumber ){
-                // currently books don't have arrays of xrefs
-                //   aBook.xrefs.push(xref);
-                let aChap = aBook.chapters[xref.sourceChapter-1];
-                // currently chapters don't have arrays of xrefs either
-                //    aChap.xrefs.push(xref);
-                if ( aChap === null || aChap === undefined || xref.sourceId > 1050000)
-                    console.log( JSON.stringify(xref) );
-
-                if ( aChap.verses === undefined || aChap.chapterNumber > 49  )
-                {
-                    console.log( JSON.stringify(aChap) );
-                    console.log( JSON.stringify(xref) );
-                }
-                let aVerse = aChap.verses[xref.sourceVerse-1];
-                    aVerse.xrefs.push(xref);
-                    if ( traceBook ) console.log("Xref from "+aBook.name+" "
-                        +aChap.chapterNumber+":"+aVerse.verseNumber+ JSON.stringify(xref));
-                return true;
+        // aBook.loadMyContents();
+        if (traceBook) console.log("Book.mjs - Loading contents of Book #", aBook.ordinal, " ", aBook.name,
+            " has ", aBook.nChapters, " chapters.");
+        if (!aBook.chapsLoaded) {
+            for (let chapterNum = 1; chapterNum <= aBook.nChapters; chapterNum++) {
+                let newChapter = new Chapter(aBook, chapterNum);
+                aBook.chapters.push(newChapter);
+                Chapter.loadContents(newChapter);
             }
-            if ( xref.sourceBook > aBook.bookNumber )
-                return false;
-        })
+            aBook.chapsLoaded = true;
+        }
+        if (traceBook) console.log("Book.mjs - Checking for cross references for Book #",
+            aBook.ordinal, " ", aBook.name);
+        if (!aBook.xrefsLoaded) {
+            let nXrefsLoaded = 0;
+            let allXrefs = this.theBible.xrefs;
+            if (allXrefs) {
+                if (aBook.firstXref > 0 && aBook.lastXref > 0) {
 
+                    for (let xrefNumber = aBook.firstXref; xrefNumber <= aBook.lastXref; xrefNumber++) {
+                        let xref = allXrefs[xrefNumber];
+                        if (xref.sourceBook == aBook.bookNumber) {
+                            // currently books don't have arrays of xrefs
+                            //   aBook.xrefs.push(xref);
+                            let aChap = aBook.chapters[xref.sourceChapter - 1];
+                            // currently chapters don't have arrays of xrefs either
+                            let aVerse = aChap.verses[xref.sourceVerse - 1];
+                            aVerse.xrefs.push(xref);
+                            if (traceBook) console.log("Xref from " + aBook.name + " "
+                                + aChap.chapterNumber + ":" + aVerse.verseNumber + JSON.stringify(xref));
+                            nXrefsLoaded++;
+                            if (traceBook) console.log("Book.mjs " + nXrefsLoaded + " into " + aBook.name + " ")
+                        }
+                    }
+                    aBook.xrefsLoaded = true;
 
+                }
+            }
+        }
 
-
-
-
-        if ( traceBook )  console.log("Book.mjs - results: ", aBook);
+        if (traceBook) console.log("Book.mjs - results: ", aBook);
         return aBook;
     }
+
     //mm ~loadAll(aBible)$   // loads all books into the specified Bible
     static loadAll(aBible) {
 
-if (readBooksJson) {
-    if (fs.existsSync(Bible.booksPath)) {
-        const booksData = fs.readFileSync(Bible.booksPath, (error) => {
-            if (error) {
-                console.log('An error has occurred reading books', error);
-                return;
-            }
-            if (traceBook) console.log('Books data read successfully from disk');
-        });
+        if (readBooksJson) {
+            if (fs.existsSync(Bible.booksPath)) {
+                const booksData = fs.readFileSync(Bible.booksPath, (error) => {
+                    if (error) {
+                        console.log('An error has occurred reading books', error);
+                        return;
+                    }
+                    if (traceBook) console.log('Books data read successfully from disk');
+                });
 
-        if (booksData !== undefined && booksData.length > 2) {
-            allBooks = JSON.parse(booksData);
+                if (booksData !== undefined && booksData.length > 2) {
+                    allBooks = JSON.parse(booksData);
+                }
+            }
         }
-    }
-}
         let databaseError = undefined;
 
         if (!Book.abbreviationMap) {
@@ -198,7 +205,7 @@ if (readBooksJson) {
                 let sql = `SELECT *
                            FROM key_abbreviations_english`;
                 let dSource = aBible.dSource;
-                if (dSource === undefined )
+                if (dSource === undefined)
                     dSource = Book.theBible.dSource;
                 const query = dSource.prepare(sql);
                 if (traceBook) console.log("Database query '", sql, "'. prepared. Query=", query);
@@ -210,7 +217,7 @@ if (readBooksJson) {
                 // is used to build a new Book object which is
                 // then added to the array of books in theBible.
                 arows.forEach((arow) => {
-                    if (traceBook) console.log(arow.a," is abbreviation for book ", arow.b)
+                    if (traceBook) console.log(arow.a, " is abbreviation for book ", arow.b)
                     Book.abbreviationMap.set(arow.a, arow.b);
                     const newAbbreviation = new BookAbbreviation(arow);
                     Book.abbreviationList.push(newAbbreviation);
@@ -256,7 +263,7 @@ if (readBooksJson) {
             });
             // When all rows have been read, we notify the Bible
             // that the query is all finished.
-            if ( aBible === undefined )
+            if (aBible === undefined)
                 aBible = Book.theBible;
 
             aBible.booksComplete = true;
