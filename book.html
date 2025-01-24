@@ -1,71 +1,74 @@
 <html>
 
 <head>
-  <Title>One single book of the Bible</Title>
+    <title>BibleModel - Book</title>
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+</head>
+<head>
+    <Title>One single book of the Bible</Title>
 
-  <script src="updateTable.mjs"></script>
+    <script src="updateTable.mjs"></script>
 
 </head>
 
 <body>
-  <H1>One single Book of the Bible</H1>
+<H1>One single Book of the Bible</H1>
+<p id="context">
+    In <b>BibleModel</b> a program can now fetch an entire book of the Bible,
+    with or without the actual chapter and verse text.
+</p>
 
-  <p id="context">
-    In <b>BibleModel</b> a program can now fetch an entire book of the Bible, 
-    with or without the actual chapter and verse text. 
-  </p>
-
-  <p id="what">
+<p id="what">
     This page simply reads that in and displays it as a Table and Text.
-  <p>
+<p>
 
-  <p>
-  <h2>One book of the Bible.</h2>
-  	<table id="booksTable">
- 	</table>
+<p>
+<h2>One book of the Bible.</h2>
+<table id="booksTable">
+</table>
 
-  <div id="BookDiv">
-     <p id="bookIntro"></p>
-     <p id="bookText"></p>
-  </div>
+<div id="BookDiv">
+    <p id="bookIntro"></p>
+    <p id="bookText"></p>
+</div>
 
 
-  <h2>JSON Data read from books.json:</h2>
-    	<p id="booksJson">
-    	</p>
+<h2>JSON Data read from books.json:</h2>
+<p id="booksJson">
+</p>
 
-  <script type="module">
+<script type="module">
 
     let trace = true;
     // Look for book selection and other details in the URL options.
-    let book = null;
-    let details = null;
-    let source = null;
+    let book = "1John";
+    let details = "contents";
+    let source = "file";
 
     let url = document.URL;
-    if ( trace ) console.log("URL="+url);
+    if (trace) console.log("URL=" + url);
     let urlOptions = url.split('?')[1];
-    if ( trace ) console.log("URL options="+urlOptions);
+    if (trace) console.log("URL options=" + urlOptions);
+    if (urlOptions != undefined) {
 
-    let optionArray = urlOptions.split('&');
-    if ( trace ) console.log("URL option array="+optionArray);
+        let optionArray = urlOptions.split('&');
+        if (trace) console.log("URL option array=" + optionArray);
 
-    for (let i = 0; i < optionArray.length; i++) {
-      let item = optionArray[i].split('=');
-      if ( item[0] === "book" ) {
-        book = item[1];
-      }
-      else if ( item[0] === "details" ) {
-        details = item[1];
-      }
-      else if ( item[0] === "source" ) {
-        source = item[1];
-      }
+        for (let i = 0; i < optionArray.length; i++) {
+            let item = optionArray[i].split('=');
+            if (item[0] === "book") {
+                book = item[1];
+            } else if (item[0] === "details") {
+                details = item[1];
+            } else if (item[0] === "source") {
+                source = item[1];
+            }
+        }
+        if (trace) console.log("book=" + book + " details=" + details + " source=" + source);
     }
-    if ( trace ) console.log("book="+book+" details="+details+" source="+source);
 
-    const booksJsonPathname = "./defaultBible/"+book+".json";
-    const booksJsonURL = "http://localhost:3001/book/"+book+"/contents";
+    const booksJsonPathname = "./defaultBible/" + book + ".json";
+    const booksJsonURL = "http://localhost:3001/book/" + book + "/contents";
     let booksText = 'initialized text';
     let booksJson = document.getElementById('booksJson');
     let booksTable = document.getElementById('booksTable');
@@ -74,36 +77,34 @@
     let enable = true;
     let target = null;
 
-    if ( source == null || source == "file" ) {
-      target = booksJsonPathname;
+    if (source == null || source == "file") {
+        target = booksJsonPathname;
     } else {  // for now assume URL for the server.
-      target = booksJsonURL;
+        target = booksJsonURL;
     }
-
+    console.log("target=" + target);
     if (enable == true) {
-      try {
-        console.log(`Next step is to fetch the data from ${target}.`);
-         await fetch(target,
+        try {
+            console.log(`Next step is to fetch the data from ${target}.`);
+            await fetch(target,
                 {
-                  mode: 'no-cors',
-                  method: "GET"
+                    mode: 'no-cors',
+                    method: "GET"
                 }
-        ).then((response) => response.json())
-                .then((booksResult) =>
-                {
-                  console.log("JSON=", booksResult);
-                  booksArray = booksResult;
-                  booksText = JSON.stringify(booksArray);
+            ).then((response) => response.json())
+                .then((booksResult) => {
+                    console.log("JSON=", booksResult);
+                    booksArray = booksResult;
+                    booksText = JSON.stringify(booksArray);
                 });
-      } catch(error) {
-        console.log("Error trying to fetch books.json: ",error);
-        booksError = JSON.stringify(error);
-        console.log("Error fetching ", target, " : ", booksError);
-      }
+        } catch (error) {
+            console.log("Error trying to fetch books.json: ", error);
+            booksError = JSON.stringify(error);
+            console.log("Error fetching ", target, " : ", booksError);
+        }
 
-    }
-    else
-      console.log('fetch disabled.');
+    } else
+        console.log('fetch disabled.');
 
     // Display the results on the web page.
     booksJson.innerHTML = booksText;
@@ -117,26 +118,29 @@
     let bookDiv = document.getElementById("BookDiv");
     let bookIntro = document.getElementById("bookIntro");
     let bookHeader = document.createElement("h2");
-        bookIntro.appendChild(bookHeader);
+    bookIntro.appendChild(bookHeader);
     let bookName = document.createTextNode(book.name + " : " + book.title);
     let bookTitleHeader = document.createElement("h2");
-        bookTitleHeader.appendChild(bookName);
-        bookIntro.appendChild(bookTitleHeader);
+    bookTitleHeader.appendChild(bookName);
+    bookIntro.appendChild(bookTitleHeader);
 
     let bookText = document.getElementById("bookText");
 
-    bookData.chapters.forEach( (chap) => {
-       let header2 = document.createElement("h3");
-       header2.appendChild( document.createTextNode("Chapter " + chap.chapterNumber) );
-       bookText.appendChild(header2);
-       let verses = chap.verses;
-       verses.forEach( (verse) => {
-         bookText.appendChild( document.createTextNode(" " + verse.verseNumber + " " + verse.text));
-         bookText.appendChild( document.createElement("br") );
-       });
-    } );
+    bookData.chapters.forEach((chap) => {
+        let header2 = document.createElement("h3");
+        header2.appendChild(document.createTextNode("Chapter " + chap.chapterNumber));
+        bookText.appendChild(header2);
+        let verses = chap.verses;
+        verses.forEach((verse) => {
+            let boldVerseNumber = document.createElement("STRONG");
+            boldVerseNumber.appendChild( document.createTextNode(verse.verseNumber + " "));
+            bookText.appendChild(boldVerseNumber);
+            bookText.appendChild(document.createTextNode(verse.text));
+            bookText.appendChild(document.createElement("br"));
+        });
+    });
 
-  </script>
+</script>
 
 </body>
 
