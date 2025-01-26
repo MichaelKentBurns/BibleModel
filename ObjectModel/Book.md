@@ -36,6 +36,8 @@
              +integer nChapters  // number of chapters in this book
              +Chapter chapters[]
              +Location location;   // location within the Bible
+          integer firstXref
+          integer lastXref
      Bible theBible$   // first and possibly only Bible loaded
      BookAbbreviation abbreviationList[]$   // array of abbreviation names
      Map[String name: integer bookOrdinal]$   // map of names to book ordinals

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books of the Bible</title>
+    <style>
+        table, th, td
+        {
+            border: solid 1px #ddd;
+            border-collapse: collapse;
+            padding: 2px 3px;
+            text-align: center;
+        }
+        th {
+            font-weight:bold;
+        }
+    </style>
+</head>
+<body>
+<H1>Books of the Bible</H1>
+<input type='button' onclick='readAllBooks()' value='Create Table from JSON data' />
+<p id="showData"></p>
+
+<script type="module">
+    console.log(typeof null);
+    let t = null;
+    var allBooks;
+    console.log(typeof(t));
+ //   var allBooks;
+    var readAllBooks = () => {
+    import allBooks from './books.json' assert { type: 'json' };
+
+        // extract value from table header.
+        // ('book id', 'book name', 'category' and 'price')
+        let col = [];
+        for (let i = 0; i < allBooks.length; i++) {
+            for (let key in allBooks[i]) {
+                if (col.indexOf(key) === -1) {
+                    col.push(key);
+                }
+            }
+        }
+
+        // create table.
+        const table = document.createElement("table");
+
+        // create table header row using the extracted headers above.
+        let tr = table.insertRow(-1);                   // table row.
+
+        for (let i = 0; i < col.length; i++) {
+            let th = document.createElement("th");      // table header.
+            th.innerHTML = col[i];
+            tr.appendChild(th);
+        }
+
+        // add json data to the table as rows.
+        for (let i = 0; i < allBooks.length; i++) {
+
+            tr = table.insertRow(-1);
+
+            for (let j = 0; j < col.length; j++) {
+                let tabCell = tr.insertCell(-1);
+                tabCell.innerHTML = allBooks[i][col[j]];
+            }
+        }
+
+        // now, add the newly created table with json data, to a container.
+        const divShowData = document.getElementById('showData');
+        divShowData.innerHTML = "";
+        divShowData.appendChild(table);
+    }
+</script>
+</body>
+</html>
