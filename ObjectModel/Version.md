@@ -29,6 +29,6 @@
      ~getVersionNamed(String name)$    // return the name of the table version for a given named version
      ~loadAll()$   // loads all versions into static array
  }
- Bible --- Version
+ Bible -- Version
  Version *-- Note
  ```
