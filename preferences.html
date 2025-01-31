@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <Title>Preferences for the BibleModel</Title>
+  <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+</head>
+
+<body>
+<H1>Preferences for the BibleModel</H1>
+
+<p id="context">
+  In <b>BibleModel</b> initialization of the class <b>Bible</b> reads json file named <STRONG>BibleModel-preferences.json</STRONG>.
+</p>
+
+<p id="what">
+  This page simply reads that in and displays it as a form.
+<p>
+
+<h2>Table of preferences for the BibleModel.</h2>
+<table id="preferencesTable">
+</table>
+
+<h2>JSON Data read from preferences.json:</h2>
+<p id="preferencesText">
+  This is where the raw json text read from preferences.json should show.
+</p>
+
+<h2>Access the raw data file <a href="./BibleModel-preferences.json">BibleModel-preferences.json:</a> </h2>
+
+<script type="module">
+  const localStorageTag = "BibleModel.prefs";
+  const preferencesJsonPathname = "./BibleModel-preferences.json";
+  let preferencesText = 'initialized text';
+  let preferencesTextElement = document.getElementById('preferencesText');
+  let preferencesTableElement = document.getElementById('preferencesTable');
+  let preferencesError;
+  let preferencesObject;
+  let url = preferencesJsonPathname;
+  let enable = true;
+  if (enable == true) {
+    try {
+      console.log(`Next step is to fetch ${url} file.`);
+      await fetch(url,
+              {
+                method: "GET",
+                mode: 'no-cors'
+              }
+      ).then((response) => response.json())
+              .then((preferencesResult) =>
+              {
+                preferencesObject = preferencesResult;
+                console.log("preferencesJSON=", preferencesObject);
+                preferencesText = JSON.stringify(preferencesObject);
+              });
+    } catch(error) {
+      console.log(`Error trying to fetch ${url}: `,error);
+      preferencesError = JSON.stringify(error);
+      console.log(`Error fetching ${url} : `, preferencesError);
+    }
+
+  }
+  else
+    console.log('fetch disabled.');
+
+  // Display the results on the web page.
+  preferencesTextElement.innerHTML = preferencesText;
+  // Display the object as a table.
+  // create elements <table> and a <tbody>
+  var tblBody = document.createElement("tbody");
+  // cells creation
+  for (var name in preferencesObject ) {
+    // table row creation
+    var row = document.createElement("tr");
+
+      // create element <td> and text node
+      //Make text node the contents of <td> element
+      // put <td> at end of the table row
+      var cell = document.createElement("td");
+      var cellText = document.createTextNode(name);
+      cell.appendChild(cellText); cell.style.border = "thin double black";
+    row.appendChild(cell);
+      cell = document.createElement("td");
+      cellText = document.createTextNode(preferencesObject[name]);
+    cell.appendChild(cellText); cell.style.border = "thin double black";
+    row.appendChild(cell);
+    //row added to end of table body
+    tblBody.appendChild(row);
+  }
+
+  // append the <tbody> inside the <table>
+  preferencesTableElement.appendChild(tblBody);
+
+  // tbl border attribute to
+  preferencesTableElement.style.border = "thin double black";        // setAttribute("border", "1");
+
+  // save the preferences in local storage for other pages.
+  localStorage.setItem(localStorageTag, JSON.stringify(preferencesObject));
+
+</script>
+
+</body>
+
+</html>
+

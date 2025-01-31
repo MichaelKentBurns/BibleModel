@@ -1,9 +1,4 @@
 import { Location } from './Location.mjs';
-import { Bible } from './Bible.mjs';
-import { Book } from './Book.mjs';
-import { Chapter } from './Chapter.mjs';
-import { Verse } from './Verse.mjs';
-import { Xref } from './Xref.mjs';
 
 //mm # Class: Note
 //mm
@@ -45,6 +40,9 @@ export class Note {
         this.subverse = 0;
         //mm +String author
         this.author = "";
+
+        //mm +String title        // The title of the note.
+        this.title = "";
         //mm +String text        // The actual text of the note.
         this.text = "";
         //mm +Xref xref      // a cross references
@@ -56,105 +54,41 @@ export class Note {
             this.location.path[0] = row.b;
             this.location.path[1] = row.c;
             this.location.path[2] = row.v;
-            this.text = row.t;
+            this.text = row.text;
+            this.title = row.title;
         }
         else
         {
             this.text = '';
+            this.title = '';
         }
 
+    }
+
+    setTitle(someText) {
+        this.title = someText;
+    }
+    getTitle() {
+        return this.title;
     }
 
     setText(someText) {
         this.text = someText;
     }
-    text() {
+    getText() {
         return this.text;
     }
 
     setAuthor(author) {
         this.author = author;
     }
-    author() {
+    getAuthor() {
         return this.author;
     }
 
-    setBible(aBible) {
-        this.bibleNumber = aBible.bibleNumber;
-    }
-    bibleNumber() {
-        return this.bibleNumber;
-    }
-
-    setBook(aBook) {
-        this.bookNumber = aBook.bookNumber;
-    }
-
-    bookNumber() {
-        return this.bookNumber;
-    }
-
-    setChapter(aChapter) {
-        this.chapter = aChapter;
-    }
-
-    chapterNumber() {
-        return this.chapterNumber;
-    }
-    setVerseNumber(anInteger) {
-        this.verseNumber = anInteger;
-    }
-    verseNumber() {
-        return this.verseNumber;
-    }
-
-
-    chapter() {
-        return this.chapter;
-    }
-
-    setXref(anXref) {
-        this.xrefs xref;
-    }
-
-    xrefs() {
-        return this.xrefs;
-    }
-
-    //mm ~loadAll(aBible)$   // loads all books into the specified Bible
-    static loadAll(aChapter) {
-        let databaseError = undefined;
-        const bookNum = aChapter.bookNumber;
-        const chapterNum = aChapter.chapterNumber;
-
-        try {
-            let newVerses = [Verse];
-            let sql =
-                `SELECT * FROM t_web where b=${bookNum} and  c=${chapterNum}`
-            ;
-
-            const dSource = Book.theBible.dSource;
-            const query = dSource.prepare(sql);
-            const rows = query.all();
-            // dSource.finish(query);
-
-            // As each row is read from the database this
-            // forEach loop is run.  In that loop the row
-            // is used to build a new Book object which is
-            // then added to the array of books in theBible.
-            rows.forEach((row) => {
-                const verse = new Verse(row);
-                aChapter.addVerse(verse);
-            });
-
-            // close the database connection
-            // database.close();
-            return undefined; // no errors.
-        } catch (error) {
-            databaseError = error;
-            console.log("Verse ERROR: encountered reading verses from database.", error);
-            return databaseError;
-        }
+    //mm ~loadAll()$   // loads all notes
+    static loadAll() {
+      // TBD
     }
 
 }
@@ -167,4 +101,4 @@ export class Note {
 //mm ```
 //- - - - - - - - - - - end Class definition - - - - - - - - - - -
 
-export default { Verse };
+export default { Note };
