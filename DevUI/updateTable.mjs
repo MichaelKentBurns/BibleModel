@@ -11,7 +11,7 @@ function updateTable(tableId, jsonData){
       var dataObj = jsonData[eachItem];
       for (var eachValue in dataObj){
           if ( ! eachValue.isArray )
-             tableHTML += "<td>" + dataObj[eachValue] + "</td>";
+             tableHTML += "<td style='border: thin double black'>" + dataObj[eachValue] + "</td>";
       }
       tableHTML += "</tr>";
     }

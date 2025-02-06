@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
 
 <head>
   <Title>Versions of the Bible</Title>
@@ -20,8 +20,7 @@
   <p>
 
   <h2>Table of versions of the Bible.</h2>
-  	<table id="versionsTable">
-          HTML Table should go here. 
+  	<table id="versionsTable"  style="border: thin double black">
  	</table>
 
   <h2>JSON Data read from versions.json:</h2>
@@ -32,19 +31,26 @@
   <h2>Access the raw data file <a href="defaultBible/versions.json">defaultBible/versions.json:</a> </h2>
 
   <script type="module">
+    let dataLibrary = "./defaultLibrary";
+    const preferencesLocalStorageTag = "BibleModel.prefs";
+    const preferences = JSON.parse(localStorage.getItem(preferencesLocalStorageTag) );
+    if ( preferences == null ) alert("ERROR: No preferences set.  Please visit preferences page first.");
+    else {
+      dataLibrary = preferences["MyBiblePath"];
+    }
 
-    const versionsJsonPathname = "./defaultBible/versions.json";
+    const versionsJsonPathname = `../${dataLibrary}/versions.json`;
     let versionsText = 'initialized text';
     let versionsParagraph = document.getElementById('versionsParagraph');
     let versionsTable = document.getElementById('versionsTable');
     let versionsError;
     let versionsArray;
     let enable = true;
+    let url;
     if (enable == true) {
       try {
-        console.log('Next step is to fetch defaultBible/versions.json file.');
-        // url = versionsJsonPathname 
-        let url = "./defaultBible/versions.json";
+        console.log(`Next step is to fetch ${versionsJsonPathname} file.`);
+        url = versionsJsonPathname
          await fetch(url,
                 {
                   method: "GET",

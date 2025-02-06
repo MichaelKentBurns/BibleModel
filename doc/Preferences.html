@@ -1,0 +1,55 @@
+<html lang="en">
+
+<head>
+    <Title>Setting preferences for BibleModel</Title>
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+</head>
+
+<body>
+<H1>BibleModel preferences settings.</H1>
+
+<p id="context">
+    The <b>BibleModel</b> program (or Node.js package) uses a preferences
+    file in a JSON document, normally located in the root of the package in
+    a file called
+    <a href="../BibleModel-preferences.json">
+        <strong></strong>BibleModel-preferences.json</strong></a>.
+</p>
+
+<p id="what">
+    This page describes those settings.
+<p>
+
+<h2>Details each preference:</h2>
+
+<ul>
+    <li>
+        <strong>Instructions</strong> is simply a description because
+        JSON data can't have comments in the usual sense.
+    </li>
+
+    <li>
+        <strong>Documentation</strong> is the location of this web page.
+    </li>
+
+    <li>
+        <strong>accessDataBy-options</strong> accessDataBy can be either:
+        <ul>
+            <li><strong>file</strong></li> access files stored in the
+            <strong>MyBiblePath</strong> directory.
+            <li><strong>REST</strong></li> access files using the REST API
+            that is built into this package.  After initialization, the
+            program becomes an http server which surfaces a REST interface.
+            Accessing the '/' endpoint of that interface will elicit
+            a list of the other endpoints that are available.
+        </ul>
+    </li>
+
+    <li>
+        <strong>accessDataBy</strong> determines how the html files in
+        DevUI folder access the data in the JSON document.
+    </li>
+
+    ... more to come...
+
+</ul>

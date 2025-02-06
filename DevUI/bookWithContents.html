@@ -1,0 +1,373 @@
+<html lang="en">
+
+<head>
+  <Title>One single book of the Bible with Cross References</Title>
+  <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+</head>
+
+<body>
+<H1>One single Book of the Bible with its contents expanded.</H1>
+
+<p id="context">
+  In <b>BibleModel</b> a program can now fetch an entire book of the Bible,
+  with or without the actual chapter and verse text.
+</p>
+
+<p id="what">
+  This page simply reads that in and displays it as a Table and Text.
+<p>
+<h2>Details of the query execution:</h2>
+<table style="border: thin double black">
+  <tr><td><strong>Relative File URL </strong></td>   <td id="fileURL"></td></tr>
+  <tr><td><strong>REST server URL </strong></td>     <td id="RESTURL"></td></tr>
+  <tr><td><strong>Query URL </strong></td>           <td id="effectiveURL"></td></tr>
+  <tr><td><strong>Response.type</strong></td>        <td id="responseType"></td></tr>
+  <tr><td><strong>Response.url</strong></td>         <td id="responseUrl"></td></tr>
+  <tr><td><strong>Response.status </strong></td>     <td id="responseStatus"></td></tr>
+  <tr><td><strong>Response.ok</strong></td>          <td id="responseOK"></td></tr>
+  <tr><td><strong>Response.statusText</strong></td>  <td id="responseStatusText"></td></tr>
+  <tr><td><strong>Response.headers</strong></td>     <td id="responseHeaders"></td></tr>
+</table>
+<p>
+<h2>One book of the Bible.</h2>
+<table id="bookTable" style="border: thin double black">
+</table>
+
+<div id="BookDiv">
+  <p id="bookIntro"></p>
+  <p id="bookText"></p>
+</div>
+
+
+<h2>JSON Data read from books.json:</h2>
+<p id="bookJson">
+</p>
+
+<script type="module">
+  let trace = true;
+  let booksArrayLocal = [];
+  let dataLibrary = "./defaultLibrary";
+  const preferencesLocalStorageTag = "BibleModel.prefs";
+  const preferences = JSON.parse(localStorage.getItem(preferencesLocalStorageTag));
+  if (preferences == null) alert("ERROR: No preferences set.  Please visit preferences page first.");
+  else {
+    dataLibrary = preferences["MyBiblePath"];
+  }
+
+
+  // Look for book selection and other details in the URL options.
+  let book = "1John";
+  if (preferences != null) book = preferences.Book;
+  let details = "contents";
+  let source = "file";
+  if (preferences != null) source = preferences.accessDataBy;
+
+  let url = document.URL;
+  if (trace) console.log("URL=" + url);
+  let urlOptions = url.split('?')[1];
+  if (trace) console.log("URL options=" + urlOptions);
+  if (urlOptions != undefined) {
+
+    let optionArray = urlOptions.split('&');
+    if (trace) console.log("URL option array=" + optionArray);
+
+    for (let i = 0; i < optionArray.length; i++) {
+      let item = optionArray[i].split('=');
+      if (item[0] === "book") {
+        book = item[1];
+      } else if (item[0] === "details") {
+        details = item[1];
+      } else if (item[0] === "source") {
+        source = item[1];
+      }
+    }
+    if (trace) console.log("book=" + book + " details=" + details + " source=" + source);
+  }
+
+  const bookJsonPathname = `../${dataLibrary}/` + book + ".json";
+  const bookJsonURL = `${preferences.RESTURL}:${preferences.RESTPort}/book/` + book + "/contents";
+
+  // - - - - - - - - Get the list of all books - - - - - - -- - -
+  const booksJsonPathname = `../${dataLibrary}/books.json`;
+  const booksJsonURL = `${preferences.RESTURL}:${preferences.RESTPort}/books`;
+
+  let booksText = 'initialized text';
+  let booksParagraphElement = document.getElementById('booksParagraph');
+  let booksTableElement = document.getElementById('booksTable');
+  let booksError;
+  let enable = true;
+  let booksTarget;
+
+  let headers = new Headers();   // may need to send some request headers
+  //- - - - decide if getting a file or live from the REST server - - - -
+  if (source == null || source === "file") {
+    booksTarget = booksJsonPathname;
+  } else {  // for now assume URL for the server.
+    booksTarget = booksJsonURL;
+  }
+  headers.append("Accept", "application/json");
+
+  console.log("books target=" + booksTarget);
+
+  if (enable === true) {
+    try {
+      console.log('Next step is to fetch books.json file.');
+      await fetch(booksTarget,
+              {
+                headers: headers,
+                mode: 'no-cors',
+                method: 'GET'
+              }
+      ).then((response) => response.json())
+              .then((booksResult) => {
+                console.log("booksJSON=", booksArrayLocal);
+                booksArrayLocal = booksResult;
+                booksText = JSON.stringify(booksArrayLocal);
+              });
+    } catch (error) {
+      console.log("Error trying to fetch books.json: ", error);
+      booksError = JSON.stringify(error);
+      console.log("Error fetching file ", booksJsonPathname, " : ", booksError);
+    }
+
+  } else
+    console.log('fetch disabled.');
+
+  //--------- a simple function to find the name for a number
+  function bookNumberToName(bookNumber) {
+    for (var eachBook of booksArrayLocal) {
+      if (eachBook.bookNumber === bookNumber)
+        return eachBook.name;
+    }
+    return bookNumber;
+  }
+
+  // - - - - - - - - Get the book data itself - - - - - - -- - -
+  let booksArray = booksArrayLocal;
+
+  //- - - - - - find placemarkers for insertion of the results
+
+  document.getElementById("fileURL").textContent = bookJsonPathname;
+  document.getElementById("RESTURL").textContent = bookJsonURL;
+
+  let bookJsonElement = document.getElementById('bookJson');
+  let bookTableElement = document.getElementById('bookTable');
+  let bookError;
+  let fetchResponse;
+  let responseType;
+  let responseUrl;
+  let responseCode;
+  let responseStatus;
+  let responseOK;
+  let responseStatusText;
+  let responseError;
+  let responseHeaders;
+
+  let target = null;
+  // - - - decide how to access both the file and from the rest server
+  if (source == null || source === "file") {
+    target = bookJsonPathname;
+  } else {  // for now assume URL for the server.
+    target = bookJsonURL;
+  }
+  console.log("target=" + target);
+  document.getElementById("effectiveURL").textContent = target;
+
+  // - - - - - Go get the data - - - - - -
+  let bookJsonData;  // the json data should be assigned to this
+  let bookJsonText;  // the string value of it should be left here.
+
+    // First, we setup a try {} catch {} block.
+    try {
+          // if anything explodes in this try block it will transfer
+          // control immediately to the catch block below.
+      console.log(`Next step is to fetch the data from ${target}.`);
+      //- - - - - - - - - - - The actual fetch request - - - - - - -
+      // WARNING: The following section of code is quite confusing by nature.
+      // So, I'm going to explain it at length for the benefit of those reading
+      // this kind of code for the first time, or someone like me who is writing
+      // this code and trying to figure out how it really works.
+      //
+      // So, here is the introduction:
+      // 1) Asynchronous processing is complex and non-linear, so you can't
+      //    just read the code and assume that it executes top to bottom.
+      // RANT: I really dislike JS Promise class.
+      // See:  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+      // 2) You use this when some request (like Fetch) will take some time and you
+      //    don't (can't) make the rest of the browser freeze for a long time.
+      //    So, Fetch returns a Promise object, a promise that sooner or later
+      //    your request will either succeed or fail.  You can chain the actual
+      //    fetch request with a .then() method.  That method takes one or two
+      //    arguments that indicate what function to execute when the fetch completes
+      //    successfully, and if present, the second argument inidicates the function
+      //    that should be called if the Fetch fails.  One or the other of those
+      //    will be called when the fetch completes.
+      // 3) The natural way of coding this would be to write the Fetch request,
+      //    And one or two other functions named something like handleFetchResults,
+      //    and handleFetchFailure.  Each of those will have a single argument
+      //    with the details of the results.
+      //    function handleFetchResults(fetchResponse) {
+      //        <--- code to do something with the response. -->
+      //      }
+      // 4) If what you are doing in those two functions is non trivial then
+      //    coding it that way makes some sense.  But if it is trivial then it's
+      //    a lot of bother.   One solution to that is to have anonymous functions
+      //    that are basically functions without a name that are coded in the
+      //    place where you would normally put a call to that function.
+      //    This is what is called syntactic sugar.
+      //    See: https://en.wikipedia.org/wiki/Syntactic_sugar
+      //    In that page, you will find a JavaScript example of this very thing.
+      //    The problem is that this kind of sugar saves keystrokes but makes
+      //    the code harder to understand for novices.   To make matters worse
+      //    even the anonymous functions aren't simple enough, that they added
+      //    some more sugar called "arrow functions".
+      // I also dislike JS Arrow Functions.
+      // See: https://www.geeksforgeeks.org/javascript-anonymous-functions/
+      // 5) Another piece of syntactic sugar is function call chaining.
+      //    If you have an object and you want to call it several times
+      //    in a row without having to restate the object name.  One way
+      //    to do that is to make sure that each function returns the original
+      //    object as it's return value.   Then you can just make a chain.
+      //    See: https://x-team.com/magazine/javascript-method-chaining
+
+      // OK, here is the code.
+      // The fetch call sends a request to a web server somewhere in the world.
+
+      await //  the fetch is asynchronous normally, so WAIT for it to be done.
+              fetch(target,  // the url to be fetched
+                    {     // options needed to modify the simple fetch.
+                      headers: headers,  // A list of headers to add to the fetch
+                      mode: 'no-cors',  // Don't allow Cross Origin data.
+                      method: "GET"     // Get the URL data and return it.
+                    }  // end of the options parameter.
+                 )  // end of the arguments to the fetch call
+               // The fetch returns a promise object that we don't remember
+               // in a variable because we are going to just use it right
+                      // here by method chaining.  The fetch returned a promise
+                      // so that promise is assumed, and we call it's then
+                      // method.
+              .then(
+                      // Arrow function here which accepts a single argument
+                      // that is assumed to be an http response.
+                      // See: https://developer.mozilla.org/en-US/docs/Web/API/Response
+                      // The => arrow is sugar for the body of a function.
+                      // In this case all that it does is return the json object
+                      // from the response object.
+                      (response) => {
+                        fetchResponse = response.json();
+                        responseType = response.type;
+                        responseUrl = response.url;
+                        responseStatus = response.status;
+                        responseStatusText = response.statusText;
+                        responseOK = response.ok;
+                        responseHeaders = response.headers;
+                        console.log(`fetch done: response=${fetchResponse}`);
+                        console.log(`type=${responseType} status=${responseStatus} ok=${responseOK} code=${responseCode}`);
+                        return fetchResponse;
+                      }
+              )   // The end of the single argument to the then method.
+                      // So, that arrow function returns the json part of the response,
+                      // which is itself, another promise.  A promise that the data
+                      // will sooner or later be received and handled.  Some results
+                      // contain a great deal of data and it has to stream in over time.
+                      // So, this promise is that it will eventually be ready.
+                      // That promise will eventually be fulfilled, and when it does
+                      // this next 'then' will run and receive the json data.
+              .then(
+                       // The function to be called here is another anonymous arrow function
+                       // that takes the json data as it's argument.
+                      (bookResult) =>
+                        // in this case the code is a code block enclosed in {}
+                        {
+                          console.log("JSON=", bookResult);
+                          bookJsonData = bookResult;
+                          bookJsonText = JSON.stringify(bookJsonData);
+                        } // end of code block.
+                      // If all went well, the raw data and a text of it
+                      // has been safely stored away.
+                  );  // end of the then aruments, and finally end of the whole bloody statement.
+
+    } catch (error) {  // if we get here something bad happened in the try
+                       // block, then the error is passed in here.
+      console.log("Error trying to fetch books.json: ", error);
+      responseError = JSON.stringify(error);
+      console.log("Error fetching ", target, " : ", responseError);
+    }
+
+  // After the await of the fetch call and all the callbacks are done
+  // control will continue here, where we will populate the web page.
+
+  // Display the results on the web page.
+  bookJsonElement.innerHTML = bookJsonText;
+
+  document.getElementById("responseType").textContent = responseType;
+  document.getElementById("responseUrl").textContent = responseUrl;
+  document.getElementById("responseStatus").textContent = responseStatus;
+  document.getElementById("responseOK").textContent = responseOK;
+  document.getElementById("responseStatusText").textContent = responseStatusText;
+  // document.getElementById("responseCode").textContent = responseCode;
+  if ( responseError !== undefined)
+     document.getElementById("responseError").textContent = responseError;
+
+  // source of information
+  let bookData = bookJsonData;
+  let bookChapters = bookData.chapters;
+
+  // destination of information in the web page.
+  let bookDivElement = document.getElementById("BookDiv");
+  let bookIntroElement = document.getElementById("bookIntro");
+  let bookHeaderElement = document.createElement("h2");
+  bookIntroElement.appendChild(bookHeaderElement);
+
+  let bookNameElement = document.createTextNode(bookData.name + " : " + bookData.title);
+  let bookTitleHeaderElement = document.createElement("h2");
+  bookTitleHeaderElement.appendChild(bookNameElement);
+  bookIntroElement.appendChild(bookTitleHeaderElement);
+
+  let bookTextElement = document.getElementById("bookText");
+  // Now navigate across all the chapters and expand them into the html.
+  bookData.chapters.forEach((chap) => {
+    let header2 = document.createElement("h3");
+    header2.appendChild(document.createTextNode("Chapter " + chap.chapterNumber));
+    bookTextElement.appendChild(header2);
+    let verses = chap.verses;
+    verses.forEach((verse) => {
+      let xrefs = verse.xrefs;
+      let vn = verse.verseNumber;
+      let vt = verse.text;
+      let boldVerseNumberElement = document.createElement("STRONG");
+      boldVerseNumberElement.appendChild(document.createTextNode(vn + " "));
+      bookTextElement.appendChild(boldVerseNumberElement);
+      bookTextElement.appendChild(document.createTextNode(vt));
+      // bookTextElement.appendChild( document.createElement("br") );
+      if (xrefs.length > 0) {
+        let disclosureElement = document.createElement("details");
+        disclosureElement.appendChild(document.createElement("summary")
+                .appendChild(document.createTextNode("Cross References")));
+        xrefs.forEach((xref) => {
+          disclosureElement.appendChild(document.createTextNode(
+                  "    [" +
+                  xref.xrefNumber + "=" +
+                  bookNumberToName(xref.targetBook) + " " +
+                  xref.targetChapter + ":" +
+                  xref.targetVerse));
+          if (xref.targetEndId > 0) {
+            disclosureElement.appendChild(document.createTextNode(
+                    "-" +
+                    //   xref.targetEndBook+" " +
+                    xref.targetEndChapter + ":" +
+                    xref.targetEndVerse));
+          }
+          disclosureElement.appendChild(document.createTextNode("]"));
+        });
+        bookTextElement.appendChild(disclosureElement);
+        // bookTextElement.appendChild( document.createElement("br") );
+      }
+    });
+  });
+
+</script>
+
+</body>
+
+</html>

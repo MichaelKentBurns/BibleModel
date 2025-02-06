@@ -1,19 +1,10 @@
-import { Note } from "./Note.mjs";
-import { RestClient2 } from "./RestClient2.js";
-
-// let prefsData = RestClient2.callRestClient("/preferences");
-let prefsPromise;  // not used currently.
-const preferencesLocalStorageTag = "BibleModel.prefs";
-const preferences = JSON.parse(localStorage.getItem(preferencesLocalStorageTag) || "[]");
-
-
-let notesList;
-
 // isUpdate and possibly others were never appropriately initialized.
 let isUpdate = false;
 
 // items that were string literals in multiple places that really should match.
 const localStorageTag = "BibleModel.notes";
+const preferencesLocalStorageTag = "BibleModel.prefs";
+
 let bibleNotes = [Note];
 
 const addBox = document.querySelector(".add-box");
@@ -45,8 +36,7 @@ addBtn.addEventListener("click", (e) => {
 
         let aNote = new Note();
         aNote.setText(noteDesc);
-        aNote.setTitle(noteTitle);
-     //   aNote.setAuthor(prefs.Owner);
+        aNote.setAuthor(prefs.Owner);
 
         let dateObj = new Date(),
             month = months[dateObj.getMonth()],
@@ -64,7 +54,6 @@ addBtn.addEventListener("click", (e) => {
         }else {
             isUpdate = false;
             notes[UpdateId] = noteInfo
-            bibleNotes[UpdateId] = noteInfo;
         }
         localStorage.setItem(localStorageTag, JSON.stringify(notes));
         closeIcon.click()
@@ -72,6 +61,7 @@ addBtn.addEventListener("click", (e) => {
     }
 });
 
+const preferences = JSON.parse(localStorage.getItem(preferencesLocalStorageTag) );
 const notes = JSON.parse(localStorage.getItem(localStorageTag) || "[]");
 
 function showNotes() {
@@ -96,23 +86,9 @@ function showNotes() {
         addBox.insertAdjacentHTML("afterend", liTag)
     });
 };
+showNotes();
 
-//prefsPromise.then((response) => {
-//    console.log(response);
-//    console.log(response.statusText)
-//    let responseData = response.json(response);
-//    let responseText = JSON.stringify(responseData);
-//    notesList = responseData;
-//    showNotes();
-//});
-//    .then((versionsResult) => {
-//        responseData = versionsResult;
-//        responseText = JSON.stringify(responseText);
-//    });
 
-// showNotes();
-
-// after callRestClient has been called and it gets to await,  the server sees request and control comes here.
 closeIcon.addEventListener("click", ()=>{
     titleTag.value = "";
     descTag.value = "";
@@ -127,6 +103,7 @@ function showMenu(elem){
     });
 }
 
+
 function deleteNote(noteId) {
     let confirmDel = confirm("Are you sure you want to delete this item?");
     if (!confirmDel) return;
@@ -136,9 +113,10 @@ function deleteNote(noteId) {
     showNotes();
 }
 
+
 function updateNote(noteId, title, desc) {
     isUpdate = true;
-    let updateId = noteId;
+    UpdateId = noteId;
     addBox.click();
     titleTag.value = title;
     descTag.value = desc;
@@ -151,5 +129,14 @@ closeIcon.addEventListener("click", ()=>{
     descTag.value = "";
 });
 
+function showMenu(elem){
+    elem.parentElement.classList.add("show")
+    document.addEventListener("click", e =>{
+        if(e.target.tagName != "I" || e.target != elem){
+            elem.parentElement.classList.remove("show")
+        }
+    });
+}
 
-// when the previous 5 calls execute, control from here goes to the .then in RestClient.mjs ???
+
+

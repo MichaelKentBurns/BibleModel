@@ -1,8 +1,8 @@
-<html>
+<html lang="en">
 
 <head>
   <Title>Abbreviated names for the books of the Bible</Title>
-    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 
   <script src="updateTable.mjs"></script>
 </head>
@@ -35,7 +35,6 @@
   <p>
   <h2>Table of abbreviated names of the books of the Bible.</h2>
   	<table id="booksTable">
-          HTML Table should go here. 
  	</table>
 
   <h2>JSON Data read from book-abbreviations.json:</h2>
@@ -43,11 +42,17 @@
         This is where the raw json text read from book-abbreviations.json should show.
     	</p>
 
-  <h2>Access the raw data file <a href="defaultBible/book-abbreviations.json">defaultBible/book-abbreviations.json:</a> </h2>
-
   <script type="module">
 
-    const booksJsonPathname = "./defaultBible/book-abbreviations.json";
+      let dataLibrary = "./defaultLibrary";
+      const preferencesLocalStorageTag = "BibleModel.prefs";
+      const preferences = JSON.parse(localStorage.getItem(preferencesLocalStorageTag) );
+      if ( preferences == undefined ) console.log("ERROR: No preferences set.  Please visit preferences page first.");
+      else {
+          dataLibrary = preferences["MyBiblePath"];
+      }
+
+      const booksJsonPathname = `../${dataLibrary}/book-abbreviations.json`;
     let booksText = 'initialized text';
     let booksParagraph = document.getElementById('booksParagraph');
     let booksTable = document.getElementById('booksTable');
@@ -83,6 +88,8 @@
     updateTable(booksTable,booksArray);
 
   </script>
+
+  <h2>Access the raw data file <a href=`${booksJsonPathname}`>`${booksJsonPathname}`:</a> </h2>
 
 </body>
 

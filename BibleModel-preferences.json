@@ -1,9 +1,16 @@
 {
     "Instructions": "Preferences file for BibleModel project.",
+    "Documentation": "See: ./doc/Preferences.html",
     "Title": "BibleModel Preferences",
     "Owner": "Michael Burns",
+    "OwnerInitials": "MKB",
     "Email": "MichaelKentBurns@gmail.com",
+    "AccountName": "MKB",
     "MyBiblePath": "./defaultBible",
     "Translation": "WEB",
-    "Book": "Acts"
+    "Book": "Acts",
+    "accessDataBy-options": "file,REST",
+    "accessDataBy": "REST",
+    "RESTURL": "http://localhost",
+    "RESTPort": "3001"
 }

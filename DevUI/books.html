@@ -1,8 +1,8 @@
-<html>
+<html lang="en">
 
 <head>
   <Title>BibleModel - Books of the Bible</Title>
-        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
   <script src="updateTable.mjs"></script>
 </head>
 
@@ -33,7 +33,7 @@
 
   <p>
   <h2>Table of books of the Bible.</h2>
-  	<table id="booksTable">
+  	<table id="booksTable" style="border: thin double black">
  	</table>
 
   <h2>JSON Data read from books.json:</h2>
@@ -43,8 +43,15 @@
   <h2>Access the raw data file <a href="books.json">books.json:</a> </h2>
 
   <script type="module">
+    let dataLibrary = "./defaultLibrary";
+    const preferencesLocalStorageTag = "BibleModel.prefs";
+    const preferences = JSON.parse(localStorage.getItem(preferencesLocalStorageTag) );
+    if ( preferences == null ) alert("ERROR: No preferences set.  Please visit preferences page first.");
+      else {
+             dataLibrary = preferences["MyBiblePath"];
+           }
 
-    const booksJsonPathname = "./books.json";
+    const booksJsonPathname = `../${dataLibrary}/books.json`;
     let booksText = 'initialized text';
     let booksParagraph = document.getElementById('booksParagraph');
     let booksTable = document.getElementById('booksTable');
@@ -53,7 +60,7 @@
     let enable = true;
     if (enable == true) {
       try {
-        console.log('Next step is to fetch books.json file.');
+        console.log(`Next step is to fetch ${booksJsonPathname} file.`);
          await fetch(booksJsonPathname,
                 {
                   mode: 'no-cors'
