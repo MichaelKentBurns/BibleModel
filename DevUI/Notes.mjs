@@ -42,14 +42,14 @@ addBtn.addEventListener("click", (e) => {
         let aNote = new Note();
         aNote.setText(noteDesc);
         aNote.setTitle(noteTitle);
-        aNote.setAuthor(prefserences.OwnerInitials);
+        aNote.setAuthor(preferences.OwnerInitials);
 
         let dateObj = new Date(),
             month = months[dateObj.getMonth()],
             day = dateObj.getDate(),
             year = dateObj.getFullYear();
 
-        if (aNote.Created = null)
+        if (aNote.Created == null)
             aNote.Created = dateObj;
         aNote.Modified = dateObj;
 
@@ -71,22 +71,22 @@ addBtn.addEventListener("click", (e) => {
     }
 });
 
-const bibleNotes = JSON.parse(localStorage.getItem(localStorageTag) || "[]");
+bibleNotes [Note] = JSON.parse(localStorage.getItem(localStorageTag) || "[]");
 
 function showNotes() {
     document.querySelectorAll(".note").forEach(note => note.remove())
     bibleNotes.forEach((note, index) => {
         let liTag = `  <li class="note">
       <div class="details">
-          <p>${note.getTitle()}</p>
-          <span>${note.getText()}</span>
+          <p>${note.title}</p>
+          <span>${note.text}</span>
       </div>
       <div class="bottom-content">
-          <span>${note.date}</span>
+          <span>${note.modified}</span>
           <div class="settings">
             <i onclick="showMenu(this)" class="uil uil-ellipsis-h">...</i>
             <ul class="menu">
-                <li onclick="updateNote(${index}, '${note.getTitle()}', '${note.getText()}')"><i class="uil uil-pen"></i>Edit</li>
+                <li onclick="updateNote(${index}, '${note.title}', '${note.text}')"><i class="uil uil-pen"></i>Edit</li>
                 <li onclick="deleteNote(${index})"><i class="uil uil-trash"></i>Delete</li>
             </ul>
         </div>
