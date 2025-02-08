@@ -25,12 +25,17 @@ export class HttpServer {
             {
                 if ( headers.origin != null ) // === 'https://Bible.MichaelKentBurns.com')
                 {
-                    responseHeaders.append("Access-Control-Allow-Origin","*");
+                    res.setHeader("Access-Control-Allow-Origin","*");
                     if (traceHttpServer) console.log("200 Cross Origin accepted");
                     method = "GET";
                 }
             }
              if ( method === "GET" ) {
+
+                 // Still trying to get CORS to work.   Send this with every response.
+                 res.setHeader("Access-Control-Allow-Origin","*");
+                 if (traceHttpServer) console.log("200 Cross Origin accepted");
+
                 if (urlPath === "/overview" || urlPath === "/") {
                     res.end(
                         'Welcome to the "overview page" of the BibleModel REST server.\n\
@@ -45,22 +50,22 @@ export class HttpServer {
                         /stop to shut-down this server.'
                     );
                 } else if (urlPath === "/preferences") {
-                    responseHeaders.append("Content-Type","application/json");
+                    res.setHeader("Content-Type","application/json");
                     res.writeHead(200, responseHeaders);
                     res.end(
                         JSON.stringify(Bible.getBible().config) + '\n');
                 } else if (urlPath === "/versions") {
-                    responseHeaders.append("Content-Type","application/json");
+                    res.setHeader("Content-Type","application/json");
                     res.writeHead(200, responseHeaders);
                     res.end(
                         JSON.stringify(Version.getVersions()) + '\n');
                 } else if (urlPath === "/bible") {
-                    responseHeaders.append("Content-Type","application/json");
+                    res.setHeader("Content-Type","application/json");
                     res.writeHead(200, responseHeaders);
                     res.end(
                         JSON.stringify(Bible.getBible()) + '\n');
                 } else if (urlPath === "/books") {
-                    responseHeaders.append("Content-Type","application/json");
+                    res.setHeader("Content-Type","application/json");
                     res.writeHead(200, responseHeaders);
                     res.end(
                         JSON.stringify(Bible.getBible().getBooks()) + '\n');
@@ -72,13 +77,13 @@ export class HttpServer {
                         if (urlArray[3] == 'contents')
                             Book.loadContents(aBook);
                         let returnText = JSON.stringify(aBook)
-                        responseHeaders.append("Content-Type","application/json");
+                        res.setHeader("Content-Type","application/json");
                         res.writeHead(200, responseHeaders);
                         if (traceHttpServer) console.log("document=", returnText, " headers=", responseHeaders);
                         res.end(returnText + '\n');
                     }
                 } else if (urlPath === "/bookAbbreviations") {
-                    responseHeaders.append("Content-Type","application/json");
+                    res.setHeader("Content-Type","application/json");
                     res.writeHead(200,responseHeaders);
                     res.end(
                         JSON.stringify(Book.abbreviationList) + '\n');

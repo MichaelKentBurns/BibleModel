@@ -1,9 +1,9 @@
-import { Note } from "../Note.mjs";
+import {Note} from "../Note.mjs";
 // import { RestClient2 } from "./RestClient2.js";
 
 const preferencesLocalStorageTag = "BibleModel.prefs";
-const preferences = JSON.parse(localStorage.getItem(preferencesLocalStorageTag) );
-if ( preferences != undefined ) console.log("Note: Preferences read from local storage: ", preferences);
+const preferences = JSON.parse(localStorage.getItem(preferencesLocalStorageTag));
+if (preferences != undefined) console.log("Note: Preferences read from local storage: ", preferences);
 
 // isUpdate and possibly others were never appropriately initialized.
 let isUpdate = false;
@@ -15,20 +15,20 @@ let bibleNotes = [Note];
 const addBox = document.querySelector(".add-box");
 const popUpBox = document.querySelector(".popup-box");
 const closeIcon = document.querySelector("header i");
-const titleTag= document.querySelector("input");
-const descTag= document.querySelector("textarea");
+const titleTag = document.querySelector("input");
+const descTag = document.querySelector("textarea");
 const addBtn = popUpBox.querySelector("button");
 const popupTitle = document.querySelector("header p");
 
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-addBox.addEventListener("click", function(){
+addBox.addEventListener("click", function () {
     titleTag.focus();
     popUpBox.classList.add("show")
 });
 
 
-closeIcon.addEventListener("click", ()=>{
+closeIcon.addEventListener("click", () => {
     popUpBox.classList.remove("show")
 });
 
@@ -37,7 +37,7 @@ addBtn.addEventListener("click", (e) => {
     e.preventDefault();
     let noteTitle = titleTag.value,
         noteDesc = descTag.value;
-    if (noteTitle || noteDesc){
+    if (noteTitle || noteDesc) {
 
         let aNote = new Note();
         aNote.setText(noteDesc);
@@ -54,14 +54,14 @@ addBtn.addEventListener("click", (e) => {
         aNote.Modified = dateObj;
 
         let noteInfo = {
-            title: noteTitle, 
+            title: noteTitle,
             description: noteDesc,
             date: `${month} ${day} ${year}`
         }
 
-        if(!isUpdate){
+        if (!isUpdate) {
             bibleNotes.push(aNote);
-        }else {
+        } else {
             isUpdate = false;
             bibleNotes[UpdateId] = aNote;
         }
@@ -71,12 +71,19 @@ addBtn.addEventListener("click", (e) => {
     }
 });
 
-bibleNotes [Note] = JSON.parse(localStorage.getItem(localStorageTag) || "[]");
+bibleNotes
+    // [Note]
+    = JSON.parse(localStorage.getItem(localStorageTag) || "[]");
+console.log("bibleNotes=", bibleNotes);
 
 function showNotes() {
     document.querySelectorAll(".note").forEach(note => note.remove())
     bibleNotes.forEach((note, index) => {
-        let liTag = `  <li class="note">
+
+        console.log(`Preparing to display note[${index}]`);
+        if (note != null) {
+
+            let liTag = `  <li class="note">
       <div class="details">
           <p>${note.title}</p>
           <span>${note.text}</span>
@@ -92,19 +99,21 @@ function showNotes() {
         </div>
       </div>
      </li>`;
-        addBox.insertAdjacentHTML("afterend", liTag)
+            addBox.insertAdjacentHTML("afterend", liTag)
+        }
     });
+
 };
 
-closeIcon.addEventListener("click", ()=>{
+closeIcon.addEventListener("click", () => {
     titleTag.value = "";
     descTag.value = "";
 });
 
-function showMenu(elem){
+function showMenu(elem) {
     elem.parentElement.classList.add("show")
-    document.addEventListener("click", e =>{
-        if(e.target.tagName != "I" || e.target != elem){
+    document.addEventListener("click", e => {
+        if (e.target.tagName != "I" || e.target != elem) {
             elem.parentElement.classList.remove("show")
         }
     });
@@ -129,7 +138,7 @@ function updateNote(noteId, title, desc) {
     popupTitle.innerText = "Update a Note";
 }
 
-closeIcon.addEventListener("click", ()=>{
+closeIcon.addEventListener("click", () => {
     titleTag.value = "";
     descTag.value = "";
 });

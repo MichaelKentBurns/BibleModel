@@ -148,13 +148,14 @@
                     method: "GET"
                 }
             ).then((response) => {
+                bookResponse = response;
                 bookObject = response.json();
                 bookHeaders = response.headers;
                 contentType = bookHeaders.get("content-type");
+                return bookObject;
             })
                 .then((bookResult) => {
                     console.log("JSON=", bookObject);
-                    bookText = bookResponse.text();
                     bookText = JSON.stringify(bookObject);
                 });
         } catch (error) {
@@ -186,19 +187,21 @@
 
     let bookTextElement = document.getElementById("bookText");
 
-    bookData.chapters.forEach((chap) => {
-        let header2 = document.createElement("h3");
-        header2.appendChild(document.createTextNode("Chapter " + chap.chapterNumber));
-        bookTextElement.appendChild(header2);
-        let verses = chap.verses;
-        verses.forEach((verse) => {
-            let boldVerseNumber = document.createElement("STRONG");
-            boldVerseNumber.appendChild( document.createTextNode(verse.verseNumber + " "));
-            bookTextElement.appendChild(boldVerseNumber);
-            bookTextElement.appendChild(document.createTextNode(verse.text));
-            bookTextElement.appendChild(document.createElement("br"));
+    if ( bookData.chapters != null ) {
+        bookData.chapters.forEach((chap) => {
+            let header2 = document.createElement("h3");
+            header2.appendChild(document.createTextNode("Chapter " + chap.chapterNumber));
+            bookTextElement.appendChild(header2);
+            let verses = chap.verses;
+            verses.forEach((verse) => {
+                let boldVerseNumber = document.createElement("STRONG");
+                boldVerseNumber.appendChild(document.createTextNode(verse.verseNumber + " "));
+                bookTextElement.appendChild(boldVerseNumber);
+                bookTextElement.appendChild(document.createTextNode(verse.text));
+                bookTextElement.appendChild(document.createElement("br"));
+            });
         });
-    });
+    };
 
 </script>
 

@@ -27,6 +27,8 @@
   <tr><td><strong>Response.ok</strong></td>          <td id="responseOK"></td></tr>
   <tr><td><strong>Response.statusText</strong></td>  <td id="responseStatusText"></td></tr>
   <tr><td><strong>Response.headers</strong></td>     <td id="responseHeaders"></td></tr>
+  <tr><td><strong>Response.error</strong></td>       <td id="responseError"></td></tr>
+
 </table>
 <p>
 <h2>One book of the Bible.</h2>
@@ -115,7 +117,7 @@
       await fetch(booksTarget,
               {
                 headers: headers,
-                mode: 'no-cors',
+                mode: 'cors',
                 method: 'GET'
               }
       ).then((response) => response.json())
@@ -237,7 +239,7 @@
               fetch(target,  // the url to be fetched
                     {     // options needed to modify the simple fetch.
                       headers: headers,  // A list of headers to add to the fetch
-                      mode: 'no-cors',  // Don't allow Cross Origin data.
+                      mode: 'cors',  // Don't allow Cross Origin data.
                       method: "GET"     // Get the URL data and return it.
                     }  // end of the options parameter.
                  )  // end of the arguments to the fetch call
@@ -290,7 +292,9 @@
     } catch (error) {  // if we get here something bad happened in the try
                        // block, then the error is passed in here.
       console.log("Error trying to fetch books.json: ", error);
-      responseError = JSON.stringify(error);
+      console.log("Error.stack", error.stack);
+      console.log("Error.message", error.message);
+      responseError = `${error.message} ${error.stack}`;
       console.log("Error fetching ", target, " : ", responseError);
     }
 
@@ -311,7 +315,10 @@
 
   // source of information
   let bookData = bookJsonData;
-  let bookChapters = bookData.chapters;
+
+  let bookChapters;
+  if ( bookData != null )
+    bookChapters = bookData.chapters;
 
   // destination of information in the web page.
   let bookDivElement = document.getElementById("BookDiv");
