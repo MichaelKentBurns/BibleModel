@@ -23,12 +23,15 @@ const popupTitle = document.querySelector("header p");
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 addBox.addEventListener("click", function () {
+    console.log("add listener clicked.")
     titleTag.focus();
     popUpBox.classList.add("show")
 });
 
 
 closeIcon.addEventListener("click", () => {
+    console.log("close listener clicked.")
+
     popUpBox.classList.remove("show")
 });
 
@@ -40,6 +43,7 @@ addBtn.addEventListener("click", (e) => {
     if (noteTitle || noteDesc) {
 
         let aNote = new Note();
+        aNote.widget = this;
         aNote.setText(noteDesc);
         aNote.setTitle(noteTitle);
         aNote.setAuthor(preferences.OwnerInitials);
@@ -71,11 +75,6 @@ addBtn.addEventListener("click", (e) => {
     }
 });
 
-bibleNotes
-    // [Note]
-    = JSON.parse(localStorage.getItem(localStorageTag) || "[]");
-console.log("bibleNotes=", bibleNotes);
-
 function showNotes() {
     document.querySelectorAll(".note").forEach(note => note.remove())
     bibleNotes.forEach((note, index) => {
@@ -91,19 +90,29 @@ function showNotes() {
       <div class="bottom-content">
           <span>${note.modified}</span>
           <div class="settings">
-            <i onclick="showMenu(this)" class="uil uil-ellipsis-h">...</i>
+            <i onclick="showMenu(note.widget)" class="uil uil-ellipsis-h">...</i>
             <ul class="menu">
-                <li onclick="updateNote(${index}, '${note.title}', '${note.text}')"><i class="uil uil-pen"></i>Edit</li>
-                <li onclick="deleteNote(${index})"><i class="uil uil-trash"></i>Delete</li>
+                <li onclick="updateNote(${index}, '${note.title}', '${note.text}')">
+                        <i class="uil uil-pen"></i>Edit</li>
+                <li onclick="deleteNote(${index})">
+                        <i class="uil uil-trash"></i>Delete</li>
             </ul>
         </div>
       </div>
      </li>`;
+            note.widget = liTag;
             addBox.insertAdjacentHTML("afterend", liTag)
         }
     });
 
 };
+
+
+bibleNotes
+    // [Note]
+    = JSON.parse(localStorage.getItem(localStorageTag) || "[]");
+console.log("bibleNotes=", bibleNotes);
+showNotes();   // display the existing notes just fetched.
 
 closeIcon.addEventListener("click", () => {
     titleTag.value = "";
@@ -111,6 +120,8 @@ closeIcon.addEventListener("click", () => {
 });
 
 function showMenu(elem) {
+    console.log("showMenu.")
+
     elem.parentElement.classList.add("show")
     document.addEventListener("click", e => {
         if (e.target.tagName != "I" || e.target != elem) {
@@ -120,6 +131,8 @@ function showMenu(elem) {
 }
 
 function deleteNote(noteId) {
+    console.log(`delete note ${noteId} .`);
+
     let confirmDel = confirm("Are you sure you want to delete this item?");
     if (!confirmDel) return;
 
@@ -129,6 +142,7 @@ function deleteNote(noteId) {
 }
 
 function updateNote(noteId, title, desc) {
+    console.log(`delete note ${noteId} .`);
     isUpdate = true;
     let updateId = noteId;
     addBox.click();
@@ -139,6 +153,7 @@ function updateNote(noteId, title, desc) {
 }
 
 closeIcon.addEventListener("click", () => {
+    console.log(`Edit note close button clicked.`);
     titleTag.value = "";
     descTag.value = "";
 });

@@ -20,6 +20,9 @@ console.log("bibleNotes=",bibleNotes);
 let notesText = JSON.stringify(bibleNotes);
 document.getElementById("notesData").textContent = notesText;
 
+// Put the fetched data in the html table of html file.
+updateTable(notesTable,bibleNotes);
+
 
 function saveAll(notesData) {
 
