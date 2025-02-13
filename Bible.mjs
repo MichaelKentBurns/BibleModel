@@ -59,6 +59,8 @@ import {Book} from './Book.mjs';  // makes promiseToReadBooks
 import { DataSource } from './DataSource.mjs';
 import { Location } from './Location.mjs';
 import { Xref } from './Xref.mjs';
+import { Note } from './Note.mjs';
+
  //   import {Http2Server} from './Http2Server.mjs';
     import {HttpServer} from './HttpServer.mjs';
 
@@ -125,6 +127,11 @@ export class Bible {
         return theBible;
     }
 
+    //mm  getConfig()$   // returns configuration preferences
+    static getConfig() {
+        return config;
+    }
+
     //mm  getBibleNumber(n)$  // returns the nth Bible open
     static getBibleNumber(n) {
         if ( n > 0 && n <= numBibles )
@@ -173,11 +180,10 @@ export class Bible {
 
         // If versions are not already load them, then do it once. 
         let currentVersions = Version.getVersions();
-        if ( currentVersions == undefined || currentVersions.length == 0 ) {
+        if (currentVersions == undefined || currentVersions.length == 0) {
             Version.loadAll();
             currentVersions = Version.getVersions();
-            if ( config.Translation != undefined )
-            {
+            if (config.Translation != undefined) {
                 let translation = config.Translation;
                 defaultBible = Version.getVersionNamed(translation);
                 defaultBibleTableName = Version.getVersionNamedTableName(translation);
@@ -188,14 +194,17 @@ export class Bible {
         if (traceBible) console.log('Bible.mjs LoadAll() Loading books...');
         this.booksComplete = false;
         this.booksReadError = Book.loadAll(theBible);
-        if ( this.booksReadError && traceBible ) console.log(this.booksReadError);
+        if (this.booksReadError && traceBible) console.log(this.booksReadError);
 
         // Next cross references might be loaded, or may be deferred for lazy loads. 
-          if ( traceBible ) console.log('Bible.mjs Loading cross references...');
-          Xref.loadAll(theBible);
-          if (theBible.xrefs != undefined) {
-              if ( traceBible ) console.log('There are ', theBible.xrefs.length, ' cross references');
-          }
+        if (traceBible) console.log('Bible.mjs Loading cross references...');
+        Xref.loadAll(theBible);
+        if (theBible.xrefs != undefined) {
+            if (traceBible) console.log('There are ', theBible.xrefs.length, ' cross references');
+        }
+
+        // Finally, notes get loaded.
+        Note.loadAll();
     }
 
     // ======================== State Machine ======================

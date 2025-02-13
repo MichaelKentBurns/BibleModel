@@ -4,6 +4,62 @@ import http from 'node:http';
 import { Bible } from "./Bible.mjs";
 import { Book } from "./Book.mjs";
 import { Version } from "./Version.mjs";
+import { Note } from "./Note.mjs";
+
+const BODY_MAX_SIZE = 1024 * 1024;
+
+// parse a body for a post request
+let parseBody = (req, res, next) => {
+    let bodyStr = '';
+    req.body = {};
+    req.on('data', function (chunk) {
+        bodyStr += chunk.toString();
+        // do some basic sanitation
+        if (bodyStr.length >= BODY_MAX_SIZE) {
+            // if body char length is greater than
+            // or equal to 200 destroy the connection
+            res.connection.destroy();
+        }
+    });
+    // once the body is received
+    req.on('end', function () {
+        try{
+            req.body = JSON.parse(bodyStr);
+        }catch(e){
+            req.body = bodyStr;
+        }
+        next(req, res);
+    });
+};
+
+// default middleware that does nothing
+let middleware = function(req, res, next){
+    next(req, res);
+};
+
+let forRequest = {};
+let useMiddleware = false;
+// for any post request
+forRequest.POST = (req, res) => {
+    // parse the given body
+    parseBody(req, res, function(req, res){
+        res.resObj = {
+            body: req.body,
+            mess: ''
+        };
+        // call middleware
+        if ( useMiddleware )
+        middleware(req, res, function(req, res){
+            // when done send a response
+            res.writeHead(200, {
+                'Content-Type': 'text/plain'
+            });
+            // send back this object as a response
+            res.write(JSON.stringify(res.resObj), 'utf8');
+            res.end();
+        });
+    });
+};
 
 
 export class HttpServer {
@@ -20,6 +76,8 @@ export class HttpServer {
             const headers = req.headers;
             const urlArray = urlPath.split("/");
             const responseHeaders = new Headers();
+            const body = req.body;
+
             if ( traceHttpServer) console.log(`HttpServer: url=${urlPath} method=${method}`);
             if ( method === "OPTIONS" )
             {
@@ -49,22 +107,22 @@ export class HttpServer {
                         /book/{name}/contents to receive a specific book and it\'s contents.\n\
                         /stop to shut-down this server.'
                     );
-                } else if (urlPath === "/preferences") {
+                } else if (urlArray[1] === "preferences") {
                     res.setHeader("Content-Type","application/json");
                     res.writeHead(200, responseHeaders);
                     res.end(
                         JSON.stringify(Bible.getBible().config) + '\n');
-                } else if (urlPath === "/versions") {
+                } else if (urlArray[1] === "versions") {
                     res.setHeader("Content-Type","application/json");
                     res.writeHead(200, responseHeaders);
                     res.end(
                         JSON.stringify(Version.getVersions()) + '\n');
-                } else if (urlPath === "/bible") {
+                } else if (urlArray[1] === "bible") {
                     res.setHeader("Content-Type","application/json");
                     res.writeHead(200, responseHeaders);
                     res.end(
                         JSON.stringify(Bible.getBible()) + '\n');
-                } else if (urlPath === "/books") {
+                } else if (urlArray[1] === "books") {
                     res.setHeader("Content-Type","application/json");
                     res.writeHead(200, responseHeaders);
                     res.end(
@@ -77,17 +135,22 @@ export class HttpServer {
                         if (urlArray[3] == 'contents')
                             Book.loadContents(aBook);
                         let returnText = JSON.stringify(aBook)
-                        res.setHeader("Content-Type","application/json");
+                        res.setHeader("Content-Type", "application/json");
                         res.writeHead(200, responseHeaders);
                         if (traceHttpServer) console.log("document=", returnText, " headers=", responseHeaders);
                         res.end(returnText + '\n');
                     }
-                } else if (urlPath === "/bookAbbreviations") {
-                    res.setHeader("Content-Type","application/json");
-                    res.writeHead(200,responseHeaders);
-                    res.end(
-                        JSON.stringify(Book.abbreviationList) + '\n');
-                } else if (urlPath === "/stop") {
+                } else if (urlArray[1] === "notes") {
+                 res.setHeader("Content-Type","application/json");
+                 res.writeHead(200,responseHeaders);
+                 let notes = Note.getNotes();
+                 if ( urlArray[2] === 'load' ) {
+                     Note.loadAll();
+                    notes = Note.getNotes();
+                 }
+                 let notesText = JSON.stringify(notes);
+                 res.end(notesText);
+                } else if (urlArray[1] === "stop") {
                     res.end("BibleModel REST server stopping.");
                     this.stopServer();
                 } else {
@@ -97,7 +160,21 @@ export class HttpServer {
                 }
             }
             else if ( method === "POST" ) {
-                console.log("UNSUPPORTED POST");
+                 if (urlArray[1] === "notes") {
+                     forRequest.POST(req,res);
+                     let body = req.body;
+                     if ( body.length ) {
+                         Note.setNotes(body);
+                         res.writeHead(200, {"Content-Type": "text/plain"});
+                         res.end("POST data accepted.\n");
+                         if ( urlArray[2] === 'save' )
+                             Note.saveAll();
+                     } else {
+                         res.writeHead(404, {"Content-Type": "text/plain"});
+                         res.end("Empty POST data\n");
+                     }
+                 }
+                 else  console.log("UNSUPPORTED POST");
             }
         });
         console.log("HttpServer - started.")

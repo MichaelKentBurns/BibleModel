@@ -1,4 +1,10 @@
 import { Location } from './Location.mjs';
+import fs from 'node:fs';
+import {Bible} from "./Bible.mjs";
+let traceNotes = true;
+
+let notesPath;
+let allNotes;
 
 //mm # Class: Note
 //mm
@@ -47,7 +53,7 @@ export class Note {
         this.text = "";
         //mm +Xref xref      // a cross references
         this.xref = 0;
-        if ( row != undefined ) {
+        if (row != undefined) {
             this.location.id = row.location;
             this.chapterNumber = row.c;
             this.verseNumber = row.v;
@@ -56,9 +62,7 @@ export class Note {
             this.location.path[2] = row.v;
             this.text = row.text;
             this.title = row.title;
-        }
-        else
-        {
+        } else {
             this.text = '';
             this.title = '';
         }
@@ -68,6 +72,7 @@ export class Note {
     setTitle(someText) {
         this.title = someText;
     }
+
     getTitle() {
         return this.title;
     }
@@ -75,6 +80,7 @@ export class Note {
     setText(someText) {
         this.text = someText;
     }
+
     getText() {
         return this.text;
     }
@@ -82,15 +88,63 @@ export class Note {
     setAuthor(author) {
         this.author = author;
     }
+
     getAuthor() {
         return this.author;
     }
 
-    //mm ~loadAll()$   // loads all notes
-    static loadAll() {
-      // TBD
+    //mm getNotes()$   // return the list of notes
+    static getNotes() {
+        return allNotes;
     }
 
+    //mm setNotes([Note])$   // set the list of notes
+    static setNotes(someNotes) {
+        let allNotes = someNotes.clone();
+        return allNotes;
+    }
+
+    static setNotesPath(){ // sets up info for access Notes.json
+        notesPath = Bible.getConfig().MyBiblePath + "/Notes.json";
+    }
+
+    //mm ~loadAll()$   // loads all notes
+    static loadAll() {
+        if ( notesPath === undefined )
+            Note.setNotesPath();
+        let allNotesText = fs.readFileSync(notesPath, (error) => {
+            if (error) {
+                console.log('Notes.mjs An error has occurred reading notes', error);
+                return null;
+            }
+        });
+        allNotes = JSON.parse(allNotesText);
+
+            if (traceNotes) console.log('Notes read successfully from disk');
+            return allNotes;
+    }
+
+    //mm ~saveAll()$   // saves all the Notes
+    static saveAll = function saveAll() {
+
+        if ( notesPath === undefined )
+            Note.setNotesPath();
+
+        if (allNotes !== undefined) {
+
+            // convert JSON object to a string
+            const jsonData = JSON.stringify(allNotes)
+
+            // write JSON string to a file
+            fs.writeFile(notesPath, jsonData, err => {
+                if (err) {
+                    throw err
+                }
+                if (traceNotes) console.log('Notes JSON data is saved.')
+            })
+
+        }
+    }
 }
 //mm }
 //mm Bible *-- Note

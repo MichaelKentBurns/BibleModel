@@ -35,6 +35,15 @@ curl http://localhost:3001/book/Matthew/contents
 echo "======== Get the first book of the old testament:"
 curl http://localhost:3001/book/Ge
 
+echo "======== Get the list of note objects:"
+curl http://localhost:3001/notes
+
+echo "======== Load and Get the list of note objects:"
+curl http://localhost:3001/notes/load
+
+echo "======== Save and Get the list of note objects:"
+curl http://localhost:3001/notes/save -X post 
+
 echo "======== Request something invalid:"
 curl http://localhost:3001/somethingElse
 
