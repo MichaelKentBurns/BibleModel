@@ -3,7 +3,7 @@ import test from 'node:test';
 import * as assert from "node:assert";
 
 import { Bible } from '../Bible.mjs';
-import { HttpServer } from '../HttpServer.mjs';
+import { HttpServer } from '../Servers/HttpServer.mjs';
 
 
 let bible1 = undefined;

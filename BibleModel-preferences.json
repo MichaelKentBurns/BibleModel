@@ -12,5 +12,7 @@
     "accessDataBy-options": "file,REST",
     "accessDataBy": "REST",
     "RESTURL": "http://localhost",
-    "RESTPort": "3001"
+    "RESTPort": "8082",
+    "RESTServer": "RESTServer",
+    "alternate": "HttpServer"
 }

@@ -62,7 +62,9 @@ import { Xref } from './Xref.mjs';
 import { Note } from './Note.mjs';
 
  //   import {Http2Server} from './Http2Server.mjs';
-    import {HttpServer} from './HttpServer.mjs';
+import {HttpServer} from './Servers/HttpServer.mjs';
+import {HTTPserverStart} from './Servers/RESTServer/HTTPserver.mjs';
+import {RESTendpoint} from './Servers/RESTServer/RESTendpoint.mjs';
 
 
 // utility function to pause this main event loop to allow asynch tasks to run
@@ -283,7 +285,10 @@ export class Bible {
             // - - - - - - - - - Placeholder for future additions, but for now do nothing.
             if (state == state_httpServer) {
                 if (traceBible) console.log('Bible.mjs Initialize and start http server...')
-                if ( useHttp2 ) {
+                if ( config.RESTServer === "RESTServer" ) {
+                    HTTPserverStart();
+                }
+                else if ( useHttp2 ) {
                     Http2Server.setup();
                     Http2Server.activateServer();
                 } else
@@ -344,6 +349,21 @@ export class Bible {
         if (traceBible) console.log('Bible.mjs ===================== stateMachine() ending. time=', performance.now());
     }
 // ===================== end of StateMachine function. ============
+
+    static handlePreferences( endpoint, request, response, urlArray, urlOptionsArray ) {
+          if ( request.method === 'GET' )
+             {
+              response.setHeader("Content-Type","application/json");
+              response.writeHead(200);
+              response.end(
+                  JSON.stringify(Bible.getBible().config) + '\n');
+             }
+         }
+
+    static registerEndpoints(){
+        let endpoint = new RESTendpoint( "preferences", Bible, Bible.handlePreferences );
+        RESTendpoint.registerEndpoint( endpoint );
+    }
 // if ( traceBible ) console.log('Bible Class Defined.');
 }
 
@@ -364,6 +384,9 @@ if (state == state_init) {
         fs.mkdirSync(MyBiblePath, {recursive: true});
         if (traceBible) console.log('Bible Library directory created: ', MyBiblePath);
     }
+    if (traceBible) console.log('Bible - registering REST endpoints.');
+
+    Bible.registerEndpoints();
 }
 
 

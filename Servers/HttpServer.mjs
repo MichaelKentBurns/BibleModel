@@ -1,10 +1,12 @@
+import RESTendpoint from "./RESTServer/RESTendpoint.mjs";
+
 const traceHttpServer = true;
 
 import http from 'node:http';
-import { Bible } from "./Bible.mjs";
-import { Book } from "./Book.mjs";
-import { Version } from "./Version.mjs";
-import { Note } from "./Note.mjs";
+import { Bible } from "../Bible.mjs";
+import { Book } from "../Book.mjs";
+import { Version } from "../Version.mjs";
+import { Note } from "../Note.mjs";
 
 const BODY_MAX_SIZE = 1024 * 1024;
 
@@ -89,10 +91,14 @@ export class HttpServer {
                 }
             }
              if ( method === "GET" ) {
-
                  // Still trying to get CORS to work.   Send this with every response.
                  res.setHeader("Access-Control-Allow-Origin","*");
                  if (traceHttpServer) console.log("200 Cross Origin accepted");
+                 // Check the endpoint registry for a handler.
+                 let endpoint = RESTendpoint.findEndpoint(req.url.split('/')[1]);
+                 if ( endpoint !== null ) {
+                     RESTendpoint.handleRequest(endpoint, req, res );
+                 }
 
                 if (urlPath === "/overview" || urlPath === "/") {
                     res.end(

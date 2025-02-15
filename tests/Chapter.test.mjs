@@ -4,7 +4,7 @@ import * as assert from "node:assert";
 import {Bible} from "../Bible.mjs";
 import { Book } from '../Book.mjs';
 import {Chapter} from "../Chapter.mjs";
-import { HttpServer } from '../HttpServer.mjs';
+import { HttpServer } from '../Servers/HttpServer.mjs';
 
 const ordinal = 40;
 const name = "Matthew";

@@ -4,7 +4,7 @@ import { Book } from '../Book.mjs';
 import * as assert from "node:assert";
 import {Bible} from "../Bible.mjs";
 import {Location} from "../Location.mjs";
-import { HttpServer } from '../HttpServer.mjs';
+import { HttpServer } from '../Servers/HttpServer.mjs';
 
 
 const ordinal = 40;
