@@ -53,7 +53,7 @@ export class RESTendpoint {
         if ( urlOptionsString.length > 1 )
             urlOptionsArray = urlOptionsString.split('&');
         let urlArray = url.split('/');
-        let aClass = endpoint.handlerClass;
+      //  let aClass = endpoint.handlerClass;
         let aMethod = endpoint.requestHandler;
         // let handler = aClass.aMethod;
        return aMethod( endpoint, request, response, urlArray, urlOptionsArray );

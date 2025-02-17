@@ -51,6 +51,26 @@ const configData = fs.readFileSync(configPath, (error) => {
     if (traceBible) console.log('Data read successfully from disk');
 });
 const config = JSON.parse(configData);
+const root = '/Bible';
+console.log(root);
+
+const overview =
+    `Welcome to the "overview page" of the BibleModel REST server.\n\
+        Request:\n\
+        ${root}/ or \n\
+        ${root}/overview to receive this overview. \n\
+        ${root}/status to check the status of this server. \n\
+        ${root}/preferences to receive the current preferences.\n\
+        ${root}/versions to receive the list of Bible versions.\n\
+        ${root}/bible to receive entire Bible current state.\n\
+        ${root}/books to receive list of books.\n\
+        ${root}/bookAbbreviation to receive list of all abbreviated book names.\n\
+        ${root}/book/{name} to receive a specific book by name.\n\
+        ${root}/book/{number} to receive a specific book by name.\n\
+        ${root}/book/{name or number}/contents to receive a specific book and it\'s contents.\n\
+        ${root}/notes to receive all notes.\n\
+        ${root}/note/{number} to receive a specific note.\n\
+        ${root}/stop to shut-down this server.`;
 
 // - - - - - - - - - - Initialize other modules. 
 if (traceBible) console.log('Bible.mjs Initializing');
@@ -63,9 +83,14 @@ import { Note } from './Note.mjs';
 
  //   import {Http2Server} from './Http2Server.mjs';
 import {HttpServer} from './Servers/HttpServer.mjs';
-import {HTTPserverStart} from './Servers/RESTServer/HTTPserver.mjs';
+import {
+    HTTPserverStart,
+    HTTPserverSetPort,
+    HTTPserverGetPort,
+    HTTPserverStop,
+    HTTPserverRequestCount
+} from './Servers/RESTServer/HTTPserver.mjs';
 import {RESTendpoint} from './Servers/RESTServer/RESTendpoint.mjs';
-
 
 // utility function to pause this main event loop to allow asynch tasks to run
 function sleep(ms) {
@@ -286,6 +311,7 @@ export class Bible {
             if (state == state_httpServer) {
                 if (traceBible) console.log('Bible.mjs Initialize and start http server...')
                 if ( config.RESTServer === "RESTServer" ) {
+                    HTTPserverSetPort(config.RESTPort);
                     HTTPserverStart();
                 }
                 else if ( useHttp2 ) {
@@ -350,6 +376,37 @@ export class Bible {
     }
 // ===================== end of StateMachine function. ============
 
+    static handleOverview( endpoint, request, response, urlArray, urlOptionsArray ) {
+        if ( request.method === 'GET' )
+        {
+            response.setHeader("Content-Type","text/plain");
+            response.writeHead(200);
+            response.end( overview + '\n');
+        }
+    }
+
+    static handleStatus( endpoint, request, response, urlArray, urlOptionsArray ) {
+        if ( request.method === 'GET' )
+        {
+            response.setHeader("Content-Type","application/json");
+            response.writeHead(200);
+            let status =
+                {
+                    processId: process.pid,
+                    processArgv: process.argv,
+                    processEnv: process.env,
+                    processCPU: process.cpuUsage,
+                    processMemoryUsage: process.memoryUsage,
+                    bibleLoaded: Bible.getBible().bibleInitialized,
+                    httpPort: request.httpPort,
+                    server: "up",
+                    requestCount: HTTPserverRequestCount(),
+                    nothing: 0
+                }
+            response.end( JSON.stringify(status) + '\n');
+        }
+    }
+
     static handlePreferences( endpoint, request, response, urlArray, urlOptionsArray ) {
           if ( request.method === 'GET' )
              {
@@ -360,10 +417,57 @@ export class Bible {
              }
          }
 
+    static handleStop( endpoint, request, response, urlArray, urlOptionsArray ) {
+        if ( request.method === 'GET' )
+        {
+            HTTPserverStop();
+            response.setHeader("Content-Type","text/plain");
+            response.writeHead(200);
+            response.end( 'Server Stopped.\n');
+        }
+    }
+
+    static handleBible( endpoint, request, response, urlArray, urlOptionsArray ) {
+        if ( request.method === 'GET' )
+        {
+            response.setHeader("Content-Type","application/json");
+            response.writeHead(200);
+            response.end( JSON.stringify(Bible.getBible()) + '\n');
+        }
+    }
+
+    static handleVersions( endpoint, request, response, urlArray, urlOptionsArray ) {
+        if ( request.method === 'GET' )
+        {
+            response.setHeader("Content-Type","application/json");
+            response.writeHead(200);
+            response.end( JSON.stringify(Version.getVersions()) + '\n');
+        }
+    }
+
+
     static registerEndpoints(){
-        let endpoint = new RESTendpoint( "preferences", Bible, Bible.handlePreferences );
+
+        let endpoint;
+        endpoint = new RESTendpoint( "overview", Bible, Bible.handleOverview );
+        RESTendpoint.registerEndpoint( endpoint );
+
+        endpoint = new RESTendpoint( "status", Bible, Bible.handleStatus );
+        RESTendpoint.registerEndpoint( endpoint );
+
+        endpoint = new RESTendpoint( "preferences", Bible, Bible.handlePreferences );
+        RESTendpoint.registerEndpoint( endpoint );
+
+        endpoint = new RESTendpoint( "stop", Bible, Bible.handleStop );
+        RESTendpoint.registerEndpoint( endpoint );
+
+        endpoint = new RESTendpoint( "bible", Bible, Bible.handleBible );
+        RESTendpoint.registerEndpoint( endpoint );
+
+        endpoint = new RESTendpoint( "versions", Bible, Bible.handleVersions );
         RESTendpoint.registerEndpoint( endpoint );
     }
+
 // if ( traceBible ) console.log('Bible Class Defined.');
 }
 

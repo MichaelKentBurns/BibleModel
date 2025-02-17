@@ -1,6 +1,7 @@
 import { Location } from './Location.mjs';
 import fs from 'node:fs';
 import {Bible} from "./Bible.mjs";
+import {RESTendpoint} from "./Servers/RESTServer/RESTendpoint.mjs";
 let traceNotes = true;
 
 let notesPath;
@@ -119,8 +120,8 @@ export class Note {
             }
         });
         allNotes = JSON.parse(allNotesText);
-
-            if (traceNotes) console.log('Notes read successfully from disk');
+        Note.registerEndpoints();
+        if (traceNotes) console.log('Notes read successfully from disk');
             return allNotes;
     }
 
@@ -145,7 +146,37 @@ export class Note {
 
         }
     }
+
+    static handleNotes( endpoint, request, response, urlArray, urlOptionsArray ) {
+        if ( request.method === 'GET' )
+        {
+            response.setHeader("Content-Type","application/json");
+            response.writeHead(200);
+            response.end( JSON.stringify(Note.getNotes()) + '\n');
+        }
+    }
+
+    static handleNote( endpoint, request, response, urlArray, urlOptionsArray ) {
+        if ( request.method === 'GET' )
+        {
+            let noteNumber = urlArray[3];
+            let note = Note.getNotes()[noteNumber];
+            response.setHeader("Content-Type","application/json");
+            response.writeHead(200);
+            response.end(JSON.stringify(note) + '\n');
+        }
+    }
+
+    static registerEndpoints(){
+        let endpoint;
+        endpoint = new RESTendpoint( "notes", Bible, Note.handleNotes );
+        RESTendpoint.registerEndpoint( endpoint );
+        endpoint = new RESTendpoint( "note", Bible, Note.handleNote );
+        RESTendpoint.registerEndpoint( endpoint );
+    }
 }
+
+
 //mm }
 //mm Bible *-- Note
 //mm Book *-- Note

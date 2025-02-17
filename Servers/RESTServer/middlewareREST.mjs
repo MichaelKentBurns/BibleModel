@@ -63,7 +63,7 @@ let middlewareGET = (req, res, next) => {
         } else {
         // Check the endpoint registry for a handler.
             let endpoint = RESTendpoint.findEndpoint(req.url.split('/')[2]);
-            if ( endpoint !== null ) {
+            if ( endpoint !== undefined ) {
                 RESTendpoint.handleRequest(endpoint, req, res );
                 return true;
             }

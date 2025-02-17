@@ -74,7 +74,7 @@ if ( middlewareGET === undefined ) {
 let dir_public = process.argv[3] || path.join(__dirname, '../../../Public');
 
 // set port with argument or hard coded default
-let port = process.argv[4] || 8082; // port 8888 for now
+export let port = process.argv[4] || 8082; // port 8888 for now
 
 // host defaults to os.networkInterfaces().lo[0].address
 let netInter = os.networkInterfaces(), 
@@ -191,6 +191,9 @@ let parseBody = (req, res, next) => {
     });
 };
 
+// service statistics
+let requestCount = 0;
+
 // create HTTPserver object
 let HTTPserver = http.createServer();
 
@@ -266,6 +269,7 @@ forRequest.POST = (req, res) => {
 
 // on request
 HTTPserver.on('request', (req, res)=>{
+    requestCount++;
     // call method for request method
     var method = forRequest[req.method];
     if(method){ 
@@ -280,6 +284,17 @@ HTTPserver.on('request', (req, res)=>{
     }
 });
 
+export function HTTPserverRequestCount() {
+   return requestCount;
+}
+
+export function HTTPserverSetPort(aPort) {
+    port = aPort;
+}
+
+export function HTTPserverGetPort() {
+    return port;
+}
 export function HTTPserverStart() {
     console.log('HTTP server started');
 }
@@ -293,7 +308,12 @@ HTTPserver.listen(port, host, () => {
     console.log('host: ' + host);
 });
 
+export function HTTPserverStop () {
+    HTTPserver.close();
+    console.log('HTTP server stopped');
+}
 
 export default {
-    server: HTTPserver, HTTPserverStart,
+    server: HTTPserver, HTTPserverStart, HTTPserverSetPort, HTTPserverGetPort,
+                        HTTPserverStop, HTTPserverRequestCount,
 };

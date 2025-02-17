@@ -20,6 +20,8 @@
 //mm ```mermaid
 //mm classDiagram
 
+import {RESTendpoint} from "./Servers/RESTServer/RESTendpoint.mjs";
+
 const traceBook = true;
 if (traceBook) console.log('Book.mjs initializing.');
 import fs from 'node:fs';
@@ -179,7 +181,7 @@ export class Book {
 
     //mm ~loadAll(aBible)$   // loads all books into the specified Bible
     static loadAll(aBible) {
-
+        Book.registerEndpoints();
         if (readBooksJson) {
             if (fs.existsSync(Bible.booksPath)) {
                 const booksData = fs.readFileSync(Bible.booksPath, (error) => {
@@ -320,6 +322,71 @@ export class Book {
 
         }
     }
+
+    /////// - - - - REST endpoints - - - - - -
+
+    static handleBooks( endpoint, request, response, urlArray, urlOptionsArray ) {
+        if ( request.method === 'GET' )
+        {
+            response.setHeader("Content-Type","application/json");
+            response.writeHead(200);
+            response.end(
+                JSON.stringify(Bible.getBible().getBooks()) + '\n'
+            );
+        }
+    }
+
+
+    static handleAbbreviations( endpoint, request, response, urlArray, urlOptionsArray ) {
+        if ( request.method === 'GET' )
+        {
+            response.setHeader("Content-Type","application/json");
+            response.writeHead(200);
+            response.end(JSON.stringify(Book.abbreviationList) + '\n');
+        }
+    }
+
+    static handleBook( endpoint, request, response, urlArray, urlOptionsArray ) {
+        let specifier = urlArray[3];
+        let type = typeof specifier;
+        let books = Bible.getBible().getBooks();
+        let book;
+        if ( type == "string" ) {
+            if ( /\d/.test(specifier) )
+              type = "number";
+        }
+        if ( type == "number" )
+            book = Book.getBookByNumber(specifier);
+        else if ( type == "string" )
+            book = Book.getBookByName(specifier);
+        else return false;
+        let option = urlArray[4];
+        if ( option == "contents" )
+        {
+            Book.loadContents(book);
+        }
+
+        if ( request.method === 'GET' )
+        {
+            response.setHeader("Content-Type","application/json");
+            response.writeHead(200);
+            response.end(JSON.stringify(book) + '\n');
+        }
+    }
+
+    static registerEndpoints(){
+
+        let endpoint;
+        endpoint = new RESTendpoint( "books", Bible, Book.handleBooks );
+        RESTendpoint.registerEndpoint( endpoint );
+
+        endpoint = new RESTendpoint( "book", Bible, Book.handleBook );
+        RESTendpoint.registerEndpoint( endpoint );
+
+        endpoint = new RESTendpoint( "bookAbbreviations", Bible, Book.handleAbbreviations );
+        RESTendpoint.registerEndpoint( endpoint );
+
+    }
 //mm }
 //mm Bible *-- Book
 //mm Book *-- Chapter
@@ -327,7 +394,9 @@ export class Book {
 //mm Book *-- Note
 //mm ```
 
-}
+}  // end of class Book
+
+
 
 //if ( traceBook ) console.log('ready to load');
 //Book.load(theBible);
