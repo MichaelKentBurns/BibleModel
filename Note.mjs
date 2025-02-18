@@ -153,6 +153,14 @@ export class Note {
             response.setHeader("Content-Type","application/json");
             response.writeHead(200);
             response.end( JSON.stringify(Note.getNotes()) + '\n');
+        } else if ( request.method === 'POST' )
+        {
+            let notes = request.body;
+            allNotes.push(notes);
+            Note.saveAll();
+            response.setHeader("Content-Type","application/json");
+            response.writeHead(200);
+            response.end( JSON.stringify(Note.getNotes()) + '\n');
         }
     }
 

@@ -75,50 +75,24 @@ let middlewareGET = (req, res, next) => {
 };
 
 let middlewarePOST = (req, res, next) => {
-    // read map
-    readFile(uri_map)
-        // if all goes well reading map
-        .then((mapText)=>{
-            let map = {};
-            try{
-                map = JSON.parse(mapText);
-            }catch(e){
-                map = {};
+    let urlPath = req.url.split('/');
+    if ( urlPath[1] == 'Bible' ) {
+        if ( urlPath[2] == undefined || urlPath[2].length == 0 ) {
+            res.writeHead(200, {
+                'Content-Type': 'text/plain'
+            });
+        } else {
+            // Check the endpoint registry for a handler.
+            let endpoint = RESTendpoint.findEndpoint(req.url.split('/')[2]);
+            if ( endpoint !== undefined ) {
+                RESTendpoint.handleRequest(endpoint, req, res );
+                return true;
             }
-            // apply any actions to map
-            updateMap(map, req.body);
-            // write map
-            writeFile(uri_map, JSON.stringify(map), 'utf8')
-                .then(()=>{
-                    res.resObj.map = map;
-                    next(req, res);
-                })
-                .catch((e)=>{
-                    res.resObj.mess = 'error updating map.json: ' + e.message;
-                    res.resObj.map = map;
-                    next(req, res);
-                });
-
-        })
-        // error reading map
-        .catch((e)=>{
-            res.resObj.map = {};
-            // write a new map
-            var newMap = createNewMap();
-            // apply any actions to new map
-            updateMap(newMap, req.body);
-            // write map
-            writeFile(uri_map, JSON.stringify(newMap), 'utf8')
-                .then((map)=>{
-                    res.resObj.map = newMap;
-                    next(req, res);
-                })
-                .catch((e)=>{
-                    res.resObj.mess = 'error making new map.json: ' + e.message;
-                    res.resObj.map = newMap;
-                    next(req, res);
-                });
-        });
+            return false;
+        }
+        return false;  // specific path not implemented.
+    }
+    return false; // not implemented yet.
 };
 
 export default {

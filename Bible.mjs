@@ -15,6 +15,8 @@
 //mm ```mermaid
 //mm classDiagram
 
+const BibleVersion = "0.2.1";
+
 const traceBible = false;  // Set this true to have the inner workings of this class traced to console log.
 const useHttp2 = false;
 
@@ -31,6 +33,7 @@ const iterationMax = 20;  // don't get stuck in a perpetual loop.
 const iterationInterval = 100;   // ms to wait between checking for asynch task done.
 if (state === undefined) {    // Initial state sets up the infrastructure.
     state = state_init;
+    console.log(`BibleModel: Bible version ${BibleVersion}`);
     iteration = 1;
     if (traceBible) console.log('Bible.mjs Initializing for the first time');
 } else {
@@ -55,7 +58,7 @@ const root = '/Bible';
 console.log(root);
 
 const overview =
-    `Welcome to the "overview page" of the BibleModel REST server.\n\
+    `Welcome to the "overview page" of the BibleModel REST server version ${BibleVersion}.\n\
         Request:\n\
         ${root}/ or \n\
         ${root}/overview to receive this overview. \n\
@@ -109,6 +112,7 @@ let defaultBibleTableName = undefined;
 //- - - - - - - - - - - begin Class definition - - - - - - - - - - -
 //mm    class Bible {
 export class Bible {
+    static version = BibleVersion;
     constructor() {
         numBibles += 1;   // count them all
         // Private ///////////////////////  Only used by this class itself
@@ -392,6 +396,7 @@ export class Bible {
             response.writeHead(200);
             let status =
                 {
+                    BibleVersion: BibleVersion,
                     processId: process.pid,
                     processArgv: process.argv,
                     processEnv: process.env,
