@@ -1,3 +1,6 @@
+
+# This is pretty much Dustin's original README.md file.
+
 # Simple http request get post system
 
 Starting with my simple static sever script example, the goal with this simple nodejs project is to just make a slightly more advanced version of the static HTTPserver file that will respond to post requests. This file called at /node/static-HTTPserver-post can then be called with node and when doing so it is possible to set a root folder, public folder, and port number by way of arguments. The script will also look for a middle ware folder off of the root folder that should contain and index.js file that will be called before sending each post request response. So then the public folder can be changed to define what the static client system should be, and the middle ware folder can be changed to define what should be done with post requests.

@@ -1,66 +1,20 @@
+// BibleModel/Servers/RESTserver/middlewareREST.mjs
+// This middleware is a plugin router for REST requests from the HTTPserver.
+// When the HTTPserver gets a request, it first calls this middleware router.
+// This router looks at the first component of the URL of the incoming request
+// in the RESTendpoint map.   If an entry is found then that endpoint is used
+// to call a plugin function to service the REST request.
+// If the URL component is NOT found in the map, then this middleware
+// simply returns false to the HTTPserver to indicate that it should handle
+// the request as a normal HTTPserver request.
+
+// RESTendpoint is a simple map of top level URL components to the function to service it.
 import { RESTendpoint } from "./RESTendpoint.mjs";
-
-// import http from 'node:http';
-// import os from 'node:os';
-import fs from 'node:fs';
-import path from 'node:path';
-import util from 'node:util';
-const lstat = util.promisify(fs.lstat);
-const readFile = util.promisify(fs.readFile);
-const writeFile = util.promisify(fs.writeFile);
-const readdir = util.promisify(fs.readdir);
-
-// __dirname and __filename not supported in ES modules.
-// workaround:
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-console.log(__dirname);
-console.log(__filename);
-// workaround end.
-
-// the public folder
-let dir_public = path.join(__dirname, '../../../../Public'),
-// path to the map.json file
-    uri_map = path.join( dir_public, 'map.json' );
-
-// create new map object helper
-let createNewMap = () => {
-    let map = { cells:[], w: 8, h: 8 };
-    let i = 0, cell, len = map.w * map.h;
-    while(i < len){
-        cell = {
-            i : i,
-            x: i % map.w,
-            y: Math.floor(i / map.w),
-            typeIndex: 0
-        };
-        map.cells.push(cell);
-        i += 1;
-    }
-    // start off map cell 0 with type index 1
-    map.cells[0].typeIndex = 1;
-    return map;
-};
-
-let updateMap = (map, body) => {
-    if(body.action === 'setCellType'){
-        var cellIndex = body.cellIndex,
-            typeIndex = body.typeIndex;
-        map.cells[cellIndex].typeIndex = typeIndex;
-    }
-};
 
 let middlewareGET = (req, res, next) => {
     let urlPath = req.url.split('/');
     if ( urlPath[1] == 'Bible' ) {
-        if ( urlPath[2] == undefined || urlPath[2].length == 0 ) {
-            res.writeHead(200, {
-                'Content-Type': 'text/plain'
-            });
-        } else {
+        if ( urlPath[2] != undefined ) {
         // Check the endpoint registry for a handler.
             let endpoint = RESTendpoint.findEndpoint(req.url.split('/')[2]);
             if ( endpoint !== undefined ) {
@@ -76,21 +30,11 @@ let middlewareGET = (req, res, next) => {
 
 let middlewarePOST = (req, res, next) => {
     let urlPath = req.url.split('/');
-    if ( urlPath[1] == 'Bible' ) {
-        if ( urlPath[2] == undefined || urlPath[2].length == 0 ) {
-            res.writeHead(200, {
-                'Content-Type': 'text/plain'
-            });
-        } else {
-            // Check the endpoint registry for a handler.
-            let endpoint = RESTendpoint.findEndpoint(req.url.split('/')[2]);
-            if ( endpoint !== undefined ) {
-                RESTendpoint.handleRequest(endpoint, req, res );
-                return true;
-            }
-            return false;
-        }
-        return false;  // specific path not implemented.
+    // Check the endpoint registry for a handler.
+    let endpoint = RESTendpoint.findEndpoint(urlPath[2]);
+    if (endpoint !== undefined) {
+        RESTendpoint.handleRequest(endpoint, req, res);
+        return true;
     }
     return false; // not implemented yet.
 };

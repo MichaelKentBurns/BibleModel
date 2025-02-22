@@ -34,18 +34,12 @@ console.log(__filename);
 // the root folder of the project
 let dir_root = process.argv[2] || path.join(__dirname, '../..');
 
-// the folder to look for middleware to know what to do for post requests
-let dir_middleware = path.join(dir_root, 'middleware');
-
-
 // try to set up middelware
 let middlewarePOST;
 let middlewareGET;
 
 import middleware from './middlewareREST.mjs';
 try{
-    //   import middleware from path.join(dir_middleware, 'middlewareREST.mjs') ;
-
     console.log('middleware index found.', middleware);
     middlewarePOST = middleware.middlewarePOST;
     console.log('middlewarePOST = ', middlewarePOST);
@@ -70,8 +64,11 @@ if ( middlewareGET === undefined ) {
     };
 }
 
+// folder containing the Node project.
+export let dir_project = process.argv[3] || path.join(__dirname, '../..');
 // public folder to serve
-let dir_public = process.argv[3] || path.join(__dirname, '../../../Public');
+//    Public should be a sibling to the project directory.
+export let dir_public = path.join(dir_project,'../Public');
 
 // set port with argument or hard coded default
 export let port = process.argv[4] || 8082; // port 8888 for now
@@ -303,6 +300,7 @@ export function HTTPserverStart() {
 HTTPserver.listen(port, host, () => {
     console.log('HTTPserver is up: ');
     console.log('dir_root: ' + dir_root);
+    console.log('dir_project: ' + dir_project);
     console.log('dir_public: ' + dir_public);
     console.log('port: ' + port);
     console.log('host: ' + host);

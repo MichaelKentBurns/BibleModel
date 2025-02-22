@@ -83,6 +83,7 @@ import { DataSource } from './DataSource.mjs';
 import { Location } from './Location.mjs';
 import { Xref } from './Xref.mjs';
 import { Note } from './Note.mjs';
+import { NoteList } from './NoteList.mjs';
 
  //   import {Http2Server} from './Http2Server.mjs';
 import {HttpServer} from './Servers/HttpServer.mjs';
@@ -145,6 +146,8 @@ export class Bible {
         this.books = [];                  // array of the books of the Bible.
         //mm   +Xrefs[] Xref              // array of cross references
         this.xrefs = [];                  // array of cross references
+        //mm   +Notes[] Notes              // array of cross references
+        this.notes = [];                  // array of cross references
 
         //mm   +DataSource dSource          // database containing persisted data
         this.dSource = new DataSource();
@@ -235,7 +238,7 @@ export class Bible {
         }
 
         // Finally, notes get loaded.
-        Note.loadAll();
+        this.notes = NoteList.loadAll();
     }
 
     // ======================== State Machine ======================
@@ -455,6 +458,8 @@ export class Bible {
 
         let endpoint;
         endpoint = new RESTendpoint( "overview", Bible, Bible.handleOverview );
+        RESTendpoint.registerEndpoint( endpoint );
+        endpoint = new RESTendpoint( "", Bible, Bible.handleOverview );
         RESTendpoint.registerEndpoint( endpoint );
 
         endpoint = new RESTendpoint( "status", Bible, Bible.handleStatus );

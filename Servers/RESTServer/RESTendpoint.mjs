@@ -2,8 +2,8 @@ import {Chapter} from "../../Chapter.mjs";
 
 const traceHttpServer = true;
 
-import http from 'node:http';
-import { Bible } from  '../../Bible.mjs';
+// import http from 'node:http';
+// import { Bible } from  '../../Bible.mjs';
 
 //mm  # Class:  RESTendpoint
 //mm

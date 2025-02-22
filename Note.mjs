@@ -1,11 +1,5 @@
 import { Location } from './Location.mjs';
-import fs from 'node:fs';
-import {Bible} from "./Bible.mjs";
-import {RESTendpoint} from "./Servers/RESTServer/RESTendpoint.mjs";
 let traceNotes = true;
-
-let notesPath;
-let allNotes;
 
 //mm # Class: Note
 //mm
@@ -93,104 +87,14 @@ export class Note {
     getAuthor() {
         return this.author;
     }
-
-    //mm getNotes()$   // return the list of notes
-    static getNotes() {
-        return allNotes;
-    }
-
-    //mm setNotes([Note])$   // set the list of notes
-    static setNotes(someNotes) {
-        let allNotes = someNotes.clone();
-        return allNotes;
-    }
-
-    static setNotesPath(){ // sets up info for access Notes.json
-        notesPath = Bible.getConfig().MyBiblePath + "/Notes.json";
-    }
-
-    //mm ~loadAll()$   // loads all notes
-    static loadAll() {
-        if ( notesPath === undefined )
-            Note.setNotesPath();
-        let allNotesText = fs.readFileSync(notesPath, (error) => {
-            if (error) {
-                console.log('Notes.mjs An error has occurred reading notes', error);
-                return null;
-            }
-        });
-        allNotes = JSON.parse(allNotesText);
-        Note.registerEndpoints();
-        if (traceNotes) console.log('Notes read successfully from disk');
-            return allNotes;
-    }
-
-    //mm ~saveAll()$   // saves all the Notes
-    static saveAll = function saveAll() {
-
-        if ( notesPath === undefined )
-            Note.setNotesPath();
-
-        if (allNotes !== undefined) {
-
-            // convert JSON object to a string
-            const jsonData = JSON.stringify(allNotes)
-
-            // write JSON string to a file
-            fs.writeFile(notesPath, jsonData, err => {
-                if (err) {
-                    throw err
-                }
-                if (traceNotes) console.log('Notes JSON data is saved.')
-            })
-
-        }
-    }
-
-    static handleNotes( endpoint, request, response, urlArray, urlOptionsArray ) {
-        if ( request.method === 'GET' )
-        {
-            response.setHeader("Content-Type","application/json");
-            response.writeHead(200);
-            response.end( JSON.stringify(Note.getNotes()) + '\n');
-        } else if ( request.method === 'POST' )
-        {
-            let notes = request.body;
-            allNotes.push(notes);
-            Note.saveAll();
-            response.setHeader("Content-Type","application/json");
-            response.writeHead(200);
-            response.end( JSON.stringify(Note.getNotes()) + '\n');
-        }
-    }
-
-    static handleNote( endpoint, request, response, urlArray, urlOptionsArray ) {
-        if ( request.method === 'GET' )
-        {
-            let noteNumber = urlArray[3];
-            let note = Note.getNotes()[noteNumber];
-            response.setHeader("Content-Type","application/json");
-            response.writeHead(200);
-            response.end(JSON.stringify(note) + '\n');
-        }
-    }
-
-    static registerEndpoints(){
-        let endpoint;
-        endpoint = new RESTendpoint( "notes", Bible, Note.handleNotes );
-        RESTendpoint.registerEndpoint( endpoint );
-        endpoint = new RESTendpoint( "note", Bible, Note.handleNote );
-        RESTendpoint.registerEndpoint( endpoint );
-    }
 }
-
-
 //mm }
-//mm Bible *-- Note
-//mm Book *-- Note
-//mm Chapter *-- Note
-//mm Verse *-- Note
-//mm Xref *-- Note
+//mm NoteList *-- Note
+//mm Bible -- NoteList
+//mm Book -- NoteList
+//mm Chapter -- NoteList
+//mm Verse -- NoteList
+//mm Xref -- NoteList
 //mm ```
 //- - - - - - - - - - - end Class definition - - - - - - - - - - -
 

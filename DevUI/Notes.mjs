@@ -10,7 +10,7 @@ let isUpdate = false;
 
 // items that were string literals in multiple places that really should match.
 const localStorageTag = "BibleModel.notes";
-let bibleNotes = [Note];
+let bibleNotes = [];
 
 const addBox = document.querySelector(".add-box");
 const popUpBox = document.querySelector(".popup-box");
