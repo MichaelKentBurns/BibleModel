@@ -1,9 +1,15 @@
-@Mermaid markup extracted from Note.mjs
- # Class: Note
+@Mermaid markup extracted from NoteList.mjs
+ # Class: NoteList
 
- A simple note that is associated with a location in the Bible.
- Notes can be loose (no attachment) but to be useful they usually
- are attached to a Book, Chapter, Verse, or even an Xref.
+ Please know that this documentation is still IN PROGRESS.
+
+ A list of Note objects that can be handled as a single unit when
+ being moved from the UI to the REST server, or from the REST server
+ to permanent storage.
+
+ The attributes of this list mirror the attributes of a Note itself.
+ This is because a NoteList often has attributes that describe the
+ common features of the individual notes themselves.
 
  ## Responsibilities:
  * id - A unique number at least unique with a single Bible.
@@ -20,7 +26,8 @@
  * xref - the cross-reference that this note describes.
  ```mermaid
  classDiagram
-    class Note {
+    class NoteList {
+         +Note[]  noteList      // simple array of notes.
          +Location location     // Location within the Bible.
          +integer bibleNumber
          +integer bookNumber
@@ -31,6 +38,10 @@
          +String title        // The title of the note.
          +String text        // The actual text of the note.
          +Xref xref      // a cross references
+     getNotes()$   // return the list of notes
+     setNotes([Note])$   // set the list of notes
+     ~loadAll()$   // loads all notes
+     ~saveAll()$   // saves all the Notes
  }
  NoteList *-- Note
  Bible -- NoteList

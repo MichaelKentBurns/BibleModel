@@ -17,6 +17,7 @@
   This page simply reads that in and displays it as a Table and Text.
 <p>
 <h2>Details of the query execution:</h2>
+<details>
 <table style="border: thin double black">
   <tr><td><strong>Relative File URL </strong></td>   <td id="fileURL"></td></tr>
   <tr><td><strong>REST server URL </strong></td>     <td id="RESTURL"></td></tr>
@@ -30,6 +31,7 @@
   <tr><td><strong>Response.error</strong></td>       <td id="responseError"></td></tr>
 
 </table>
+</details>
 <p>
 <h2>One book of the Bible.</h2>
 <table id="bookTable" style="border: thin double black">
@@ -42,7 +44,9 @@
 
 
 <h2>JSON Data read from books.json:</h2>
-<p id="bookJson">
+   <details>
+      <p id="bookJson">
+   </details>
 </p>
 
 <script type="module">
@@ -86,12 +90,12 @@
     if (trace) console.log("book=" + book + " details=" + details + " source=" + source);
   }
 
-  const bookJsonPathname = `../${dataLibrary}/` + book + ".json";
-  const bookJsonURL = `${preferences.RESTURL}:${preferences.RESTPort}/book/` + book + "/contents";
+  const bookJsonPathname = `../${dataLibrary}/Bible/` + book + ".json";
+  const bookJsonURL = `${preferences.RESTURL}:${preferences.RESTPort}/Bible/book/` + book + "/contents";
 
   // - - - - - - - - Get the list of all books - - - - - - -- - -
   const booksJsonPathname = `../${dataLibrary}/books.json`;
-  const booksJsonURL = `${preferences.RESTURL}:${preferences.RESTPort}/books`;
+  const booksJsonURL = `${preferences.RESTURL}:${preferences.RESTPort}/Bible/books`;
 
   let booksText = 'initialized text';
   let booksParagraphElement = document.getElementById('booksParagraph');
@@ -127,9 +131,9 @@
                 booksText = JSON.stringify(booksArrayLocal);
               });
     } catch (error) {
-      console.log("Error trying to fetch books.json: ", error);
+      console.log("Error trying to fetch books: ", error);
       booksError = JSON.stringify(error);
-      console.log("Error fetching file ", booksJsonPathname, " : ", booksError);
+      console.log("Error fetching ", booksTarget, " : ", booksError);
     }
 
   } else

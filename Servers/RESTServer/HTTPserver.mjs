@@ -7,7 +7,7 @@
  *   ex: $ node HTTPserver ./ 8080
  *
  */
-
+let traceHTTP = true;
 import http from 'node:http';
 import os from 'node:os';
 import fs from 'node:fs';
@@ -108,6 +108,7 @@ let createPathInfoObject = (url) => {
             pInfo.mime = pInfo.ext === '.html' ? 'text/html' : pInfo.mime;
             pInfo.mime = pInfo.ext === '.css' ? 'text/css' : pInfo.mime;
             pInfo.mime = pInfo.ext === '.js' ? 'text/javascript' : pInfo.mime;
+            pInfo.mime = pInfo.ext === '.mjs' ? 'text/javascript' : pInfo.mime;
             pInfo.mime = pInfo.ext === '.json' ? 'application/json' : pInfo.mime;
              // images
             pInfo.mime = pInfo.ext === '.png' ? 'image/png' : pInfo.mime;
@@ -200,6 +201,7 @@ let forRequest = {};
 // for ALL GET requests
 forRequest.GET = (req, res) => {
     // see if the middleware implements the request.
+
     let done = middlewareGET(req, res );
 
     if (!done) {
@@ -239,6 +241,10 @@ forRequest.GET = (req, res) => {
         res.write(e.message, 'utf8');
         res.end();
     });
+    if ( traceHTTP ) {
+        console.log(`middleware response: status=${res.statusCode}`);
+        console.log( res._header );
+    }
 
     }
 };
@@ -268,8 +274,13 @@ forRequest.POST = (req, res) => {
 HTTPserver.on('request', (req, res)=>{
     requestCount++;
     // call method for request method
-    var method = forRequest[req.method];
-    if(method){ 
+    if ( traceHTTP ) {
+        console.log(`HTTP server request ${req.method.toUpperCase()} for ${req.url}`);
+        console.log(req._header);
+    }
+
+        var method = forRequest[req.method];
+    if(method){
         method.call(this, req, res);
     }else{
         // send content
@@ -278,6 +289,11 @@ HTTPserver.on('request', (req, res)=>{
         });
         res.write('unsupported http method ' + req.method, 'utf8');
         res.end();
+    }
+    if ( traceHTTP ) {
+        console.log(`HTTP server response: status=${res.statusCode}`);
+        console.log( res._header );
+
     }
 });
 

@@ -23,6 +23,8 @@
 import {RESTendpoint} from "./Servers/RESTServer/RESTendpoint.mjs";
 
 const traceBook = true;
+const traceData = true;
+
 if (traceBook) console.log('Book.mjs initializing.');
 import fs from 'node:fs';
 import {Bible} from './Bible.mjs';
@@ -328,11 +330,11 @@ export class Book {
     static handleBooks( endpoint, request, response, urlArray, urlOptionsArray ) {
         if ( request.method === 'GET' )
         {
+            const dataText = JSON.stringify(Bible.getBible().getBooks()) + '\n';
+            if ( traceBook) console.log(dataText);
             response.setHeader("Content-Type","application/json");
             response.writeHead(200);
-            response.end(
-                JSON.stringify(Bible.getBible().getBooks()) + '\n'
-            );
+            response.end(dataText);
         }
     }
 
@@ -340,9 +342,11 @@ export class Book {
     static handleAbbreviations( endpoint, request, response, urlArray, urlOptionsArray ) {
         if ( request.method === 'GET' )
         {
+            const dataText = JSON.stringify(Book.abbreviationList) + '\n';
+            if ( traceBook) console.log(dataText);
             response.setHeader("Content-Type","application/json");
             response.writeHead(200);
-            response.end(JSON.stringify(Book.abbreviationList) + '\n');
+            response.end(dataText);
         }
     }
 
@@ -368,9 +372,11 @@ export class Book {
 
         if ( request.method === 'GET' )
         {
+            const dataText = JSON.stringify(book) + '\n';
+            if ( traceBook) console.log(dataText);
             response.setHeader("Content-Type","application/json");
             response.writeHead(200);
-            response.end(JSON.stringify(book) + '\n');
+            response.end(dataText);
         }
     }
 

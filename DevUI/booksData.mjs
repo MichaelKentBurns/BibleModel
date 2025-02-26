@@ -13,7 +13,12 @@ function fetchBookData() {
             console.log('Next step is to fetch books.json file.');
             await fetch(booksJsonPathname,
                 {
-                    mode: 'no-cors'
+                    method: "GET",
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': 'http://Bible.MichaelKentBurns.com'
+                    }
                 }
             ).then((response) => response.json())
                 .then((booksResult) => {

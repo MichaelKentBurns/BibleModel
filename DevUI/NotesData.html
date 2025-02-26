@@ -9,13 +9,101 @@
 </head>
 <body>
 
-<table id="notesTable">
+<h1>BibleModel notes.</h1>
 
+<h1>BibleModel notes from browser LocalStorage.</h1>
+<table id="localNotesTable">
 </table>
+<p id="localNotesData">
 
-<p id="notesData">
+<script src="./NotesData.mjs" type="module"></script>
+
+<h1>BibleModel notes from BibleModel Server.</h1>
+
+<p id="dataSource">
+<p>
+
+<table id="serverNotesTable">
+</table>
+<p id="serverNotesData">
 
 </p>
-<script src="./NotesData.mjs" type="module"></script>
+
+<script type="module">
+    let dataLibrary = "./defaultLibrary";
+    let source;
+    const localNotesStorageTag = "BibleModel.notes";
+    const preferencesLocalStorageTag = "BibleModel.prefs";
+    const preferences = JSON.parse(localStorage.getItem(preferencesLocalStorageTag) );
+    if ( preferences == undefined ) console.log("ERROR: No preferences set.  Please visit preferences page first.");
+    else {
+        dataLibrary = preferences["MyBiblePath"];
+        source = preferences.accessDataBy;
+    }
+
+    const notesJsonPathname = `../${dataLibrary}/notes.json`;
+    const serverURL         = `${preferences["RESTURL"]}:${preferences["RESTPort"]}/Bible/`;
+    const notesJsonURL      = `${serverURL}notes`;
+    let notesText ;
+    let target = null;
+    // - - - decide how to access both the file and from the rest server
+    if (source == null || source === "file") {
+        target = notesJsonPathname;
+    } else {  // for now assume URL for the server.
+        target = notesJsonURL;
+    }
+    let targetParagraph = document.getElementById('dataSource');
+    targetParagraph.innerHTML = `<STRONG>Data Source: </STRONG> ${target}`;
+    let serverNotesParagraph = document.getElementById('serverNotesData');
+    let serverNotesTable = document.getElementById('serverNotesTable');
+    let localNotesParagraph = document.getElementById('localNotesData');
+    let localNotesTable = document.getElementById('localNotesTable');
+
+    let notesError;
+    let notesArray;
+
+        try {
+            console.log('Next step is to fetch the Notes .');
+            await fetch(target,
+                {
+                    method: "GET",
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': 'http://Bible.MichaelKentBurns.com'
+                    }
+                }
+            ).then((response) => response.json())
+                .then((notesResult) =>
+                {
+                    notesArray = notesResult;
+                    console.log("notesJSON=", notesArray);
+                    notesText = JSON.stringify(notesArray);
+                });
+        } catch(error) {
+            console.log("Error trying to fetch notes data: ",error);
+            notesError = JSON.stringify(error);
+            console.log("Error fetching ", url, " : ", notesError);
+        }
+
+    // Display the results on the web page.
+    let localNotesEmpty = true;
+    if ( notesText != undefined ) {
+        serverNotesParagraph.innerHTML = notesText;
+        if (localNotesParagraph != undefined && localNotesParagraph.innerText != undefined) {
+            localNotesParagraph.innerText = notesText;
+        } else {
+            serverNotesParagraph.innerHTML = "<STRONG>no results</STRONG>";
+        }
+    }
+    if ( notesArray != undefined ) {
+        updateTable(serverNotesTable,notesArray);
+        if ( localNotesEmpty && localNotesTable != undefined ) {
+            localStorage.setItem(localNotesStorageTag, JSON.stringify(notesArray));
+            updateTable(localNotesTable,notesArray);
+        }
+    }
+
+</script>
 </body>
 </html>

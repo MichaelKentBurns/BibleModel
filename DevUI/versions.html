@@ -19,6 +19,9 @@
     This page simply reads that in and displays it as a Table.
   <p>
 
+  <p id="dataSource">
+  <p>
+
   <h2>Table of versions of the Bible.</h2>
   	<table id="versionsTable"  style="border: thin double black">
  	</table>
@@ -34,44 +37,52 @@
     let dataLibrary = "./defaultLibrary";
     const preferencesLocalStorageTag = "BibleModel.prefs";
     const preferences = JSON.parse(localStorage.getItem(preferencesLocalStorageTag) );
+    let source = "file";
     if ( preferences == null ) alert("ERROR: No preferences set.  Please visit preferences page first.");
     else {
       dataLibrary = preferences["MyBiblePath"];
+      source = preferences.accessDataBy;
     }
 
     const versionsJsonPathname = `../${dataLibrary}/versions.json`;
+    const versionsJsonURL = `${preferences.RESTURL}:${preferences.RESTPort}/Bible/versions`;
+    let target = null;
+    // - - - decide how to access both the file and from the rest server
+    if (source == null || source === "file") {
+      target = versionsJsonPathname;
+    } else {  // for now assume URL for the server.
+      target = versionsJsonURL;
+    }
     let versionsText = 'initialized text';
+    let targetParagraph = document.getElementById('dataSource');
+    targetParagraph.innerHTML = `<STRONG>Data Source: </STRONG> ${target}`;
     let versionsParagraph = document.getElementById('versionsParagraph');
     let versionsTable = document.getElementById('versionsTable');
     let versionsError;
     let versionsArray;
-    let enable = true;
-    let url;
-    if (enable == true) {
       try {
-        console.log(`Next step is to fetch ${versionsJsonPathname} file.`);
-        url = versionsJsonPathname
-         await fetch(url,
+        console.log(`Next step is to fetch ${target}.`);
+         await fetch(target,
                 {
                   method: "GET",
-                  mode: 'no-cors'
+                  mode: 'cors',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Origin': 'http://Bible.MichaelKentBurns.com'
+                  }
                 }
         ).then((response) => response.json())
                 .then((versionsResult) =>
                 {
-                  console.log("versionsJSON=", versionsArray);
                   versionsArray = versionsResult;
+                  console.log("versionsJSON=", versionsArray);
                   versionsText = JSON.stringify(versionsArray);
                 });
       } catch(error) {
-        console.log("Error trying to fetch defaultBible/versions.json: ",error);
+        console.log(`Error trying to fetch ${target}: `,error);
         versionsError = JSON.stringify(error);
-        console.log("Error fetching file ", versionsJsonPathname, " : ", versionsError);
+        console.log("Error fetching ", target, " : ", versionsError);
       }
-
-    }
-    else
-      console.log('fetch disabled.');
 
     // Display the results on the web page.
     versionsParagraph.innerHTML = versionsText;

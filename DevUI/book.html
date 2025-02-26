@@ -88,7 +88,7 @@
     }
 
     const bookJsonPathname = `../${dataLibrary}/` + book + ".json";
-    const bookJsonURL = `${preferences.RESTURL}:${preferences.RESTPort}/book/` + book;
+    const bookJsonURL = `${preferences.RESTURL}:${preferences.RESTPort}/Bible/book/` + book;
     let bookText = 'initialized text';
     let bookJson = document.getElementById('bookJson');
     let bookTable = document.getElementById('bookTable');
@@ -147,14 +147,12 @@
                     mode: 'cors',
                     method: "GET"
                 }
-            ).then((response) => {
-                bookResponse = response;
-                bookObject = response.json();
-                bookHeaders = response.headers;
-                contentType = bookHeaders.get("content-type");
-                return bookObject;
-            })
-                .then((bookResult) => {
+            ).then((response) => response.json())
+                .then((bookResult) =>
+                {
+                  //  bookHeaders = bookResult.headers;
+                  //  contentType = bookHeaders.get("content-type");
+                    bookObject = bookResult;
                     console.log("JSON=", bookObject);
                     bookText = JSON.stringify(bookObject);
                 });

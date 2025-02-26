@@ -17,6 +17,7 @@
     This page simply reads that in and displays it as a Table and Text.
 <p>
 <h2>Details of the query to be made:</h2>
+<details>
 <table style="border: thin double black">
     <tr>
         <td><strong>Relative File URL </strong></td>
@@ -43,6 +44,7 @@
         <td id="queryError"></td>
     </tr>
 </table>
+</details>
 <p>
 <h2>One book of the Bible.</h2>
 <table id="bookTable" style="border: thin double black">
@@ -55,7 +57,9 @@
 
 
 <h2>JSON Data read from books.json:</h2>
-<p id="bookJson">
+    <details>
+       <p id="bookJson">
+    </details>
 </p>
 
 <script type="module">
@@ -100,11 +104,11 @@
     }
 
     const bookJsonPathname = `../${dataLibrary}/` + book + ".json";
-    const bookJsonURL = `${preferences.RESTURL}:${preferences.RESTPort}/book/` + book + "/contents";
+    const bookJsonURL = `${preferences.RESTURL}:${preferences.RESTPort}/Bible/book/` + book + "/contents";
 
     // - - - - - - - - Get the list of all books - - - - - - -- - -
     const booksJsonPathname = `../${dataLibrary}/books.json`;
-    const booksJsonURL = `${preferences.RESTURL}:${preferences.RESTPort}/books`;
+    const booksJsonURL = `${preferences.RESTURL}:${preferences.RESTPort}/Bible/books`;
 
     let booksText = 'initialized text';
     let booksParagraphElement = document.getElementById('booksParagraph');
@@ -227,45 +231,48 @@
 
     let bookTextElement = document.getElementById("bookText");
 
-    bookData.chapters.forEach((chap) => {
-        let header2 = document.createElement("h3");
-        header2.appendChild(document.createTextNode("Chapter " + chap.chapterNumber));
-        bookTextElement.appendChild(header2);
-        let verses = chap.verses;
-        verses.forEach((verse) => {
-            let xrefs = verse.xrefs;
-            let vn = verse.verseNumber;
-            let vt = verse.text;
-            let boldVerseNumberElement = document.createElement("STRONG");
-            boldVerseNumberElement.appendChild(document.createTextNode(vn + " "));
-            bookTextElement.appendChild(boldVerseNumberElement);
-            bookTextElement.appendChild(document.createTextNode(vt));
-            // bookTextElement.appendChild( document.createElement("br") );
-            if (xrefs.length > 0) {
-                let disclosureElement = document.createElement("details");
-                disclosureElement.appendChild(document.createElement("summary")
-                    .appendChild(document.createTextNode("Cross References")));
-                xrefs.forEach((xref) => {
-                    disclosureElement.appendChild(document.createTextNode(
-                        "    [" +
-                        xref.xrefNumber + "=" +
-                        bookNumberToName(xref.targetBook) + " " +
-                        xref.targetChapter + ":" +
-                        xref.targetVerse));
-                    if (xref.targetEndId > 0) {
-                        disclosureElement.appendChild(document.createTextNode(
-                            "-" +
-                            //   xref.targetEndBook+" " +
-                            xref.targetEndChapter + ":" +
-                            xref.targetEndVerse));
-                    }
-                    disclosureElement.appendChild(document.createTextNode("]"));
-                });
-                bookTextElement.appendChild(disclosureElement);
+    if ( bookData.chapters !== null && bookData.chapters !== undefined ) {
+
+        bookData.chapters.forEach((chap) => {
+            let header2 = document.createElement("h3");
+            header2.appendChild(document.createTextNode("Chapter " + chap.chapterNumber));
+            bookTextElement.appendChild(header2);
+            let verses = chap.verses;
+            verses.forEach((verse) => {
+                let xrefs = verse.xrefs;
+                let vn = verse.verseNumber;
+                let vt = verse.text;
+                let boldVerseNumberElement = document.createElement("STRONG");
+                boldVerseNumberElement.appendChild(document.createTextNode(vn + " "));
+                bookTextElement.appendChild(boldVerseNumberElement);
+                bookTextElement.appendChild(document.createTextNode(vt));
                 // bookTextElement.appendChild( document.createElement("br") );
-            }
+                if (xrefs.length > 0) {
+                    let disclosureElement = document.createElement("details");
+                    disclosureElement.appendChild(document.createElement("summary")
+                        .appendChild(document.createTextNode("Cross References")));
+                    xrefs.forEach((xref) => {
+                        disclosureElement.appendChild(document.createTextNode(
+                            "    [" +
+                            xref.xrefNumber + "=" +
+                            bookNumberToName(xref.targetBook) + " " +
+                            xref.targetChapter + ":" +
+                            xref.targetVerse));
+                        if (xref.targetEndId > 0) {
+                            disclosureElement.appendChild(document.createTextNode(
+                                "-" +
+                                //   xref.targetEndBook+" " +
+                                xref.targetEndChapter + ":" +
+                                xref.targetEndVerse));
+                        }
+                        disclosureElement.appendChild(document.createTextNode("]"));
+                    });
+                    bookTextElement.appendChild(disclosureElement);
+                    // bookTextElement.appendChild( document.createElement("br") );
+                }
+            });
         });
-    });
+    }
 
 </script>
 

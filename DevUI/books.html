@@ -18,6 +18,9 @@
     This page simply reads that in and displays it as a Table.
   <p>
 
+  <p id="dataSource">
+  <p>
+
   <h2><b>WARNINGS:</b></h2>
   <ul>
     <li>Because of browser security policy this page will fail unless you change your security settings in your
@@ -45,14 +48,27 @@
   <script type="module">
     let dataLibrary = "./defaultLibrary";
     const preferencesLocalStorageTag = "BibleModel.prefs";
+    let source = "file";
     const preferences = JSON.parse(localStorage.getItem(preferencesLocalStorageTag) );
     if ( preferences == null ) alert("ERROR: No preferences set.  Please visit preferences page first.");
       else {
              dataLibrary = preferences["MyBiblePath"];
-           }
+             source = preferences.accessDataBy;
+      }
 
     const booksJsonPathname = `../${dataLibrary}/books.json`;
+    const booksJsonURL = `${preferences.RESTURL}:${preferences.RESTPort}/Bible/books`;
+
+    let target = null;
+    // - - - decide how to access both the file and from the rest server
+    if (source == null || source === "file") {
+        target = booksJsonPathname;
+    } else {  // for now assume URL for the server.
+        target = booksJsonURL;
+    }
     let booksText = 'initialized text';
+    let targetParagraph = document.getElementById('dataSource');
+    targetParagraph.innerHTML = `<STRONG>Data Source: </STRONG> ${target}`;
     let booksParagraph = document.getElementById('booksParagraph');
     let booksTable = document.getElementById('booksTable');
     let booksError;
@@ -60,16 +76,21 @@
     let enable = true;
     if (enable == true) {
       try {
-        console.log(`Next step is to fetch ${booksJsonPathname} file.`);
-         await fetch(booksJsonPathname,
+        console.log(`Next step is to fetch ${target}.`);
+         await fetch(target,
                 {
-                  mode: 'no-cors'
+                    method: "GET",
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': 'http://Bible.MichaelKentBurns.com'
+                    }
                 }
         ).then((response) => response.json())
                 .then((booksResult) =>
                 {
-                  console.log("booksJSON=", booksArray);
-                  booksArray = booksResult;
+                    booksArray = booksResult;
+                    console.log("booksJSON=", booksArray);
                   booksText = JSON.stringify(booksArray);
                 });
       } catch(error) {
