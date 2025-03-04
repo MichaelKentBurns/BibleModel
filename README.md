@@ -30,7 +30,7 @@ Javascript is a very widely used language because of the web explosion.
 But, to be fair, I have decided to try this first in Javascript because that is what my mentees use and 
 I need to learn it better and give it a fair chance.
 
-### What I have learned about JavaScript in the process (so far).
+### What I have learned about JavaScript in the process (so far), and what you should know (and install) if you want to use this project.   Take the time to tool up. 
 1. My initial rant about too many runtimes, too much history, too many ways to do things, and wierd asynch.  Has pretty much been resolved by learning more history and particularly ECMAScript initiative.
    See Wikipedia articles:  https://en.wikipedia.org/wiki/ECMAScript and https://en.wikipedia.org/wiki/ECMAScript_version_history .  The good stuff I needed is in the 14th edition ECMAScript 2023.
 2. Related is the set of documents that details the ECMAScript API docs that are referenced at the end of the second of those two Wikipedia pages.  Specifically https://262.ecma-international.org/14.0/
@@ -76,7 +76,9 @@ There you will find a list of issues that are under work.  Right above the list,
 As usual, if you click on the 'Code' tab label, you will see the directory listing of the code and other files.   Below that you will find the formatted presentation of this README.md file.  
 
 ## Object Model
-A big goal of this project is to demonstrate the software design techniques I learned in my 40 year career.   The design model is illustrated in UML diagrams that are contained in markdown (*.md) in that folder.  The top level design page is in ObjectModel.md.  Click on that.  Just above the large header 'ObjectModel.md' you will see three tabs labeled Preview, Code, and Blame.   It should show the Preview pane.  
+A big goal of this project is to demonstrate the software design techniques I learned in my 40 year career.  
+
+The design model is illustrated in UML diagrams that are contained in markdown (*.md) in a folder at the top level of the repository called ObjectModel.  The top level design page is in ObjectModel.md.  Click on that.  Just above the large header 'ObjectModel.md' you will see three tabs labeled Preview, Code, and Blame.   It should show the Preview pane.  
 
 If you look in the 'Code' tab, you will see the "markdown" source code that produces the nice looking version.  After reading the first two paragraphs, you will see a line above 'classDiagram'.  That "```mermaid" tag is majic that cause the mermaid rendering to begin.   Below that you will see a pretty readable description of the object class Bible, its attributes and operations.   That is how this diagram is authored, its the UML diagram coding language if you will.  
 
