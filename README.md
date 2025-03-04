@@ -68,4 +68,23 @@ Probably others.
 ## Notes.
 There is a Notes directory in the project where I will drop text files explaining issues and solutions as needed. 
 
+## Issues.
+In the GitHub project http://GitHub.com/MichaelKentBurns/BibleModel you will find a tab labeled 'Issues'.   Unfortunately that list of issues is NOT available in a local clone of the project.   So, you have to go to the web interface of GitHub.com using the link above.  In the upper left of that page, between the GitHub logo (A cat) and my picture next to the repository name 'BibleModel' you will see the tab bar consisting of the following tabs:  Code, Issues, Pull requests, Discussions, Actions, Projects, Wiki, Security and Insights.   Click on 'Issues'.
+
+There you will find a list of issues that are under work.  Right above the list, on the left, you will see 'Open # Closed #' with 'Open' lit up to indicate you are looking at the list of open issues.  You can also see the Closed issues by clicking on 'Closed'.  This project is very much an exploratory learning exercise.  The issue discussions will tell you about what problems/challenges I have encountered, and what I have done to resolve them.  
+
+As usual, if you click on the 'Code' tab label, you will see the directory listing of the code and other files.   Below that you will find the formatted presentation of this README.md file.  
+
+## Object Model
+A big goal of this project is to demonstrate the software design techniques I learned in my 40 year career.   The design model is illustrated in UML diagrams that are contained in markdown (*.md) in that folder.  The top level design page is in ObjectModel.md.  Click on that.  Just above the large header 'ObjectModel.md' you will see three tabs labeled Preview, Code, and Blame.   It should show the Preview pane.  
+
+If you look in the 'Code' tab, you will see the "markdown" source code that produces the nice looking version.  After reading the first two paragraphs, you will see a line above 'classDiagram'.  That "```mermaid" tag is majic that cause the mermaid rendering to begin.   Below that you will see a pretty readable description of the object class Bible, its attributes and operations.   That is how this diagram is authored, its the UML diagram coding language if you will.  
+
+If you then, go back to the Preview tab, instead of the words you will see a picture called a class diagram.   It is reasonably self explanatory.  Outside of the Class Bible rectangle, you will see arrows to other classes.  The line with a diamond at the beginning should be read as 'Contains'.   So, a Bible containss Testaments, and Books.  Books contain Chapters, which contain Verses and Notes.  
+
+There is much more to the design than this simplified overview diagram.   Those details are contained in the other *.md (markdown) files.  
+
+If you clone this project to your own copy and use an IDE such as VS Code, you can browse these files, but you likely will not see the picture view.  You will need to go to the Extensions tab on the sidebar of the IDE.  Search for the 'Mermaid Chart' extension and install it.   Once you have done that you will be able to see the preview view with the rendered diagram. 
+
+The IDE will have an icon to the right of the tabs for the open .md files.  The icon looks like a two pane window with a tiny magnifying class.  Click on that and you should see the preview appear to the right.    
 

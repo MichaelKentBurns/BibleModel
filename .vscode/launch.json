@@ -19,6 +19,12 @@
             "type": "node"
         },
         {
+            "name": "Debug index.html",
+            "type": "chrome",
+            "request": "debug",
+            "file": "${workspaceFolder}/index.html"
+        },
+        {
             "command": "npm run testBible",
             "name": "testBible",
             "request": "launch",
