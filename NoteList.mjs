@@ -166,7 +166,10 @@ export class NoteList {
         } else if ( request.method === 'POST' )
         {
             let notes = request.body;
+            console.log("POST notes before allNotes length=", allNotes);
             allNotes.push(notes);
+            console.log("POST notes after push allNotes length=", allNotes);
+
             NoteList.saveAll();
             response.setHeader("Content-Type","application/json");
             response.writeHead(200);

@@ -1,4 +1,4 @@
-export function updateTable(tableId, jsonData){
+function updateTable(tableId, jsonData){
 
     var tableHTML = "<tr>";
     for (var headers in jsonData[0]) {

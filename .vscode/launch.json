@@ -21,7 +21,7 @@
         {
             "name": "Debug index.html",
             "type": "chrome",
-            "request": "debug",
+            "request": "launch",
             "file": "${workspaceFolder}/index.html"
         },
         {

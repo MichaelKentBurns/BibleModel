@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Notes Data</title>
     <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-    <script src="./updateTable.mjs" type="module"></script>
+    <script src="./updateTable.js"></script>
 
 </head>
 <body>
@@ -36,7 +36,7 @@
 <button onclick="downloadNotes()">Download Notes</button>
 <button onclick="deleteAllNotes()">Delete all Notes</button>
 <button onclick="downloadAllNotes()">Download All Notes</button>
-<button id="postAllButton">Save Notes</button>
+<button onclick="postAll()" id="postAllButton">Save Notes</button>
 
 <script type="module">
     let dataLibrary = "./defaultLibrary";
@@ -118,7 +118,7 @@
         console.log("NotesData: postAll()", notesArray);
         // TO DO: implement a POST to the notes endpoint
         try {
-            console.log('Next step is to fetch the Notes .');
+            console.log('Next step is to POST the Notes .');
             fetch(target,
                 {
                     method: "POST",
@@ -141,6 +141,7 @@
             notesError = JSON.stringify(error);
             console.log("Error posting ", url, " : ", notesError);
         }
+        console.log("NotesData.postAll complete.")
     }
     postAllButton.addEventListener('click', postAll());
 

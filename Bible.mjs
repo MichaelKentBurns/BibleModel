@@ -15,7 +15,7 @@
 //mm ```mermaid
 //mm classDiagram
 
-const BibleVersion = "0.2.1";
+const BibleVersion = "0.2.2";
 
 const traceBible = false;  // Set this true to have the inner workings of this class traced to console log.
 const useHttp2 = false;

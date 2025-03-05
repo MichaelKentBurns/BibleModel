@@ -283,6 +283,7 @@ HTTPserver.on('request', (req, res)=>{
     if(method){
         method.call(this, req, res);
     }else{
+        console.log('unsupported http method ' + req.method);
         // send content
         res.writeHead(500, {
             'Content-Type': 'text/plain'

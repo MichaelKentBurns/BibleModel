@@ -4,6 +4,8 @@
 
 console.log("Begin NotesData");
 import note, { Note } from "../Note.mjs";
+import { updateTable } from "./updateTable.mjs";
+
 
 const preferencesLocalStorageTag = "BibleModel.prefs";
 const preferences = JSON.parse(localStorage.getItem(preferencesLocalStorageTag) );
