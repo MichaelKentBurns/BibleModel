@@ -32,9 +32,12 @@ if ( localNotesTable != undefined && bibleNotes.length > 0 ) {
 }
 
 function saveAll(notesData) {
+    console.log("NotesData: saveAll()");
     // for now, just use LocalStorage
     localStorage.setItem(localStorageTag, JSON.stringify(notesData));
     // TO DO: implement a POST to the notes endpoint
+
+
 }
 
 // not yet sure when and how to trigger the POST.  TBD

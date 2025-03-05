@@ -80,8 +80,24 @@ export class Note {
         return this.text;
     }
 
-    setAuthor(author) {
-        this.author = author;
+    setReferemce(reference) {
+        let parts = reference.split(' ');
+        if (parts.length > 0) {
+            let bookNumber = parts[1];
+            this.location.path[0] = bookNumber;
+            if ( parts.length > 1 ) {
+                let chapterNumber = parts[2];
+                this.location.path[1] = chapterNumber;
+                if ( parts.length > 2) {
+                    let verseNumber = parts[3];
+                    this.location.path[2] = verseNumber;
+                }
+            }
+        }
+    }
+
+    getReference() {
+        return this.location.toString();
     }
 
     getAuthor() {

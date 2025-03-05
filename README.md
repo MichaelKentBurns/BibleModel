@@ -25,7 +25,7 @@ Javascript is a very widely used language because of the web explosion.
 * I have programmed in many languages, and my initial reaction is yuck!  
 * It's overly complicated by many different ways of doing things.
 * It's syntax is way too complicated.
-* It is used in different environment in very different ways. 
+* It is used in different environments in very different ways. 
 
 But, to be fair, I have decided to try this first in Javascript because that is what my mentees use and 
 I need to learn it better and give it a fair chance.
@@ -71,7 +71,9 @@ There is a Notes directory in the project where I will drop text files explainin
 ## Issues.
 In the GitHub project http://GitHub.com/MichaelKentBurns/BibleModel you will find a tab labeled 'Issues'.   Unfortunately that list of issues is NOT available in a local clone of the project.   So, you have to go to the web interface of GitHub.com using the link above.  In the upper left of that page, between the GitHub logo (A cat) and my picture next to the repository name 'BibleModel' you will see the tab bar consisting of the following tabs:  Code, Issues, Pull requests, Discussions, Actions, Projects, Wiki, Security and Insights.   Click on 'Issues'.
 
-There you will find a list of issues that are under work.  Right above the list, on the left, you will see 'Open # Closed #' with 'Open' lit up to indicate you are looking at the list of open issues.  You can also see the Closed issues by clicking on 'Closed'.  This project is very much an exploratory learning exercise.  The issue discussions will tell you about what problems/challenges I have encountered, and what I have done to resolve them.  
+There you will find a list of issues that are under work.  Right above the list, on the left, you will see 'Open # Closed #' with 'Open' lit up to indicate you are looking at the list of open issues.  You can also see the Closed issues by clicking on 'Closed'.  This project is very much an exploratory learning exercise.  The issue discussions will tell you about what problems/challenges I have encountered, and what I have done to resolve them.  NOTE: All issues have a number representing the order they were created.  As a result, you probably want to read them in numeric order even though they normally are listed newest to oldest.  At the far right of the header for that table there is an elipsis "...".  That menu allows you to sort them by 'Created on' and 'Oldest'.   
+
+## Back to the main display where you can read the README.md file.
 
 As usual, if you click on the 'Code' tab label, you will see the directory listing of the code and other files.   Below that you will find the formatted presentation of this README.md file.  
 
