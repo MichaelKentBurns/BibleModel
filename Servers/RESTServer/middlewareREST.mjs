@@ -45,7 +45,7 @@ let middlewarePOST = (req, res, next) => {
         console.log(`middleware request ${req.method.toUpperCase()} for ${req.url}`);
         console.log(req._header);
     }
-    let urlPath = req.url.split('/');
+    let urlPath = req.url.split('?')[0].split('/');
     // Check the endpoint registry for a handler.
     let endpoint = RESTendpoint.findEndpoint(urlPath[2]);
     if (endpoint !== undefined) {

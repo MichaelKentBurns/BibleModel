@@ -21,16 +21,27 @@
  ```mermaid
  classDiagram
     class Note {
+         +String title        // The title of the note.
+         +String text        // The actual text of the note.
+         +Date  created        // when first created
+         *Date  modified       // last time modified
+         +String author
+         +String   reference    // textual location or other reference point
          +Location location     // Location within the Bible.
          +integer bibleNumber
          +integer bookNumber
          +integer chapterNumber
          +integer verseNumber
          *integer subVerse   // order within a specific verse
-         +String author
-         +String title        // The title of the note.
-         +String text        // The actual text of the note.
          +Xref xref      // a cross references
+     setTitle(String someText)$ Note  // sets the title and returns this
+     getTitle()$ String // returns the string value of title
+     setText(String someText)$ Note  // sets the text and returns this
+     getText()$ String // returns the string value of text
+     setReference(String referenceString )$ Note  // interprets text reference and sets reference
+     getReferenceText()$ String // returns the string value of reference
+     setAuthor(String someText)$ Note  // sets the author and returns this
+     getAuthor()$ String // returns the authors name or initials
  }
  NoteList *-- Note
  Bible -- NoteList

@@ -48,11 +48,20 @@ export class RESTendpoint {
     //mm handleRequest( endpoint, request, response, options )  calls handler method with a request and returns response.
     static handleRequest( endpoint, request, response, options ) {
         let url = request.url;
-        let urlOptionsString = url.split('?');
+        let urlPathString;
+        let urlOptionsString;
+        let urlPathOptionsSplit = url.split('?');
+        if ( urlPathOptionsSplit.length > 1 ) {
+            urlPathString = urlPathOptionsSplit[0];
+            urlOptionsString = urlPathOptionsSplit[1];
+        } else {
+            urlPathString = url;
+            urlOptionsString = '';
+        }
         let urlOptionsArray;
         if ( urlOptionsString.length > 1 )
             urlOptionsArray = urlOptionsString.split('&');
-        let urlArray = url.split('/');
+        let urlArray = urlPathString.split('/');
       //  let aClass = endpoint.handlerClass;
         let aMethod = endpoint.requestHandler;
         // let handler = aClass.aMethod;

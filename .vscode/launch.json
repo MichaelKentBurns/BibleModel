@@ -4,7 +4,6 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        
         {
             "name": "debug Bible.mjs",
             "request": "launch",
@@ -23,6 +22,12 @@
             "type": "chrome",
             "request": "launch",
             "file": "${workspaceFolder}/index.html"
+        },
+        {
+            "name": "Debug indexREST.html",
+            "type": "chrome",
+            "request": "launch",
+            "file": "${workspaceFolder}/indexREST.html"
         },
         {
             "command": "npm run testBible",

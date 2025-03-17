@@ -17,7 +17,10 @@ let localNotesParagraph = document.getElementById('localNotesData');
 let localNotesTable = document.getElementById('localNotesTable');
 let bibleNotes;
 
-bibleNotes = JSON.parse(localStorage.getItem(localStorageTag));
+let localStorageNotes = localStorage.getItem(localStorageTag);
+if ( localStorageNotes == null )
+    bibleNotes = [];
+else bibleNotes = Note.castMany(JSON.parse(localStorageNotes));
 console.log("bibleNotes=",bibleNotes);
 
 let notesText = JSON.stringify(bibleNotes);
@@ -29,7 +32,7 @@ if ( localNotesData != undefined && notesText.length > 0 ) {
 }
 if ( localNotesTable != undefined && bibleNotes.length > 0 ) {
 // Put the fetched data in the html table of html file.
-    updateTable(localNotesTable, bibleNotes);
+   // updateTable(localNotesTable, bibleNotes);
     console.log("bibleNotes JSON added to the table in the document");
 }
 

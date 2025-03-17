@@ -48,9 +48,9 @@ addBtn.addEventListener("click", (e) => {
     if (noteTitle || noteDesc) {
 
         let aNote = new Note();
-        aNote.widget = this;
+      //  aNote.widget = this;
         aNote.setTitle(noteTitle);
-        aNote.noteReference = noteRef;
+        aNote.reference = noteRef;
         aNote.author = noteAuthor;
         aNote.setText(noteDesc);
 
@@ -59,9 +59,9 @@ addBtn.addEventListener("click", (e) => {
             day = dateObj.getDate(),
             year = dateObj.getFullYear();
 
-        if (aNote.Created == null)
-            aNote.Created = dateObj;
-        aNote.Modified = dateObj;
+        if (aNote.created == null)
+            aNote.created = dateObj;
+        aNote.modified = dateObj;
 
         let noteInfo = {
             title: noteTitle,
@@ -97,7 +97,7 @@ function showNotes() {
           <span>${note.text}</span>
       </div>
       <div class="bottom-content" id="bottom-content">
-          <span>${note.modified}</span>
+          <span>${note.modified.toISOString()}</span>
           <div class="settings">
             <i onclick="showMenu(this)" class="uil uil-ellipsis-h" id="${index}">...</i>
             <ul class="menu">

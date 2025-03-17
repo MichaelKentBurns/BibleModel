@@ -1,1 +1,62 @@
-[{"notes":[],"id":1,"table":"t_asv","abbreviation":"ASV","language":"english","infoText":"","infoUrl":"http://en.wikipedia.org/wiki/American_Standard_Version","publisher":"","copyright":"Public Domain","copyrightInfo":""},{"notes":[],"id":2,"table":"t_bbe","abbreviation":"BBE","language":"english","infoText":"","infoUrl":"http://en.wikipedia.org/wiki/Bible_in_Basic_English","publisher":"","copyright":"Public Domain","copyrightInfo":""},{"notes":[],"id":4,"table":"t_kjv","abbreviation":"KJV","language":"english","infoText":"","infoUrl":"http://en.wikipedia.org/wiki/King_James_Version","publisher":"","copyright":"Public Domain","copyrightInfo":""},{"notes":[],"id":6,"table":"t_web","abbreviation":"WEB","language":"english","infoText":"","infoUrl":"http://en.wikipedia.org/wiki/World_English_Bible","publisher":"","copyright":"Public Domain","copyrightInfo":""},{"notes":[],"id":7,"table":"t_ylt","abbreviation":"YLT","language":"english","infoText":"","infoUrl":"http://en.wikipedia.org/wiki/Young%27s_Literal_Translation","publisher":"","copyright":"Public Domain","copyrightInfo":""}]
+[
+  {
+    "notes": [],
+    "id": 1,
+    "table": "t_asv",
+    "abbreviation": "ASV",
+    "language": "english",
+    "infoText": "",
+    "infoUrl": "http://en.wikipedia.org/wiki/American_Standard_Version",
+    "publisher": "",
+    "copyright": "Public Domain",
+    "copyrightInfo": ""
+  },
+  {
+    "notes": [],
+    "id": 2,
+    "table": "t_bbe",
+    "abbreviation": "BBE",
+    "language": "english",
+    "infoText": "",
+    "infoUrl": "http://en.wikipedia.org/wiki/Bible_in_Basic_English",
+    "publisher": "",
+    "copyright": "Public Domain",
+    "copyrightInfo": ""
+  },
+  {
+    "notes": [],
+    "id": 4,
+    "table": "t_kjv",
+    "abbreviation": "KJV",
+    "language": "english",
+    "infoText": "",
+    "infoUrl": "http://en.wikipedia.org/wiki/King_James_Version",
+    "publisher": "",
+    "copyright": "Public Domain",
+    "copyrightInfo": ""
+  },
+  {
+    "notes": [],
+    "id": 6,
+    "table": "t_web",
+    "abbreviation": "WEB",
+    "language": "english",
+    "infoText": "",
+    "infoUrl": "http://en.wikipedia.org/wiki/World_English_Bible",
+    "publisher": "",
+    "copyright": "Public Domain",
+    "copyrightInfo": ""
+  },
+  {
+    "notes": [],
+    "id": 7,
+    "table": "t_ylt",
+    "abbreviation": "YLT",
+    "language": "english",
+    "infoText": "",
+    "infoUrl": "http://en.wikipedia.org/wiki/Young%27s_Literal_Translation",
+    "publisher": "",
+    "copyright": "Public Domain",
+    "copyrightInfo": ""
+  }
+]

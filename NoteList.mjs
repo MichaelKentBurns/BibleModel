@@ -5,6 +5,7 @@ import {Note} from "./Note.mjs";
 
 import {RESTendpoint} from "./Servers/RESTServer/RESTendpoint.mjs";
 let traceNoteList = true;
+let traceNoteListData = true;
 
 let notesPath;
 let allNotes;
@@ -121,8 +122,12 @@ export class NoteList {
 
     //mm ~loadAll()$   // loads all notes
     static loadAll() {
+        // Currently, we only support one collection of notes.   
+        // I'm sure in the future we may want to have a series of Notes files.
+        // I could add a path parameter to loadAll and use that rather than this default.
         if ( notesPath === undefined )
             NoteList.setNotesPath();
+
         let allNotesText = fs.readFileSync(notesPath, (error) => {
             if (error) {
                 console.log('Notes.mjs An error has occurred reading notes', error);
@@ -130,7 +135,15 @@ export class NoteList {
             }
         });
         allNotes = JSON.parse(allNotesText);
+        // Future: the new notes are dumb objects, not instances of a class.
+        // I'm not sure what all the ramifications are, but there are bound to be some.
+        // As a result, we could add code here to turn each array item into a real Note.
+
+        // Since we now have loaded Notes, this is a good time to enable all 
+        // of the Notes related REST endpoints.  Before this all requests will be 
+        // rejected. 
         NoteList.registerEndpoints();
+
         if (traceNoteList) console.log('Notes read successfully from disk');
         return allNotes;
     }
@@ -165,12 +178,79 @@ export class NoteList {
             response.end( JSON.stringify(NoteList.getNotes()) + '\n');
         } else if ( request.method === 'POST' )
         {
-            let notes = request.body;
-            console.log("POST notes before allNotes length=", allNotes);
-            allNotes.push(notes);
+            let checkNoteError; 
+            let postedNotes = request.body;
+            // POST of an array of notes default is to simply append 
+            // all of the new entries to the existing set of notes.
+
+            // I anticipate options on the request:
+            // * Evaluate and digest newly posted notes.
+            let x = 1;
+            let action = '';  // replace, delete, sort
+            let orderBy = '';
+            let direction = '';
+            let urlOptions = request.url.split('?')[1];
+            if (traceNoteList) console.log("URL options=" + urlOptions);
+            if (urlOptions != undefined) {
+        
+                let optionArray = urlOptions.split('&');
+                if (traceNoteList) console.log("URL option array=" + optionArray);
+        
+                for (let i = 0; i < optionArray.length; i++) {
+                    let item = optionArray[i].split('=');
+                    if (item[0] === "action") {
+                        action = item[1];
+                    } else if (item[0] === "orderBy") {
+                        orderBy = item[1];
+                    } else if (item[0] === "ascending") {
+                        direction = item[0];
+                    } else if (item[0] === "descending") {
+                        direction = item[0];
+                    }
+                }
+                if (traceNoteList) console.log("action=" + action + " orderBy=" + orderBy + " direction=" + direction);
+            }
+
+            if (traceNoteListData) 
+                 console.log("POST notes before allNotes length=", allNotes);
+            postedNotes.forEach( (item, index) =>  {
+                // aNote = [Note] item;
+                // First do some basic checks for integrity.
+                if ( action === 'replace') {
+                    let itemCreateTime = undefined;
+                    if ( item.created != undefined )
+                        itemCreateTime = item.created;
+                    let itemModTime = undefined;
+                    if ( item.modified != undefined )
+                        itemModTime = item.modified;
+                    let replaceCount = 0;
+                    allNotes.forEach( (current, curIndex) => {
+                       if ( itemCreateTime != undefined && current != undefined && current.created != undefined && itemCreateTime === current.created ) {
+                        // same object. replace
+                        replaceCount = replaceCount + 1;
+                        if (traceNoteListData) 
+                            console.log(`NoteList.POST item at index ${curIndex} replaced by new item at ${index} replacement #${replaceCount}`);
+                        if ( replaceCount > 1 )
+                            allNotes[curIndex] = undefined;   // just remove it
+                          else
+                            allNotes[index] = item;   // replace item in place
+                        item = undefined;
+                       }
+                    });
+                }
+                if ( item != undefined )    
+                    allNotes.push(item);
+            });
             console.log("POST notes after push allNotes length=", allNotes);
 
+            // Options that operate on the final list of notes. 
+            // * Eliminate duplicates.
+            // * Sort the final list.
+    
+
+            // After that is done, save them to storage.
             NoteList.saveAll();
+            // and then return the result back to the client. 
             response.setHeader("Content-Type","application/json");
             response.writeHead(200);
             response.end( JSON.stringify(NoteList.getNotes()) + '\n');

@@ -5,7 +5,11 @@
     <title>Notes Data</title>
     <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
     <script src="./updateTable.js"></script>
-
+    <script src="./consoleTest.js"></script>
+    <script src="./NoteListPostAll.mjs" type="module"></script>
+    <script src="./NoteBridge.mjs" type="module"></script>
+    <script src="../Note.mjs" type="module"></script>
+    <link rel="stylesheet" href="ErrorTips.css">
 </head>
 <body>
 
@@ -20,6 +24,16 @@
 
 
 <script src="./NotesData.mjs" type="module"></script>
+<script >
+ //   import { NoteListPostAllArgs } from "./NotesListPostAll.mjs";
+   function deleteNotes() {
+     console.log('DeleteNotes button pushed.');
+   }
+
+   function deleteAllNotes() {
+     console.log('DeleteAllNotes button pushed.');
+   }
+</script>
 
 <h1>BibleModel notes from BibleModel Server.</h1>
 
@@ -33,12 +47,15 @@
 </details>
 <button onclick="updateNotes()">Update Notes</button>
 <button onclick="deleteNotes()">Delete Notes</button>
-<button onclick="downloadNotes()">Download Notes</button>
-<button onclick="deleteAllNotes()">Delete all Notes</button>
+<button onclick="promoteNotes()">Promote Notes</button>
+<button onclick="console.log('downloadNotes()')">Download Notes</button>
+<button onclick="deleteAllNotes()" id="deleteAllNotesButton">Delete all Notes</button>
 <button onclick="downloadAllNotes()">Download All Notes</button>
-<button onclick="postAll()" id="postAllButton">Save Notes</button>
+<button onclick="NoteListPostAll()" id="postAllButton">Save Notes</button>
 
 <script type="module">
+    import {Note} from '../Note.mjs';
+    import {NoteListPostAllArgs} from './NoteListPostAll.mjs';
     let dataLibrary = "./defaultLibrary";
     let source;
     const localNotesStorageTag = "BibleModel.notes";
@@ -54,27 +71,54 @@
     const serverURL         = `${preferences["RESTURL"]}:${preferences["RESTPort"]}/Bible/`;
     const notesJsonURL      = `${serverURL}notes`;
     let notesText ;
-    let target = null;
+    let notesTarget = null;
     // - - - decide how to access both the file and from the rest server
     if (source == null || source === "file") {
-        target = notesJsonPathname;
+        notesTarget = notesJsonPathname;
     } else {  // for now assume URL for the server.
-        target = notesJsonURL;
+        notesTarget = notesJsonURL;
     }
+
+    let notesError;
+
     let targetParagraph = document.getElementById('dataSource');
-    targetParagraph.innerHTML = `<STRONG>Data Source: </STRONG> ${target}`;
+    targetParagraph.innerHTML = `<STRONG>Data Source: </STRONG> ${notesTarget}`;
     let serverNotesParagraph = document.getElementById('serverNotesData');
     let serverNotesTable = document.getElementById('serverNotesTable');
     let localNotesParagraph = document.getElementById('localNotesData');
     let localNotesTable = document.getElementById('localNotesTable');
+    let deleteAllNotesButton = document.getElementById('deleteAllButton');
+ //       deleteAllNotesButton.onclick(console.log('deleteAllNotesButton pushed'));       
     let postAllButton = document.getElementById('postAllButton');
+ //       postAllButton.onclick(console.log('postAllButton'));       
 
-    let notesError;
-    let notesArray;
+    let localNotesText = localStorage.getItem(localNotesStorageTag) 
+    let localNotesArray = Note.castMany(JSON.parse(localNotesText));
+    let localNotesEmpty = true;
+    let serverNotesArray = [];
+    NoteListPostAllArgs(localNotesArray, localNotesTable,
+                        serverNotesArray, serverNotesTable,
+                        notesTarget);
+
+    if ( localNotesArray == undefined || localNotesArray.length > 0 )
+         localNotesEmpty = false;
+    // NoteListUpdateTable(localNotesTable,localNotesArray);
+    // NoteListUpdateTableLocal();
+
+
+    if ( localNotesText != undefined ) {
+            localNotesParagraph.innerHTML = localNotesText;
+        } else {
+            localNotesParagraph.innerHTML = "<STRONG>no results</STRONG>";
+        }
+    
+    //if ( localNotesEmpty && localNotesTable != undefined ) {
+      //      localStorage.setItem(localNotesStorageTag, JSON.stringify(serverNotesArray));
+    
 
         try {
-            console.log('Next step is to fetch the Notes .');
-            await fetch(target,
+         //   console.log('Next step is to fetch the Notes .');
+            await fetch(notesTarget,
                 {
                     method: "GET",
                     mode: 'cors',
@@ -86,40 +130,54 @@
             ).then((response) => response.json())
                 .then((notesResult) =>
                 {
-                    notesArray = notesResult;
-                    console.log("notesJSON=", notesArray);
-                    notesText = JSON.stringify(notesArray);
+                    serverNotesArray = castMany(notesResult);
+                    console.log("notesJSON=", serverNotesArray);
+                    notesText = JSON.stringify(serverNotesArray);
                 });
         } catch(error) {
             console.log("Error trying to fetch notes data: ",error);
             notesError = JSON.stringify(error);
-            console.log("Error fetching ", url, " : ", notesError);
+            console.log("Error fetching ", notesTarget, " : ", notesError);
         }
 
+
     // Display the results on the web page.
-    let localNotesEmpty = true;
     if ( notesText != undefined ) {
-        serverNotesParagraph.innerHTML = notesText;
-        if (localNotesParagraph != undefined && localNotesParagraph.innerText != undefined) {
-            localNotesParagraph.innerText = notesText;
+            serverNotesParagraph.innerHTML = notesText;
         } else {
             serverNotesParagraph.innerHTML = "<STRONG>no results</STRONG>";
         }
-    }
-    if ( notesArray != undefined ) {
-        updateTable(serverNotesTable,notesArray);
-        if ( localNotesEmpty && localNotesTable != undefined ) {
-            localStorage.setItem(localNotesStorageTag, JSON.stringify(notesArray));
-            updateTable(localNotesTable,notesArray);
+    
+    if ( serverNotesArray != undefined ) {
+       // updateTable(serverNotesTable,serverNotesArray);
+
+        NoteListPostAllArgs(localNotesArray, localNotesTable,
+            serverNotesArray, serverNotesTable,
+            notesTarget);
+     //  NoteListUpdateTableServer();
+ 
+    //    localStorage.setItem(localNotesStorageTag, JSON.stringify(serverNotesArray));
+           // updateTable(localNotesTable,localNotesArray);
+     //      NoteListUpdateTableLocal();
+
         }
+
+
+    function  castMany(arrayOfNoteLikeObjects){
+        const newNoteList = new Array();
+        arrayOfNoteLikeObjects.forEach(noteLikeObject => {
+            const newNote = new Note(noteLikeObject);
+            newNoteList.push(newNote);
+        });
+        return newNoteList;
     }
 
-    function postAll() {
-        console.log("NotesData: postAll()", notesArray);
+  const postIt = function postAll() {
+     //   console.log("NotesData: postAll()", serverNotesArray);
         // TO DO: implement a POST to the notes endpoint
         try {
-            console.log('Next step is to POST the Notes .');
-            fetch(target,
+        //    console.log('Next step is to POST the Notes .');
+            fetch(notesTarget,
                 {
                     method: "POST",
                     mode: 'cors',
@@ -127,14 +185,14 @@
                         'Content-Type': 'application/json',
                         'Origin': 'http://Bible.MichaelKentBurns.com'
                     },
-                    body: JSON.stringify(notesArray)
+                    body: JSON.stringify(serverNotesArray)
                 }
             ).then((response) => response.json())
                 .then((notesResult) =>
                 {
-                    notesArray = notesResult;
-                    console.log("notesJSON=", notesArray);
-                    notesText = JSON.stringify(notesArray);
+                    serverNotesArray = notesResult;
+                    console.log("notesJSON=", serverNotesArray);
+                    notesText = JSON.stringify(serverNotesArray);
                 });
         } catch(error) {
             console.log("Error trying to post notes data: ",error);
@@ -143,11 +201,9 @@
         }
         console.log("NotesData.postAll complete.")
     }
-    postAllButton.addEventListener('click', postAll());
-
-
+    // postAllButton.addEventListener('click', "postAll()");
 </script>
-
+<button onclick="postIt" id="postAllButton">Save Notes 2</button>
 
 
 </body>
