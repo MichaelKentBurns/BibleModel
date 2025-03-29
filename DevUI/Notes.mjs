@@ -97,7 +97,7 @@ function showNotes() {
           <span>${note.text}</span>
       </div>
       <div class="bottom-content" id="bottom-content">
-          <span>${note.modified.toISOString()}</span>
+          <span>${note.modified.toString()}</span>
           <div class="settings">
             <i onclick="showMenu(this)" class="uil uil-ellipsis-h" id="${index}">...</i>
             <ul class="menu">

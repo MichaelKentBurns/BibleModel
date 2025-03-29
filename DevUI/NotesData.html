@@ -9,6 +9,19 @@
     <script src="./NoteListPostAll.mjs" type="module"></script>
     <script src="./NoteBridge.mjs" type="module"></script>
     <script src="../Note.mjs" type="module"></script>
+    <script type="module">
+        let testTable;
+        function promoteNotes() {
+            console.log('promoteNotes called.');
+            let table = localNotesTable;
+            console.log('testTable: ', testTable);
+            var columns = table.columns;
+            var rows = table.getElementsByTagName("tr");
+
+        }
+
+    </script>
+
     <link rel="stylesheet" href="ErrorTips.css">
 </head>
 <body>
@@ -22,17 +35,61 @@
     <p id="localNotesData">
 </details>
 
+<button onclick="updateNotes()">Update Notes</button>
+<button onclick="deleteNotes()">Delete Notes</button>
+<button onclick="promoteNotes()">Promote Notes</button>
 
 <script src="./NotesData.mjs" type="module"></script>
 <script >
  //   import { NoteListPostAllArgs } from "./NotesListPostAll.mjs";
-   function deleteNotes() {
-     console.log('DeleteNotes button pushed.');
+
+ let pageLocalNotesArray = undefined;
+ let pageServerNotesArray = undefined;
+ function GetSelectedRows(table) {
+     //Reference the Table.
+     var grid = table;
+     var rowsSelected = [];
+     //Reference the CheckBoxes in Table.
+     var checkBoxes = grid.getElementsByTagName("INPUT");
+     //Loop through the CheckBoxes.
+     for (var i = 0; i < checkBoxes.length; i++) {
+         if (checkBoxes[i].checked) {
+             var row = checkBoxes[i].parentNode.parentNode;
+             let rowNumber = Number(row.cells[0].innerText);
+             rowsSelected.push(rowNumber);
+         }
+     }
+     return rowsSelected;
+ }
+
+     function deleteNotes() {
+         console.log('DeleteNotes button pushed.');
+         let localNotesTable = document.getElementById('localNotesTable');
+
+         let rowsSelected = GetSelectedRows(localNotesTable);
+         console.log(rowsSelected);
+         for (var i = 0; i < rowsSelected.length; i++) {
+             let aNote = pageLocalNotesArray[rowsSelected[i]-1];
+             console.log('Delete Note ', aNote);
+         }
    }
 
    function deleteAllNotes() {
      console.log('DeleteAllNotes button pushed.');
    }
+
+ const promoteNotes = function promoteNotes() {
+     console.log('PromoteNotes button pushed.');
+     let localNotesTable = document.getElementById('localNotesTable');
+     let rowsSelected = GetSelectedRows(localNotesTable);
+     console.log(rowsSelected);
+     for (var i = 0; i < rowsSelected.length; i++) {
+         let aNote = pageLocalNotesArray[rowsSelected[i]-1];
+         console.log('Delete Note ', aNote);
+         pageServerNotesArray.push(aNote);
+     }
+ }
+
 </script>
 
 <h1>BibleModel notes from BibleModel Server.</h1>
@@ -45,13 +102,10 @@
 <details>
     <p id="serverNotesData">
 </details>
-<button onclick="updateNotes()">Update Notes</button>
-<button onclick="deleteNotes()">Delete Notes</button>
-<button onclick="promoteNotes()">Promote Notes</button>
 <button onclick="console.log('downloadNotes()')">Download Notes</button>
 <button onclick="deleteAllNotes()" id="deleteAllNotesButton">Delete all Notes</button>
 <button onclick="downloadAllNotes()">Download All Notes</button>
-<button onclick="NoteListPostAll()" id="postAllButton">Save Notes</button>
+<button onclick="NoteListPostAll()" id="postAllButton">Post Notes</button>
 
 <script type="module">
     import {Note} from '../Note.mjs';
@@ -87,6 +141,7 @@
     let serverNotesTable = document.getElementById('serverNotesTable');
     let localNotesParagraph = document.getElementById('localNotesData');
     let localNotesTable = document.getElementById('localNotesTable');
+
     let deleteAllNotesButton = document.getElementById('deleteAllButton');
  //       deleteAllNotesButton.onclick(console.log('deleteAllNotesButton pushed'));       
     let postAllButton = document.getElementById('postAllButton');
@@ -151,6 +206,8 @@
     if ( serverNotesArray != undefined ) {
        // updateTable(serverNotesTable,serverNotesArray);
 
+        pageLocalNotesArray = localNotesArray;
+        pageServerNotesArray = serverNotesArray;
         NoteListPostAllArgs(localNotesArray, localNotesTable,
             serverNotesArray, serverNotesTable,
             notesTarget);

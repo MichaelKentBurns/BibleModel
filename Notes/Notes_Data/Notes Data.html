@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)http://localhost:8082/BibleModel/DevUI/NotesData.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Notes Data</title>
+    <link rel="icon" type="image/x-icon" href="http://localhost:8082/BibleModel/images/favicon.ico">
+    <script src="./Notes Data_files/updateTable.js"></script>
+    <script src="./Notes Data_files/consoleTest.js"></script>
+    <script src="./Notes Data_files/NoteListPostAll.mjs" type="module"></script>
+    <script src="./Notes Data_files/NoteBridge.mjs" type="module"></script>
+    <script src="./Notes Data_files/Note.mjs" type="module"></script>
+    <script type="module">
+        let testTable;
+        const promoteNotes = function promoteNotes() {
+            console.log('promoteNotes called.');
+            let table = localNotesTable;
+            console.log('testTable: ', testTable);
+            var columns = table.columns;
+            var rows = table.getElementsByTagName("tr");
+
+        }
+
+    </script>
+
+    <link rel="stylesheet" href="./Notes Data_files/ErrorTips.css">
+</head>
+<body>
+
+<h1>BibleModel notes.</h1>
+
+<h1>BibleModel notes from browser LocalStorage.</h1>
+<table id="localNotesTable"><tbody><tr><th>Row</th><th>Select</th><th>Errors</th><th>title</th><th>text</th><th>reference</th><th>author</th><th>created</th><th>modified</th></tr><tr><td style="border: thin double black">1</td><td style="border: thin double black"><input type="checkbox"></td><td style="border: thin double black">1 errors, 0 warnings</td><td style="border: thin double black; background-color: hsl(120,100%,80%)">title test</td><td style="border: thin double black; background-color: hsl(120,100%,80%)">As for me and my house...</td><td style="border: thin double black; background-color: hsl(120,100%,80%)">Joshua 24:15</td><td style="border: thin double black; background-color: hsl(120,100%,80%)">mkb</td><td class="CellWithComment" style="border: thin double black; background-color: hsl(0,100%,80%)">1743108715096<span class="CellComment">Creation date is not a valid Date </span></td><td style="border: thin double black; background-color: hsl(120,100%,80%)">1743108715096</td></tr></tbody></table>
+<details>
+    <p id="localNotesData">[{"title":"title test","text":"As for me and my house...","created":"2025-03-27T20:51:55.096Z","modified":"2025-03-27T20:51:55.096Z","author":"mkb","reference":"Joshua 24:15","location":{"path":[null,null,null]},"bibleNumber":0,"bookNumber":0,"chapterNumber":0,"verseNumber":0,"subverse":0,"xref":0}]</p></details>
+
+<button onclick="updateNotes()">Update Notes</button>
+<button onclick="deleteNotes()">Delete Notes</button>
+<button onclick="promoteNotes()">Promote Notes</button>
+
+<script src="./Notes Data_files/NotesData.mjs" type="module"></script>
+<script>
+ //   import { NoteListPostAllArgs } from "./NotesListPostAll.mjs";
+   function deleteNotes() {
+     console.log('DeleteNotes button pushed.');
+   }
+
+   function deleteAllNotes() {
+     console.log('DeleteAllNotes button pushed.');
+   }
+
+ function promoteNotes() {
+     console.log('PromoteNotes button pushed.');
+     let localNotesTable = document.getElementById('localNotesTable');
+     let table = localNotesTable;
+     var columns = table.columns;
+     var rows = table.getElementsByTagName("tr");
+
+ }
+
+</script>
+
+<h1>BibleModel notes from BibleModel Server.</h1>
+
+<p id="dataSource"><strong>Data Source: </strong> http://localhost:8082/Bible/notes</p><p>
+
+</p><table id="serverNotesTable"><tbody><tr><th>Row</th><th>Select</th><th>Errors</th><th>title</th><th>text</th><th>reference</th><th>author</th><th>created</th><th>modified</th></tr><tr><td style="border: thin double black">1</td><td style="border: thin double black"><input type="checkbox"></td><td style="border: thin double black">1 errors, 1 warnings</td><td style="border: thin double black; background-color: hsl(120,100%,80%)">The creation of man</td><td style="border: thin double black; background-color: hsl(120,100%,80%)">formed man and breathed in the spirit of life.</td><td style="border: thin double black; background-color: hsl(120,100%,80%)"></td><td class="CellWithComment" style="border: thin double black; background-color: hsl(60,100%,80%)"><span class="CellComment">Notes should have an author.</span></td><td class="CellWithComment" style="border: thin double black; background-color: hsl(0,100%,80%)">1742149191465<span class="CellComment">Creation date is not a valid Date </span></td><td style="border: thin double black; background-color: hsl(120,100%,80%)">NaN</td></tr><tr><td style="border: thin double black">2</td><td style="border: thin double black"><input type="checkbox"></td><td style="border: thin double black">1 errors, 0 warnings</td><td style="border: thin double black; background-color: hsl(120,100%,80%)">title 3</td><td style="border: thin double black; background-color: hsl(120,100%,80%)">the priestly law</td><td style="border: thin double black; background-color: hsl(120,100%,80%)">Lev 2 4</td><td style="border: thin double black; background-color: hsl(120,100%,80%)">mkb</td><td class="CellWithComment" style="border: thin double black; background-color: hsl(0,100%,80%)">1741790139505<span class="CellComment">Creation date is not a valid Date </span></td><td style="border: thin double black; background-color: hsl(120,100%,80%)">1741790139506</td></tr><tr><td style="border: thin double black">3</td><td style="border: thin double black"><input type="checkbox"></td><td style="border: thin double black">1 errors, 2 warnings</td><td class="CellWithComment" style="border: thin double black; background-color: hsl(0,100%,80%)"><span class="CellComment">Notes require a title string </span></td><td class="CellWithComment" style="border: thin double black; background-color: hsl(60,100%,80%)"><span class="CellComment">Notes should have some text.</span></td><td style="border: thin double black; background-color: hsl(120,100%,80%)"></td><td class="CellWithComment" style="border: thin double black; background-color: hsl(60,100%,80%)"><span class="CellComment">Notes should have an author.</span></td><td style="border: thin double black; background-color: hsl(120,100%,80%)">3/27/2025, 5:01:43 PM</td><td style="border: thin double black; background-color: hsl(120,100%,80%)"></td></tr><tr><td style="border: thin double black">4</td><td style="border: thin double black"><input type="checkbox"></td><td style="border: thin double black">1 errors, 2 warnings</td><td class="CellWithComment" style="border: thin double black; background-color: hsl(0,100%,80%)"><span class="CellComment">Notes require a title string </span></td><td class="CellWithComment" style="border: thin double black; background-color: hsl(60,100%,80%)"><span class="CellComment">Notes should have some text.</span></td><td style="border: thin double black; background-color: hsl(120,100%,80%)"></td><td class="CellWithComment" style="border: thin double black; background-color: hsl(60,100%,80%)"><span class="CellComment">Notes should have an author.</span></td><td style="border: thin double black; background-color: hsl(120,100%,80%)">3/27/2025, 5:01:43 PM</td><td style="border: thin double black; background-color: hsl(120,100%,80%)"></td></tr><tr><td style="border: thin double black">5</td><td style="border: thin double black"><input type="checkbox"></td><td style="border: thin double black">1 errors, 1 warnings</td><td style="border: thin double black; background-color: hsl(120,100%,80%)">title 3</td><td class="CellWithComment" style="border: thin double black; background-color: hsl(60,100%,80%)"><span class="CellComment">Notes should have some text.</span></td><td style="border: thin double black; background-color: hsl(120,100%,80%)">Psalms 23</td><td style="border: thin double black; background-color: hsl(120,100%,80%)">MKB</td><td class="CellWithComment" style="border: thin double black; background-color: hsl(0,100%,80%)">1741819436435<span class="CellComment">Creation date is not a valid Date </span></td><td style="border: thin double black; background-color: hsl(120,100%,80%)">1741819436435</td></tr><tr><td style="border: thin double black">6</td><td style="border: thin double black"><input type="checkbox"></td><td style="border: thin double black">1 errors, 0 warnings</td><td style="border: thin double black; background-color: hsl(120,100%,80%)">Sunday note 3</td><td style="border: thin double black; background-color: hsl(120,100%,80%)">A wise man will hear and increase in learning, 
+and a man of understanding will receive guidance.</td><td style="border: thin double black; background-color: hsl(120,100%,80%)">prov 1:5</td><td style="border: thin double black; background-color: hsl(120,100%,80%)">David Perez</td><td class="CellWithComment" style="border: thin double black; background-color: hsl(0,100%,80%)">1742154291731<span class="CellComment">Creation date is not a valid Date </span></td><td style="border: thin double black; background-color: hsl(120,100%,80%)">1742154291731</td></tr></tbody></table>
+<details>
+    <p id="serverNotesData">[{"title":"The creation of man","text":"formed man and breathed in the spirit of life.","created":1742149191465,"modified":null,"author":"","reference":"","location":{"id":{"id":{"path":[null,null,null]},"path":[null,null,null]},"path":[null,null,null]},"bibleNumber":0,"bookNumber":0,"subverse":0,"xref":0},{"title":"title 3","text":"the priestly law","created":1741790139505,"modified":1741790139506,"author":"mkb","reference":"Lev 2 4","location":{"id":{"path":[null,null,null]},"path":[null,null,null]},"bibleNumber":0,"bookNumber":0,"subverse":0,"xref":0},{"title":"","text":"","created":"2025-03-27T22:01:43.922Z","author":"","reference":"","location":{"path":[null,null,null]},"bibleNumber":0,"bookNumber":0,"chapterNumber":0,"verseNumber":0,"subverse":0,"xref":0},{"title":"","text":"","created":"2025-03-27T22:01:43.922Z","author":"","reference":"","location":{"path":[null,null,null]},"bibleNumber":0,"bookNumber":0,"chapterNumber":0,"verseNumber":0,"subverse":0,"xref":0},{"title":"title 3","text":"","created":1741819436435,"modified":1741819436435,"author":"MKB","reference":"Psalms 23","location":{"id":{"id":{"path":[null,null,null]},"path":[null,null,null]},"path":[null,null,null]},"bibleNumber":0,"bookNumber":0,"subverse":0,"xref":0},{"title":"Sunday note 3","text":"A wise man will hear and increase in learning, \nand a man of understanding will receive guidance.","created":1742154291731,"modified":1742154291731,"author":"David Perez","reference":"prov 1:5","location":{"id":{"id":{"path":[null,null,null]},"path":[null,null,null]},"path":[null,null,null]},"bibleNumber":0,"bookNumber":0,"subverse":0,"xref":0}]</p></details>
+<button onclick="console.log(&#39;downloadNotes()&#39;)">Download Notes</button>
+<button onclick="deleteAllNotes()" id="deleteAllNotesButton">Delete all Notes</button>
+<button onclick="downloadAllNotes()">Download All Notes</button>
+<button onclick="NoteListPostAll()" id="postAllButton">Save Notes</button>
+
+<script type="module">
+    import {Note} from '../Note.mjs';
+    import {NoteListPostAllArgs} from './NoteListPostAll.mjs';
+    let dataLibrary = "./defaultLibrary";
+    let source;
+    const localNotesStorageTag = "BibleModel.notes";
+    const preferencesLocalStorageTag = "BibleModel.prefs";
+    const preferences = JSON.parse(localStorage.getItem(preferencesLocalStorageTag) );
+    if ( preferences == undefined ) console.log("ERROR: No preferences set.  Please visit preferences page first.");
+    else {
+        dataLibrary = preferences["MyBiblePath"];
+        source = preferences.accessDataBy;
+    }
+
+    const notesJsonPathname = `../${dataLibrary}/notes.json`;
+    const serverURL         = `${preferences["RESTURL"]}:${preferences["RESTPort"]}/Bible/`;
+    const notesJsonURL      = `${serverURL}notes`;
+    let notesText ;
+    let notesTarget = null;
+    // - - - decide how to access both the file and from the rest server
+    if (source == null || source === "file") {
+        notesTarget = notesJsonPathname;
+    } else {  // for now assume URL for the server.
+        notesTarget = notesJsonURL;
+    }
+
+    let notesError;
+
+    let targetParagraph = document.getElementById('dataSource');
+    targetParagraph.innerHTML = `<STRONG>Data Source: </STRONG> ${notesTarget}`;
+    let serverNotesParagraph = document.getElementById('serverNotesData');
+    let serverNotesTable = document.getElementById('serverNotesTable');
+    let localNotesParagraph = document.getElementById('localNotesData');
+    let localNotesTable = document.getElementById('localNotesTable');
+
+    let deleteAllNotesButton = document.getElementById('deleteAllButton');
+ //       deleteAllNotesButton.onclick(console.log('deleteAllNotesButton pushed'));       
+    let postAllButton = document.getElementById('postAllButton');
+ //       postAllButton.onclick(console.log('postAllButton'));       
+
+    let localNotesText = localStorage.getItem(localNotesStorageTag) 
+    let localNotesArray = Note.castMany(JSON.parse(localNotesText));
+    let localNotesEmpty = true;
+    let serverNotesArray = [];
+    NoteListPostAllArgs(localNotesArray, localNotesTable,
+                        serverNotesArray, serverNotesTable,
+                        notesTarget);
+
+    if ( localNotesArray == undefined || localNotesArray.length > 0 )
+         localNotesEmpty = false;
+    // NoteListUpdateTable(localNotesTable,localNotesArray);
+    // NoteListUpdateTableLocal();
+
+
+    if ( localNotesText != undefined ) {
+            localNotesParagraph.innerHTML = localNotesText;
+        } else {
+            localNotesParagraph.innerHTML = "<STRONG>no results</STRONG>";
+        }
+    
+    //if ( localNotesEmpty && localNotesTable != undefined ) {
+      //      localStorage.setItem(localNotesStorageTag, JSON.stringify(serverNotesArray));
+    
+
+        try {
+         //   console.log('Next step is to fetch the Notes .');
+            await fetch(notesTarget,
+                {
+                    method: "GET",
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': 'http://Bible.MichaelKentBurns.com'
+                    }
+                }
+            ).then((response) => response.json())
+                .then((notesResult) =>
+                {
+                    serverNotesArray = castMany(notesResult);
+                    console.log("notesJSON=", serverNotesArray);
+                    notesText = JSON.stringify(serverNotesArray);
+                });
+        } catch(error) {
+            console.log("Error trying to fetch notes data: ",error);
+            notesError = JSON.stringify(error);
+            console.log("Error fetching ", notesTarget, " : ", notesError);
+        }
+
+
+    // Display the results on the web page.
+    if ( notesText != undefined ) {
+            serverNotesParagraph.innerHTML = notesText;
+        } else {
+            serverNotesParagraph.innerHTML = "<STRONG>no results</STRONG>";
+        }
+    
+    if ( serverNotesArray != undefined ) {
+       // updateTable(serverNotesTable,serverNotesArray);
+
+        NoteListPostAllArgs(localNotesArray, localNotesTable,
+            serverNotesArray, serverNotesTable,
+            notesTarget);
+     //  NoteListUpdateTableServer();
+ 
+    //    localStorage.setItem(localNotesStorageTag, JSON.stringify(serverNotesArray));
+           // updateTable(localNotesTable,localNotesArray);
+     //      NoteListUpdateTableLocal();
+
+        }
+
+
+    function  castMany(arrayOfNoteLikeObjects){
+        const newNoteList = new Array();
+        arrayOfNoteLikeObjects.forEach(noteLikeObject => {
+            const newNote = new Note(noteLikeObject);
+            newNoteList.push(newNote);
+        });
+        return newNoteList;
+    }
+
+  const postIt = function postAll() {
+     //   console.log("NotesData: postAll()", serverNotesArray);
+        // TO DO: implement a POST to the notes endpoint
+        try {
+        //    console.log('Next step is to POST the Notes .');
+            fetch(notesTarget,
+                {
+                    method: "POST",
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': 'http://Bible.MichaelKentBurns.com'
+                    },
+                    body: JSON.stringify(serverNotesArray)
+                }
+            ).then((response) => response.json())
+                .then((notesResult) =>
+                {
+                    serverNotesArray = notesResult;
+                    console.log("notesJSON=", serverNotesArray);
+                    notesText = JSON.stringify(serverNotesArray);
+                });
+        } catch(error) {
+            console.log("Error trying to post notes data: ",error);
+            notesError = JSON.stringify(error);
+            console.log("Error posting ", url, " : ", notesError);
+        }
+        console.log("NotesData.postAll complete.")
+    }
+    // postAllButton.addEventListener('click', "postAll()");
+</script>
+<button onclick="postIt" id="postAllButton">Save Notes 2</button>
+
+
+
+
+</body></html>
