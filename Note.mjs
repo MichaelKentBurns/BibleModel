@@ -35,8 +35,7 @@ export class Note {
         //mm +String text        // The actual text of the note.
         this.text = '';
         //mm +Date  created        // when first created
-        let newDate = new Date();
-        this.created = newDate;
+        this.created = new Date();
         //mm *Date  modified       // last time modified
         this.modified = undefined;  
         //mm +String author
@@ -115,14 +114,11 @@ export class Note {
     setReference(reference) {
         let parts = reference.split(' ');
         if (parts.length > 0) {
-            let bookNumber = parts[1];
-            this.location.path[0] = bookNumber;
+            this.location.path[0] = parts[1];
             if ( parts.length > 1 ) {
-                let chapterNumber = parts[2];
-                this.location.path[1] = chapterNumber;
+                this.location.path[1] = parts[2];
                 if ( parts.length > 2) {
-                    let verseNumber = parts[3];
-                    this.location.path[2] = verseNumber;
+                    this.location.path[2] = parts[3];
                 }
             }
         }
@@ -189,7 +185,7 @@ export class Note {
         return new Note(noteLikeObject);
     }
     static castMany(arrayOfNoteLikeObjects){
-        const newNoteList = new Array();
+        const newNoteList = [];
         if (arrayOfNoteLikeObjects) {
             arrayOfNoteLikeObjects.forEach(noteLikeObject => {
                 const newNote = new Note(noteLikeObject);
