@@ -61,20 +61,8 @@ export class Note {
         if (row != undefined) {
             this.title = row.title;
             this.text = row.text;
-            let testDate = row.created;
-            if (testDate instanceof Date) {
-                this.created = testDate;
-            }
-            else {
-                this.created = Date.parse(testDate);
-            }
-            testDate = row.modified;
-            if (testDate instanceof Date) {
-                this.modified = testDate;
-            }
-            else {
-                this.modified = Date.parse(testDate);
-            }
+            this.setCreated(row.created);
+            this.setModified(row.modified);
             this.author = row.author;
             this.reference = row.reference;
             this.location.id = row.location;
@@ -85,6 +73,20 @@ export class Note {
             this.location.path[2] = row.v;
         }
 
+    }
+
+    setCreated(someText) {
+        if (typeof someText === "string")
+            this.created = new Date(someText);
+        else
+            this.created = someText;
+    }
+
+    setModified(someText) {
+        if (typeof someText === "string")
+            this.modified = new Date(someText);
+        else
+            this.modified = someText;
     }
 
     //mm setTitle(String someText)$ Note  // sets the title and returns this

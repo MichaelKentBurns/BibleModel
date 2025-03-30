@@ -134,7 +134,8 @@ export class NoteList {
                 return null;
             }
         });
-        allNotes = JSON.parse(allNotesText);
+        let allNotesTemp = JSON.parse(allNotesText);
+        allNotes = Note.castMany(allNotesTemp);
         // Future: the new notes are dumb objects, not instances of a class.
         // I'm not sure what all the ramifications are, but there are bound to be some.
         // As a result, we could add code here to turn each array item into a real Note.
