@@ -2,16 +2,18 @@
 // If there is a table in the current document to receive it, then populate that table.
 // If there is a paragraph in the current document to receive it, then put the notes JSON there.
 
+import {NotesManager} from "./NotesManager.mjs";
+
 console.log("Begin NotesData");
 import note, { Note } from "../Note.mjs";
 import { updateTable } from "./updateTable.mjs";
-
+const notesManager = NotesManager.getNotesManager();
 
 const preferencesLocalStorageTag = "BibleModel.prefs";
 const preferences = JSON.parse(localStorage.getItem(preferencesLocalStorageTag) );
 if ( preferences != undefined ) console.log("Note: Preferences read from local storage: ", preferences);
 
-const localStorageTag = "BibleModel.notes";
+const localStorageTag = notesManager.localStorageTag;
 
 let localNotesParagraph = document.getElementById('localNotesData');
 let localNotesTable = document.getElementById('localNotesTable');

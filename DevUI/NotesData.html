@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <title>Notes Data</title>
     <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+    <script src="./NotesManager.mjs" type="module"></script>
+    <script type="module">
+        import { NotesManager } from './NotesManager.js';
+        const notesManager = new NotesManager();
+        console.log(`Init notesManager: ${notesManager}`);
+    </script>
     <script src="./updateTable.js"></script>
     <script src="./consoleTest.js"></script>
     <script src="./NoteListPostAll.mjs" type="module"></script>
@@ -40,7 +46,7 @@
 <button onclick="promoteNotes()">Promote Notes</button>
 
 <script src="./NotesData.mjs" type="module"></script>
-<script >
+<script>
  //   import { NoteListPostAllArgs } from "./NotesListPostAll.mjs";
 
  let pageLocalNotesArray = undefined;
@@ -71,6 +77,7 @@
          for (var i = 0; i < rowsSelected.length; i++) {
              let aNote = pageLocalNotesArray[rowsSelected[i]-1];
              console.log('Delete Note ', aNote);
+             pageLocalNotesArray[rowsSelected[i]-1] = null;
          }
    }
 
@@ -85,7 +92,7 @@
      console.log(rowsSelected);
      for (var i = 0; i < rowsSelected.length; i++) {
          let aNote = pageLocalNotesArray[rowsSelected[i]-1];
-         console.log('Delete Note ', aNote);
+         console.log('Promote Note ', aNote);
          pageServerNotesArray.push(aNote);
      }
  }
@@ -110,6 +117,8 @@
 <script type="module">
     import {Note} from '../Note.mjs';
     import {NoteListPostAllArgs} from './NoteListPostAll.mjs';
+    import { NotesManager } from "./NotesManager.mjs";
+    const notesManager = NotesManager.getNotesManager();
     let dataLibrary = "./defaultLibrary";
     let source;
     const localNotesStorageTag = "BibleModel.notes";
@@ -207,6 +216,10 @@
        // updateTable(serverNotesTable,serverNotesArray);
 
         pageLocalNotesArray = localNotesArray;
+        if ( notesManager != undefined ) {
+            NotesManager.setLocalNotesArray(pageLocalNotesArray);
+        }
+
         pageServerNotesArray = serverNotesArray;
         NoteListPostAllArgs(localNotesArray, localNotesTable,
             serverNotesArray, serverNotesTable,
@@ -231,7 +244,6 @@
 
   const postIt = function postAll() {
      //   console.log("NotesData: postAll()", serverNotesArray);
-        // TO DO: implement a POST to the notes endpoint
         try {
         //    console.log('Next step is to POST the Notes .');
             fetch(notesTarget,
@@ -260,7 +272,7 @@
     }
     // postAllButton.addEventListener('click', "postAll()");
 </script>
-<button onclick="postIt" id="postAllButton">Save Notes 2</button>
+<button onclick="postIt" id="postAllButton2">Save Notes 2</button>
 
 
 </body>

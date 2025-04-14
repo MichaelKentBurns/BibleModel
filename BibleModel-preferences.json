@@ -10,7 +10,7 @@
     "Translation": "WEB",
     "Book": "Acts",
     "accessDataBy-options": "file,REST",
-    "accessDataBy": "REST",
+    "accessDataBy": "file",
     "RESTURL": "http://localhost",
     "RESTPort": "8082",
     "RESTServer": "RESTServer",
