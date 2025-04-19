@@ -10,9 +10,15 @@
     "Translation": "WEB",
     "Book": "Acts",
     "accessDataBy-options": "file,REST",
-    "accessDataBy": "file",
+    "accessDataBy": "REST",
     "RESTURL": "http://localhost",
     "RESTPort": "8082",
     "RESTServer": "RESTServer",
-    "alternate": "HttpServer"
+    "alternate": "HttpServer",
+    "notes": {"noteSetName": "",
+              "autoReadLocalNotes": false,
+              "autoReadPublishedNotes": false,
+               "complete-importNotesFilePath": "./defaultBible/OliveTreeNotes/Highlight-table 1.csv",
+               "importNotesFilePath": ""
+             }
 }

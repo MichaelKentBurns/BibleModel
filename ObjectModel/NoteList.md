@@ -41,12 +41,16 @@
      getNotes()$   // return the list of notes
      setNotes([Note])$   // set the list of notes
      ~loadAll()$   // loads all notes
+     ~loadAll()$   // loads all notes
      ~saveAll()$   // saves all the Notes
  }
- NoteList *-- Note
  Bible -- NoteList
+ note for Bible "Bible has a NoteList to hold all Notes"
+ NoteList *-- Note
  Book -- NoteList
  Chapter -- NoteList
  Verse -- NoteList
  Xref -- NoteList
+ note for CSVDataSource "NoteList uses CSVDataSource to import notes from CSV files"
+ NoteList ..> CSVDataSource
  ```

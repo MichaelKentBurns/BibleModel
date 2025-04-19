@@ -15,7 +15,7 @@
 //mm ```mermaid
 //mm classDiagram
 
-const BibleVersion = "0.2.2";
+const BibleVersion = "0.3.0";
 
 const traceBible = false;  // Set this true to have the inner workings of this class traced to console log.
 const useHttp2 = false;
@@ -109,6 +109,7 @@ let numBibles = 0;
 let allBibles = [];
 let defaultBible = undefined;
 let defaultBibleTableName = undefined;
+//========= Bible Class ==================================================================================
 
 //- - - - - - - - - - - begin Class definition - - - - - - - - - - -
 //mm    class Bible {
@@ -154,6 +155,7 @@ export class Bible {
         //mm   +Object  config            // preferences configuration
         this.config = config;
     }
+    //========== Static methods =================================================================================
 
     //mm ///// statics - medhods belonging to the class, not an instance  ed.  Bible.getBible()
     //mm  getBible()$    // returns the singleton Bible
@@ -177,6 +179,8 @@ export class Bible {
     static getNumberOfBibles() {
         return numBibles;
     }
+
+    //======= Instance methods ====================================================================================
 
     //mm ///// instance methods - belong to a specific Bible   eg.  aBible.getBooks()
     //mm +getBooks()   Book[]   // returns array of all the books
@@ -209,6 +213,7 @@ export class Bible {
         if (traceBible) console.log('Bible.mjs Xref added: ' + xref);
     }
 
+    //====== Load All =====================================================================================
     //mm ~loadAll()    // Called during Bible init to trigger loading of the various components.
     loadAll() {
 
@@ -238,10 +243,20 @@ export class Bible {
         }
 
         // Finally, notes get loaded.
+        this.noteList = new NoteList();
         this.notes = NoteList.loadAll();
+        if ( this.config ){
+            let notesPreferences = this.config.notes;
+            if (notesPreferences != undefined) {
+                let importNotesPath = notesPreferences.importNotesFilePath;
+                if (importNotesPath != undefined) {
+                    NoteList.importAll(importNotesPath);
+                }
+            }
+        }
     }
 
-    // ======================== State Machine ======================
+    // ======================== State Machine =========================================================
     // The stateMachine function runs a loop trying to move the state
     // machine through it's state.   See StateMachine.md for a UML
     // state machine diagram.
@@ -382,6 +397,8 @@ export class Bible {
         if (traceBible) console.log('Bible.mjs ===================== stateMachine() ending. time=', performance.now());
     }
 // ===================== end of StateMachine function. ============
+
+    //======== REST Handlers ===================================================================================
 
     static handleOverview( endpoint, request, response, urlArray, urlOptionsArray ) {
         if ( request.method === 'GET' )

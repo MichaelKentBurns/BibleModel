@@ -27,9 +27,12 @@ let traceNotes = true;
 //mm    class Note {
 
 //- - - - - - - - - - - begin Class definition - - - - - - - - - - -
+const propNames = ['title','text','created','modified','author','reference','location'];
+
 export class Note {
+
     //mm  +constructor() Note // make a new Note
-    constructor(row) {
+    constructor(row,map) {
         //mm +String title        // The title of the note.
         this.title = '';
         //mm +String text        // The actual text of the note.
@@ -58,20 +61,34 @@ export class Note {
         //mm +Xref xref      // a cross references
         this.xref = 0;
         if (row != undefined) {
-            this.title = row.title;
-            this.text = row.text;
-            this.setCreated(row.created);
-            this.setModified(row.modified);
-            this.author = row.author;
-            this.reference = row.reference;
-            this.location.id = row.location;
+            propNames.forEach(propName => {
+               Note.mapProperty(this,propName,map,row);
+            });
+          //  this.location.id = row.location;
             this.chapterNumber = row.c;
             this.verseNumber = row.v;
-            this.location.path[0] = row.b;
-            this.location.path[1] = row.c;
-            this.location.path[2] = row.v;
+          //  this.location.path[0] = row.b;
+          //  this.location.path[1] = row.c;
+          //  this.location.path[2] = row.v;
         }
 
+    }
+
+    //  find propName in row as-is or after checking the map.
+    static mapProperty(newObject,propName,map,row){
+        let value = row[propName];
+        if ( value !== undefined ) {
+            newObject[propName] = value;
+        }
+        else {
+            if (  map != undefined) {
+                let alternateName = map.get(propName);
+                if (alternateName != null) {
+                    let value = row[alternateName];
+                    newObject[propName] = value;
+                }
+            }
+        }
     }
 
     setCreated(someText) {
@@ -184,11 +201,11 @@ export class Note {
     static cast(noteLikeObject){
         return new Note(noteLikeObject);
     }
-    static castMany(arrayOfNoteLikeObjects){
+    static castMany(arrayOfNoteLikeObjects,map){
         const newNoteList = [];
         if (arrayOfNoteLikeObjects) {
             arrayOfNoteLikeObjects.forEach(noteLikeObject => {
-                const newNote = new Note(noteLikeObject);
+                const newNote = new Note(noteLikeObject,map);
                  newNoteList.push(newNote);
             });
         }

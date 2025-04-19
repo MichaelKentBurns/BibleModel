@@ -21,6 +21,7 @@
  ```mermaid
  classDiagram
     class Note {
+      +constructor() Note // make a new Note
          +String title        // The title of the note.
          +String text        // The actual text of the note.
          +Date  created        // when first created
@@ -40,8 +41,12 @@
      getText()$ String // returns the string value of text
      setReference(String referenceString )$ Note  // interprets text reference and sets reference
      getReferenceText()$ String // returns the string value of reference
-     setAuthor(String someText)$ Note  // sets the author and returns this
-     getAuthor()$ String // returns the authors name or initials
+     setAuthor(String someText) Note  // sets the author and returns this
+     getAuthor() String // returns the authors name or initials
+     validate()  Validation  // validates properties and return the validation
+     cast(noteLikeObject) Note   // create a new Note object from something that has the right attributes
+         Please note that when a real Note is fetched from the server or read in from a file,
+         it is NOT a real Note instance.  This cast will make it into an official Note and return that.
  }
  NoteList *-- Note
  Bible -- NoteList

@@ -4,11 +4,13 @@ import {Bible} from "./Bible.mjs";
 import {Note} from "./Note.mjs";
 
 import {RESTendpoint} from "./Servers/RESTServer/RESTendpoint.mjs";
+import {CSVDataSource} from "./CSVDataSource.mjs";
 let traceNoteList = true;
 let traceNoteListData = true;
 
 let notesPath;
 let allNotes;
+let theNoteList;
 
 //mm # Class: NoteList
 //mm
@@ -38,10 +40,16 @@ let allNotes;
 //mm ```mermaid
 //mm classDiagram
 //mm    class NoteList {
-
 //- - - - - - - - - - - begin Class definition - - - - - - - - - - -
 export class NoteList {
     constructor(row) {
+        if ( theNoteList ) {   // It is a singleton
+            return theNoteList;  // return the one already created.
+        }
+        else
+        {
+            theNoteList = this;
+        }
         //mm +Note[]  noteList      // simple array of notes.
         this.noteList = [];
         //mm +Location location     // Location within the Bible.
@@ -78,7 +86,9 @@ export class NoteList {
             this.text = '';
             this.title = '';
         }
-
+        this.importPath = null;
+        this.importType = null;
+        return this;
     }
 
     setTitle(someText) {
@@ -120,6 +130,15 @@ export class NoteList {
         notesPath = Bible.getConfig().MyBiblePath + "/Notes.json";
     }
 
+    static setImportPath(importPath) {
+        let parsePath = importPath.split('/');
+        let parseFile = parsePath[parsePath.length - 1];
+        let fileNameParse = parseFile.split('.');
+        let parseExtension = fileNameParse[fileNameParse.length - 1];
+        theNoteList.importType = parseExtension;
+        theNoteList.importPath = importPath;
+    }
+
     //mm ~loadAll()$   // loads all notes
     static loadAll() {
         // Currently, we only support one collection of notes.   
@@ -127,7 +146,6 @@ export class NoteList {
         // I could add a path parameter to loadAll and use that rather than this default.
         if ( notesPath === undefined )
             NoteList.setNotesPath();
-
         let allNotesText = fs.readFileSync(notesPath, (error) => {
             if (error) {
                 console.log('Notes.mjs An error has occurred reading notes', error);
@@ -135,10 +153,9 @@ export class NoteList {
             }
         });
         let allNotesTemp = JSON.parse(allNotesText);
+        // Notes as parsed are not Note objects, they are just Objects.
+        // We need to ask the Note class to cast all the imports to Notes.
         allNotes = Note.castMany(allNotesTemp);
-        // Future: the new notes are dumb objects, not instances of a class.
-        // I'm not sure what all the ramifications are, but there are bound to be some.
-        // As a result, we could add code here to turn each array item into a real Note.
 
         // Since we now have loaded Notes, this is a good time to enable all 
         // of the Notes related REST endpoints.  Before this all requests will be 
@@ -148,6 +165,47 @@ export class NoteList {
         if (traceNoteList) console.log('Notes read successfully from disk');
         return allNotes;
     }
+
+    //mm ~loadAll()$   // loads all notes
+    static importAll(importPath) {
+        let importText;
+        NoteList.setImportPath(importPath);
+        if ( theNoteList.importType = 'csv' )
+             theNoteList.importText = fs.readFileSync(importPath, (error) => {
+                if (error) {
+                    console.log('Notes.mjs An error has occurred reading notes to import', error);
+                    return null;
+                }
+            });
+        let newNotesTemp = '';
+
+        // for now, will hard code the map
+        const map = new Map();
+        map.set('title', 'title');
+        map.set('text', 'content');
+        map.set('created','date_created');
+        map.set('modified', 'date_modified');
+        let newNotesRecords;
+        if ( theNoteList.importType === 'csv' )
+        {
+
+            let newNotesSource = new CSVDataSource(importPath);
+            newNotesTemp = newNotesSource.open();  // read the text
+            newNotesSource.prepare(map);
+            newNotesRecords = newNotesSource.all();
+        }
+        // Notes as parsed are not Note objects, they are just Objects.
+        // We need to ask the Note class to cast all the imports to Notes.
+        let newNotes = Note.castMany(newNotesRecords,map);
+        allNotes.push(...newNotes);
+        console.log(`${newNotes.length} notes imported successfully from ${importPath}`);
+        if ( newNotes.length > 0 ) {
+            NoteList.saveAll();
+            console.log(`${allNotes.length} notes saved to ${notesPath}.`);
+        }
+        return allNotes;
+    }
+
 
     //mm ~saveAll()$   // saves all the Notes
     static saveAll = function saveAll() {
@@ -170,6 +228,8 @@ export class NoteList {
 
         }
     }
+
+    //============== REST Handlers =============================================================================
 
     static handleNotes( endpoint, request, response, urlArray, urlOptionsArray ) {
         if ( request.method === 'GET' )
@@ -278,14 +338,16 @@ export class NoteList {
     }
 }
 
-
 //mm }
-//mm NoteList *-- Note
 //mm Bible -- NoteList
+//mm note for Bible "Bible has a NoteList to hold all Notes"
+//mm NoteList *-- Note
 //mm Book -- NoteList
 //mm Chapter -- NoteList
 //mm Verse -- NoteList
 //mm Xref -- NoteList
+//mm note for CSVDataSource "NoteList uses CSVDataSource to import notes from CSV files"
+//mm NoteList ..> CSVDataSource
 //mm ```
 //- - - - - - - - - - - end Class definition - - - - - - - - - - -
 
