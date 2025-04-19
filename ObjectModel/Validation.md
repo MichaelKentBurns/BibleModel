@@ -27,6 +27,10 @@
      getTitle()$ String // returns the title of the validation
      setTestSubject(Object objectBeingValidate)$ // sets the title and returns this
      getTestSubject()   Object   // returns the object validated
+     getValids()    Object // returns a list of all valid properties
+     addValid( String propertyName, Object note )
+            note can be a string, or other object.
+     removeValid(propertyName)  // removes any valid note for propertyName
      getErrors()    Object // returns a list of all errored properties
      addError( String propertyName, Object error )
             error can be a string, or an Error or other exception.

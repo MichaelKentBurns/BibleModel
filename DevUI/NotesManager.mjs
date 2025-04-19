@@ -69,13 +69,20 @@ export class NotesManager {
             this.notesPreferences = this.preferences.notes;
             if ( this.notesPreferences == undefined ) {
                 this.preferences.notes
-                    = { 'noteSetName' : "", autoReadLocalNotes: false, autoReadPublishedNotes: false };
+                    = {
+                        noteSetName: "",
+                        autoReadLocalNotes: false,
+                        autoReadPublishedNotes: false,
+                        importNotesFilePath: `{$this.dataLibrary}/Notes.csv`
+                      }
             }
         }
         this.localNotesValidatedTable = undefined;
         this.serverNotesValidatedTable = undefined;
 
         this.serverNotesTargetURL = this.setNotesURL();
+        this.importNotesList = null;
+
 
     }
 
@@ -88,7 +95,7 @@ export class NotesManager {
         const notesJsonPathname = `../${this.dataLibrary}/notes.json`;
         const serverURL         = `${this.preferences["RESTURL"]}:${this.preferences["RESTPort"]}/Bible/`;
         const notesJsonURL      = `${serverURL}notes`;
-        const source = this.preferences["source"];
+        const source = this.preferences["accessDataBy"];
 
         let notesText ;
         let notesTarget = null;

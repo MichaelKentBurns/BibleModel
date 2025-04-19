@@ -150,7 +150,6 @@ export function NoteListPostAll() {
     if ( !NoteListVerifyArguments() )
         return false;
 
-    // TO DO: implement a POST to the notes endpoint
     try {
     //    console.log('Next step is to POST the Notes .');
         fetch(serverNotesTargetURL + "?action=replace",
