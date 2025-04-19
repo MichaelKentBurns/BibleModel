@@ -98,6 +98,7 @@
   let doRefreshLocal = false;
   let doRefreshPublished = false;
 
+  // Glue the elements into the controlling NotesManager.
   NotesManager.setLocalNotesTable(document.getElementById('localNotesTable'));
   NotesManager.setServerNotesTable(document.getElementById('publishedNotesTable'));
   const autoReadLocalNotesElement = document.getElementById('autoReadLocalNotes');
