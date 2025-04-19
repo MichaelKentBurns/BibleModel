@@ -17,6 +17,8 @@
   },
   "private": true,
   "dependencies": {
+    "csv": "^6.3.11",
+    "csv-parse": "^5.6.0",
     "nginx": "^1.0.8",
     "sqlite": "",
     "sqlite3": "^5.1.7"
