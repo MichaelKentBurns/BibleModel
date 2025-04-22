@@ -81,6 +81,10 @@ addBtn.addEventListener("click", (e) => {
     }
 });
 
+function showMenu() {
+    console.log("showMenu: this=",this);
+
+}
 function showNotes() {
     document.querySelectorAll(".note").forEach(note => note.remove())
     bibleNotes.forEach((note, index) => {
@@ -99,7 +103,7 @@ function showNotes() {
       <div class="bottom-content" id="bottom-content">
           <span>${note.modified.toLocaleString()}</span>
           <div class="settings">
-            <i onclick="showMenu(this)" class="uil uil-ellipsis-h" id="${index}">...</i>
+            <i onclick="showMenu()" class="uil uil-ellipsis-h" id="${index}">...</i>
             <ul class="menu">
                 <li onclick="updateNote(${index}, ${note.title}, ${note.text})">
                         <i class="uil uil-pen"></i>Edit</li>

@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="ErrorTips.css">
 
 </head>
+
 <body>
 
 <h1>BibleModel notes manager.</h1>
@@ -60,24 +61,29 @@
   </details>
 </div>
 
-
+<!-- ==================== Two Tables of Notes =========================== -->
+<!-- First table is the localNotes ------------------------------------ -->
 <div id="localNotes">
   <h2>Local Notes:</h2>
   <br>
+  <!-- a button to read the local notes into the table. -->
   <button id='readLocalNotes'>Get Local Notes</button>
   Automatic<input type="checkbox" id="autoReadLocalNotes"/>
   <br>
   <button id="newNote">New Note</button>
   <p>
+  <!-- the table displays the array of local notes. -->
   <table id="localNotesTable" style='border: thin double black'>
   </table>
   </p>
   <br>
+  <!--  buttons to manage the table of notes. -->
   <button id="writeLocalNotes">Save Notes</button>
   <button id="deleteLocalNotes">Delete Selected Notes</button>
-  <button id="publishNotes">Publish Selected Notes</button>
+  <button id="publishLocalNotes">Publish Selected Notes</button>
 </div>
 
+<!-- Second table is the published Notes ------------------------------ -->
 <div id="publishedNotes">
   <h2>Published Notes:</h2>
   <br>
@@ -89,19 +95,79 @@
   </p>
   <br>
   <button id="deletePublishedNotes">Delete Selected Notes</button>
+
   <button id="writePublishedNotes()">Update Published Notes</button>
 </div>
 
 <script type="module">
+  //=================== Now the script that operates the active elements.
+
+  // This page has a corresponding Class that encapsulates all the complex logic.
   import { NotesManager } from './NotesManager.mjs';
   let theNotesManager = NotesManager.getNotesManager();
+
+  // state settings
   let doRefreshLocal = false;
   let doRefreshPublished = false;
 
-  // Glue the elements into the controlling NotesManager.
-  NotesManager.setLocalNotesTable(document.getElementById('localNotesTable'));
-  NotesManager.setServerNotesTable(document.getElementById('publishedNotesTable'));
+  // Find and glue the elements into the controlling NotesManager.
+  //  localNotesTable is the raw HTML table
+  let localNotesTable = document.getElementById('localNotesTable');
+  // inform the NotesManager of it, so it can wrap a ValidatedTable around it.
+  NotesManager.setLocalNotesTable(localNotesTable);
+  // get access to that ValidatedTable
+  let localValidatedTable = theNotesManager.localNotesValidatedTable;
+
+  // The checkbox to cause autosave on load of page (saved in prefs)
   const autoReadLocalNotesElement = document.getElementById('autoReadLocalNotes');
+
+  const writeLocalNotesElement = document.getElementById('writeLocalNotes');
+  writeLocalNotesElement.addEventListener('click', () => { NotesManager.writeLocalNotes(); });
+
+  // two buttons - two ways to implement the delete button.
+  const deleteLocalNotesElement = document.getElementById('deleteLocalNotes');
+
+  // using a local function that should have access to other variables
+  function deleteLocalNotesFunction() {
+    let selectedNotes = localValidatedTable.getSelectedRows();
+    let array = localValidatedTable.objectArray;
+    for (let i = selectedNotes.length-1; i >= 0; i--) {
+      let noteN = selectedNotes[i];
+      array.splice(noteN-1, 1);
+    }
+    NotesManager.refreshLocalNotesTable();
+  }
+  // now we have a local function, the callback can be that function?
+  deleteLocalNotesElement.addEventListener('click', () => { deleteLocalNotesFunction(); });
+
+  // logic to handle the publishedNotes table and buttons.
+    let publishedNotesTable = document.getElementById('publishedNotesTable');
+  NotesManager.setServerNotesTable(publishedNotesTable);
+
+
+  let publishedValidatedTable = theNotesManager.serverNotesValidatedTable;
+  let publishedValidatedArray = publishedValidatedTable.objectArray;
+  // using a local function that should have access to other variables
+  function publishLocalNotesFunction() {
+    let publishedValidatedTable = theNotesManager.serverNotesValidatedTable;
+    let publishedValidatedArray = publishedValidatedTable.objectArray;
+    let selectedNotes = localValidatedTable.getSelectedRows();
+    let array = localValidatedTable.objectArray;
+    for (let i = selectedNotes.length-1; i >= 0; i--) {
+      let noteN = selectedNotes[i];
+      let noteToPublish = array[noteN-1];
+      if ( publishedValidatedArray.length > 0 ) {
+      publishedValidatedArray.splice(0,0,noteToPublish);
+      } else {
+       publishedValidatedArray.push(noteToPublish);
+      }
+    }
+    NotesManager.refreshServerNotesTable();
+  }
+  const publishLocalNotesElement = document.getElementById('publishLocalNotes');
+  publishLocalNotesElement.addEventListener('click', () => { publishLocalNotesFunction(); });
+
+
   const autoReadPublishedNotesElement = document.getElementById('autoReadPublishedNotes');
   autoReadLocalNotesElement.checked = theNotesManager.preferences.notes.autoReadLocalNotesElement;
   autoReadPublishedNotesElement.checked = theNotesManager.preferences.notes.autoReadPublishedNotesElement;
@@ -147,7 +213,7 @@
 
   window.addEventListener('beforeunload', function (e) {
     e.preventDefault();
-    e.returnValue = '';
+    e.returnValue = true;
     NotesManager.writeLocalNotes();
    // NotesManager.writePublishedNotes();
 

@@ -120,6 +120,22 @@ export class ValidatedTable {
         return true;
     }
 
+    getSelectedRows() {
+        //Reference the Table.
+        var grid = this.tableElement;
+        var rowsSelected = [];
+        //Reference the CheckBoxes in Table.
+        var checkBoxes = grid.getElementsByTagName("INPUT");
+        //Loop through the CheckBoxes.
+        for (var i = 0; i < checkBoxes.length; i++) {
+            if (checkBoxes[i].checked) {
+                var row = checkBoxes[i].parentNode.parentNode;
+                let rowNumber = Number(row.cells[0].innerText);
+                rowsSelected.push(rowNumber);
+            }
+        }
+        return rowsSelected;
+    }
 }
 
 //mm }

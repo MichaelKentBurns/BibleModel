@@ -15,7 +15,7 @@
 //mm ```mermaid
 //mm classDiagram
 
-const BibleVersion = "0.3.0";
+const BibleVersion = "0.3.2";
 
 const traceBible = false;  // Set this true to have the inner workings of this class traced to console log.
 const useHttp2 = false;
@@ -249,7 +249,7 @@ export class Bible {
             let notesPreferences = this.config.notes;
             if (notesPreferences != undefined) {
                 let importNotesPath = notesPreferences.importNotesFilePath;
-                if (importNotesPath != undefined) {
+                if (importNotesPath != undefined && importNotesPath.length > 0) {
                     NoteList.importAll(importNotesPath);
                 }
             }
