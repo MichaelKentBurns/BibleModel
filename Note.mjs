@@ -77,17 +77,21 @@ export class Note {
     //  find propName in row as-is or after checking the map.
     static mapProperty(newObject,propName,map,row){
         let value = row[propName];
-        if ( value !== undefined ) {
-            newObject[propName] = value;
-        }
-        else {
+        if ( value === undefined ) {
             if (  map != undefined) {
                 let alternateName = map.get(propName);
                 if (alternateName != null) {
                     let value = row[alternateName];
-                    newObject[propName] = value;
                 }
             }
+        }
+        if ( value !== undefined ) {
+            if ( propName == "created" ) {
+                newObject.setCreated(value);
+            } else if ( propName == "modified" ) {
+                newObject.setModified(value);
+            }
+            else  newObject[propName] = value;
         }
     }
 
