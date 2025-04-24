@@ -89,14 +89,14 @@
   <br>
   <button id="readPublishedNotes">Get Published Notes</button>
   Automatic<input type="checkbox" id="autoReadPublishedNotes"/>
-<p>
-  <table id="publishedNotesTable" style='border: thin double black'>
-  </table>
-  </p>
   <br>
   <button id="deletePublishedNotes">Delete Selected Notes</button>
 
   <button id="writePublishedNotes()">Update Published Notes</button>
+  <p>
+  <table id="publishedNotesTable" style='border: thin double black'>
+  </table>
+  </p>
 </div>
 
 <script type="module">
@@ -174,10 +174,12 @@
 
   function saveAutoReadLocalNotes() {
     theNotesManager.preferences.notes.autoReadLocalNotesElement = autoReadLocalNotesElement.checked;
+    NotesManager.savePreferences();
   }
 
   function saveAutoReadPublishedNotes() {
     theNotesManager.preferences.notes.autoReadPublishedNotesElement = autoReadPublishedNotesElement.checked;
+    NotesManager.savePreferences();
   }
 
   if (autoReadLocalNotesElement.checked) {

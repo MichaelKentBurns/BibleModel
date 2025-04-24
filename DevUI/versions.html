@@ -25,16 +25,41 @@
   <h2>Table of versions of the Bible.</h2>
   	<table id="versionsTable"  style="border: thin double black">
  	</table>
+  <br>
+  <div id="myModal" class="modal">
+    <details><summary>View query details</summary>
+        <table style="border: thin double black">
+          <tr><td><strong>Document URL </strong></td>              <td id="documentURL"></td></tr>
+          <tr><td><strong>Relative File URL </strong></td>         <td id="fileURL"></td></tr>
+          <tr><td><strong>REST server URL </strong></td>           <td id="RESTURL"></td></tr>
+          <tr><td><strong>Query URL </strong></td>                 <td id="effectiveURL"></td></tr>
+          <tr><td><strong>Response.type</strong></td>              <td id="responseType"></td></tr>
+          <tr><td><strong>Response.url</strong></td>               <td id="responseUrl"></td></tr>
+          <tr><td><strong>Response.status </strong></td>           <td id="responseStatus"></td></tr>
+          <tr><td><strong>Response.ok</strong></td>                <td id="responseOK"></td></tr>
+          <tr><td><strong>Response.statusText</strong></td>        <td id="responseStatusText"></td></tr>
+          <tr><td><strong>Response.headers</strong></td>           <td id="responseHeaders"></td></tr>
+          <tr><td><strong>Response.error</strong></td>             <td id="responseError"></td></tr>
+          <tr><td><strong>Number of records returned</strong></td> <td id="nRecordsReturned"></td></tr>
 
-  <h2>JSON Data read from versions.json:</h2>
+        </table>
+    </details>
+  </div>
+
+  <details>
+    <summary>JSON Data read from versions.json:</summary>
     	<p id="versionsParagraph">
         This is where the raw json text read from versions.json should show.
     	</p>
+  </details>
 
-  <h2>Access the raw data file <a href="defaultBible/versions.json">defaultBible/versions.json:</a> </h2>
+  <details>
+    <summary>Access the raw data file</summary
+    <a href=`../defaultBible/versions.json">defaultBible/versions.json:</a>
+  </details>
 
   <script type="module">
-    let dataLibrary = "./defaultLibrary";
+    let dataLibrary = "defaultLibrary";
     const preferencesLocalStorageTag = "BibleModel.prefs";
     const preferences = JSON.parse(localStorage.getItem(preferencesLocalStorageTag) );
     let source = "file";
@@ -44,8 +69,12 @@
       source = preferences.accessDataBy;
     }
 
+    // remember '..' gets us from devUI to project root.
     const versionsJsonPathname = `../${dataLibrary}/versions.json`;
+    document.getElementById("fileURL").innerText = versionsJsonPathname;
     const versionsJsonURL = `${preferences.RESTURL}:${preferences.RESTPort}/Bible/versions`;
+    document.getElementById("RESTURL").innerText = versionsJsonURL;
+
     let target = null;
     // - - - decide how to access both the file and from the rest server
     if (source == null || source === "file") {
@@ -53,6 +82,9 @@
     } else {  // for now assume URL for the server.
       target = versionsJsonURL;
     }
+    let url = new URL(document.URL);
+    document.getElementById("documentURL").innerText = JSON.stringify(url);
+    document.getElementById("effectiveURL").innerText = target;
     let versionsText = 'initialized text';
     let targetParagraph = document.getElementById('dataSource');
     targetParagraph.innerHTML = `<STRONG>Data Source: </STRONG> ${target}`;
@@ -60,6 +92,16 @@
     let versionsTable = document.getElementById('versionsTable');
     let versionsError;
     let versionsArray;
+
+    let fetchResponse;
+    let responseType;
+    let responseUrl;
+    let responseCode;
+    let responseStatus;
+    let responseOK;
+    let responseStatusText;
+    let responseError;
+    let responseHeaders;
       try {
         console.log(`Next step is to fetch ${target}.`);
          await fetch(target,
@@ -71,10 +113,23 @@
                     'Origin': 'http://Bible.MichaelKentBurns.com'
                   }
                 }
-        ).then((response) => response.json())
-                .then((versionsResult) =>
+                ).then( (response) => {
+                   fetchResponse = response.json();
+                   responseType = response.type;
+                   responseUrl = response.url;
+                   responseStatus = response.status;
+                   responseStatusText = response.statusText;
+                   responseOK = response.ok;
+                   responseHeaders = response.headers;
+                   console.log(`fetch done: response=${fetchResponse}`);
+                   console.log(`type=${responseType} status=${responseStatus} ok=${responseOK} code=${responseCode}`);
+                   return fetchResponse;
+                 }
+         )
+                 .then((versionsResult) =>
                 {
                   versionsArray = versionsResult;
+                  document.getElementById("nRecordsReturned").innerText = versionsArray.length;
                   console.log("versionsJSON=", versionsArray);
                   versionsText = JSON.stringify(versionsArray);
                 });
@@ -83,6 +138,15 @@
         versionsError = JSON.stringify(error);
         console.log("Error fetching ", target, " : ", versionsError);
       }
+
+    document.getElementById("responseType").textContent = responseType;
+    document.getElementById("responseUrl").textContent = responseUrl;
+    document.getElementById("responseStatus").textContent = responseStatus;
+    document.getElementById("responseOK").textContent = responseOK;
+    document.getElementById("responseStatusText").textContent = responseStatusText;
+    // document.getElementById("responseCode").textContent = responseCode;
+    if ( responseError !== undefined)
+      document.getElementById("responseError").textContent = responseError;
 
     // Display the results on the web page.
     versionsParagraph.innerHTML = versionsText;

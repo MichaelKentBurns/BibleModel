@@ -21,32 +21,42 @@
   <p id="dataSource">
   <p>
 
-  <h2><b>WARNINGS:</b></h2>
-  <ul>
-    <li>Because of browser security policy this page will fail unless you change your security settings in your
-         browser to turn off normal security.  While you should normally have security on to protect yourself,
-         this and other html pages inside this project are for debug purposes.  I suggest you have an alternate
-         browser for testing this and turn off it's security.  That way you don't accidentally leave your
-          working browser vulnerable.   I hope this can be worked around at some point. In Safari, there are developer
-          tools which turn on a 'Develop' menu section.  In that menu there is an item 'Developer settings...'.
-          In that settings page there is a checkbox for 'Security: Disable local file restrictions'.  With
-          that checked then this should work fine.
-    </li>
-  </ul>
-
   <p>
   <h2>Table of books of the Bible.</h2>
   	<table id="booksTable" style="border: thin double black">
  	</table>
 
-  <h2>JSON Data read from books.json:</h2>
+
+  <div id="myModal" class="modal">
+      <details><summary>View query details</summary>
+          <table style="border: thin double black">
+              <tr><td><strong>Document URL </strong></td>              <td id="documentURL"></td></tr>
+              <tr><td><strong>Relative File URL </strong></td>         <td id="fileURL"></td></tr>
+              <tr><td><strong>REST server URL </strong></td>           <td id="RESTURL"></td></tr>
+              <tr><td><strong>Query URL </strong></td>                 <td id="effectiveURL"></td></tr>
+              <tr><td><strong>Response.type</strong></td>              <td id="responseType"></td></tr>
+              <tr><td><strong>Response.url</strong></td>               <td id="responseUrl"></td></tr>
+              <tr><td><strong>Response.status </strong></td>           <td id="responseStatus"></td></tr>
+              <tr><td><strong>Response.ok</strong></td>                <td id="responseOK"></td></tr>
+              <tr><td><strong>Response.statusText</strong></td>        <td id="responseStatusText"></td></tr>
+              <tr><td><strong>Response.headers</strong></td>           <td id="responseHeaders"></td></tr>
+              <tr><td><strong>Response.error</strong></td>             <td id="responseError"></td></tr>
+              <tr><td><strong>Number of records returned</strong></td> <td id="nRecordsReturned"></td></tr>
+
+          </table>
+      </details>
+  </div>
+
+  <details>
+  <summary>JSON Data read from books.json:</summary>
     	<p id="booksParagraph">
     	</p>
+  </details>
 
-  <h2>Access the raw data file <a href="books.json">books.json:</a> </h2>
+  <h2>Access the raw data file <a href="`../${dataLibrary}/books.json`">defaultBible/books.json:</a> </h2>
 
   <script type="module">
-    let dataLibrary = "./defaultLibrary";
+    let dataLibrary = "defaultLibrary";
     const preferencesLocalStorageTag = "BibleModel.prefs";
     let source = "file";
     const preferences = JSON.parse(localStorage.getItem(preferencesLocalStorageTag) );
@@ -57,7 +67,9 @@
       }
 
     const booksJsonPathname = `../${dataLibrary}/books.json`;
+    document.getElementById("fileURL").innerText = booksJsonPathname;
     const booksJsonURL = `${preferences.RESTURL}:${preferences.RESTPort}/Bible/books`;
+    document.getElementById("RESTURL").innerText = booksJsonURL;
 
     let target = null;
     // - - - decide how to access both the file and from the rest server
@@ -66,6 +78,9 @@
     } else {  // for now assume URL for the server.
         target = booksJsonURL;
     }
+    let url = new URL(document.URL);
+    document.getElementById("documentURL").innerText = JSON.stringify(url);
+    document.getElementById("effectiveURL").innerText = target;
     let booksText = 'initialized text';
     let targetParagraph = document.getElementById('dataSource');
     targetParagraph.innerHTML = `<STRONG>Data Source: </STRONG> ${target}`;
@@ -73,8 +88,16 @@
     let booksTable = document.getElementById('booksTable');
     let booksError;
     let booksArray;
-    let enable = true;
-    if (enable == true) {
+
+    let fetchResponse;
+    let responseType;
+    let responseUrl;
+    let responseCode;
+    let responseStatus;
+    let responseOK;
+    let responseStatusText;
+    let responseError;
+    let responseHeaders;
       try {
         console.log(`Next step is to fetch ${target}.`);
          await fetch(target,
@@ -86,10 +109,23 @@
                         'Origin': 'http://Bible.MichaelKentBurns.com'
                     }
                 }
-        ).then((response) => response.json())
+        ).then( (response) => {
+             fetchResponse = response.json();
+             responseType = response.type;
+             responseUrl = response.url;
+             responseStatus = response.status;
+             responseStatusText = response.statusText;
+             responseOK = response.ok;
+             responseHeaders = response.headers;
+             console.log(`fetch done: response=${fetchResponse}`);
+             console.log(`type=${responseType} status=${responseStatus} ok=${responseOK} code=${responseCode}`);
+             return fetchResponse;
+             }
+         )
                 .then((booksResult) =>
                 {
                     booksArray = booksResult;
+                    document.getElementById("nRecordsReturned").innerText = booksArray.length;
                     console.log("booksJSON=", booksArray);
                   booksText = JSON.stringify(booksArray);
                 });
@@ -99,9 +135,13 @@
         console.log("Error fetching file ", booksJsonPathname, " : ", booksError);
       }
 
-    }
-    else
-      console.log('fetch disabled.');
+    document.getElementById("responseType").textContent = responseType;
+    document.getElementById("responseUrl").textContent = responseUrl;
+    document.getElementById("responseStatus").textContent = responseStatus;
+    document.getElementById("responseOK").textContent = responseOK;
+    document.getElementById("responseStatusText").textContent = responseStatusText;
+    if ( responseError !== undefined)
+        document.getElementById("responseError").textContent = responseError;
 
     // Display the results on the web page.
     booksParagraph.innerHTML = booksText;

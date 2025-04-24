@@ -18,8 +18,8 @@
   <p id="what">
     This page simply reads that in and displays it as a Table.
   <p>
-
-  <h2><b>WARNINGS:</b></h2>
+  <details>
+      <summary>WARNINGS:</summary>
   <ul>
     <li>Because of browser security policy this page will fail unless you change your security settings in your
          browser to turn off normal security.  While you should normally have security on to protect yourself,
@@ -31,38 +31,88 @@
           that checked then this should work fine.
     </li>
   </ul>
+  </details>
 
   <p>
   <h2>Table of abbreviated names of the books of the Bible.</h2>
-  	<table id="booksTable">
- 	</table>
 
-  <h2>JSON Data read from book-abbreviations.json:</h2>
-    	<p id="booksParagraph">
-        This is where the raw json text read from book-abbreviations.json should show.
-    	</p>
+
+  <table id="booksTable">
+  </table>
+
+  <div id="myModal" class="modal">
+      <details><summary>View query details</summary>
+          <table style="border: thin double black">
+              <tr><td><strong>Document URL </strong></td>              <td id="documentURL"></td></tr>
+              <tr><td><strong>Relative File URL </strong></td>         <td id="fileURL"></td></tr>
+              <tr><td><strong>REST server URL </strong></td>           <td id="RESTURL"></td></tr>
+              <tr><td><strong>Query URL </strong></td>                 <td id="effectiveURL"></td></tr>
+              <tr><td><strong>Response.type</strong></td>              <td id="responseType"></td></tr>
+              <tr><td><strong>Response.url</strong></td>               <td id="responseUrl"></td></tr>
+              <tr><td><strong>Response.status </strong></td>           <td id="responseStatus"></td></tr>
+              <tr><td><strong>Response.ok</strong></td>                <td id="responseOK"></td></tr>
+              <tr><td><strong>Response.statusText</strong></td>        <td id="responseStatusText"></td></tr>
+              <tr><td><strong>Response.headers</strong></td>           <td id="responseHeaders"></td></tr>
+              <tr><td><strong>Response.error</strong></td>             <td id="responseError"></td></tr>
+              <tr><td><strong>Number of records returned</strong></td> <td id="nRecordsReturned"></td></tr>
+
+          </table>
+      </details>
+  </div>
+
+  <details>
+      <summary>JSON Data read from versions.json:</summary>
+      <p id="booksParagraph">
+          This is where the raw json text read from versions.json should show.
+      </p>
+  </details>
 
   <script type="module">
 
       let dataLibrary = "./defaultLibrary";
       const preferencesLocalStorageTag = "BibleModel.prefs";
       const preferences = JSON.parse(localStorage.getItem(preferencesLocalStorageTag) );
+      let source = "file";
       if ( preferences == undefined ) console.log("ERROR: No preferences set.  Please visit preferences page first.");
       else {
           dataLibrary = preferences["MyBiblePath"];
+          source = preferences.accessDataBy;
       }
 
+      let url = new URL(document.URL);
+      document.getElementById("documentURL").innerText = JSON.stringify(url);
+
       const booksJsonPathname = `../${dataLibrary}/book-abbreviations.json`;
-    let booksText = 'initialized text';
-    let booksParagraph = document.getElementById('booksParagraph');
-    let booksTable = document.getElementById('booksTable');
-    let booksError;
-    let booksArray;
-    let enable = true;
-    if (enable == true) {
+      document.getElementById("fileURL").innerText = booksJsonPathname;
+      const booksJsonURL = `${preferences.RESTURL}:${preferences.RESTPort}/Bible/bookAbbreviations`;
+      document.getElementById("RESTURL").innerText = booksJsonURL;
+      let target = null;
+      // - - - decide how to access both the file and from the rest server
+      if (source == null || source === "file") {
+          target = booksJsonPathname;
+      } else {  // for now assume URL for the server.
+          target = booksJsonURL;
+      }
+      document.getElementById("effectiveURL").innerText = target;
+
+      let booksText = 'initialized text';
+        let booksParagraph = document.getElementById('booksParagraph');
+        let booksTable = document.getElementById('booksTable');
+        let booksError;
+        let booksArray;
+
+        let fetchResponse;
+        let responseType;
+        let responseUrl;
+        let responseCode;
+        let responseStatus;
+        let responseOK;
+        let responseStatusText;
+        let responseError;
+        let responseHeaders;
       try {
         console.log('Next step is to fetch book-abbreviations.json file.');
-         await fetch(booksJsonPathname,
+         await fetch(target,
                 {
                     method: "GET",
                     mode: 'cors',
@@ -71,11 +121,23 @@
                         'Origin': 'http://Bible.MichaelKentBurns.com'
                     }
                 }
-        ).then((response) => response.json())
+            ).then( (response) => {
+                 fetchResponse = response.json();
+                 responseType = response.type;
+                 responseUrl = response.url;
+                 responseStatus = response.status;
+                 responseStatusText = response.statusText;
+                 responseOK = response.ok;
+                 responseHeaders = response.headers;
+                 console.log(`fetch done: response=${fetchResponse}`);
+                 console.log(`type=${responseType} status=${responseStatus} ok=${responseOK} code=${responseCode}`);
+                 return fetchResponse;
+             })
                 .then((booksResult) =>
                 {
                   console.log("booksJSON=", booksArray);
                   booksArray = booksResult;
+                  document.getElementById("nRecordsReturned").innerText = booksArray.length;
                   booksText = JSON.stringify(booksArray);
                 });
       } catch(error) {
@@ -84,11 +146,16 @@
         console.log("Error fetching file ", booksJsonPathname, " : ", booksError);
       }
 
-    }
-    else
-      console.log('fetch disabled.');
+      document.getElementById("responseType").textContent = responseType;
+      document.getElementById("responseUrl").textContent = responseUrl;
+      document.getElementById("responseStatus").textContent = responseStatus;
+      document.getElementById("responseOK").textContent = responseOK;
+      document.getElementById("responseStatusText").textContent = responseStatusText;
+      // document.getElementById("responseCode").textContent = responseCode;
+      if ( responseError !== undefined)
+          document.getElementById("responseError").textContent = responseError;
 
-    // Display the results on the web page.
+      // Display the results on the web page.
     booksParagraph.innerHTML = booksText;
     updateTable(booksTable,booksArray);
 
