@@ -1,5 +1,6 @@
 // devUI/ValidatedTable.mjs
 import { Note } from '../Note.mjs';
+// import { Book } from '../Book.mjs';
 // import { NoteList } from '../NoteList.mjs';
 import { Validation } from '../Validation.mjs';
 import {NotesManager} from "./NotesManager.mjs";
@@ -53,6 +54,8 @@ export class ValidatedTable {
 
                 if (anObject !== null && anObject !== undefined) {
                     let validation = anObject.validate();
+                    if ( validation !== null ) {
+
                     let nErrors = 0;
                     let someErrors = validation.getErrors();
                     if ( someErrors )
@@ -107,6 +110,7 @@ export class ValidatedTable {
                         }
 
                     });
+                    }
                     tableHTML += "</tr>";
 
                 }

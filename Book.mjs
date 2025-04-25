@@ -225,6 +225,7 @@ export class Book {
                     Book.abbreviationMap.set(arow.a, arow.b);
                     const newAbbreviation = new BookAbbreviation(arow);
                     Book.abbreviationList.push(newAbbreviation);
+                    Location.registerBookName(arow.a, arow.b);
                 });
             } catch (error) {
                 databaseError = error;
@@ -343,6 +344,17 @@ export class Book {
         if ( request.method === 'GET' )
         {
             const dataText = JSON.stringify(Book.abbreviationList) + '\n';
+            if ( traceBook) console.log(dataText);
+            response.setHeader("Content-Type","application/json");
+            response.writeHead(200);
+            response.end(dataText);
+        }
+    }
+
+    static handleAbbreviationMap( endpoint, request, response, urlArray, urlOptionsArray ) {
+        if ( request.method === 'GET' )
+        {
+            const dataText = JSON.stringify(Book.abbreviationMap) + '\n';
             if ( traceBook) console.log(dataText);
             response.setHeader("Content-Type","application/json");
             response.writeHead(200);

@@ -18,7 +18,6 @@ function idToBPath(id){
 	return path;
 }
 
-
 export class Location {
 
     constructor(name,id) {
@@ -62,6 +61,74 @@ export class Location {
 		path[1] = thousands;
 		path[2] = units;
 		return path;
+	}
+
+	static referenceToLocation( aString ){
+		let stripped = aString.replace( /^\s*/, '' );
+		let newLoc = new Location();
+        let bookPrefix = "";
+		let result = /(\d)/i.exec(stripped);
+		if ( result && result.length == 1 )  {
+			bookPrefix = result[0];
+			stripped = stripped.slice(2).replace( /^\s*/, '' );
+		}
+
+		result = /(\w+)\s+(\d+):(\d+)/i.exec(stripped);
+		if ( !result ) {
+			result = /(\w+)\s+(\d+)/i.exec(stripped);
+		}
+		if ( !result ) {
+			result = /(\w+)/i.exec(stripped);
+		}
+		if ( result && result.length >= 1 ) {
+	        let reference = result[0];
+			let bookName = bookPrefix + result[1];
+			let chapNumber = 0;
+			if ( result.length > 1 )
+			    chapNumber = result[2];
+			let verseNumber = 0;
+			if ( result.length > 2 )
+			    verseNumber = result[3];
+			let bookNumber = Location.mapBookNameToNumber(bookName);
+			let newLoc = Location.mapBookNameToLocation(bookName);
+			newLoc.name = reference;
+			newLoc.path[0] = bookNumber;
+			newLoc.path[1] = chapNumber;
+			newLoc.path[2] = verseNumber;
+			return newLoc;
+		}
+
+		console.log(`input=${aString} bookName=${bookName}`);
+		return bookName;
+	}
+
+	static registerBookName(bookName, bookNumber){
+		Location.bookNameMap.set(bookName, bookNumber);
+	}
+
+	static bookNameMap = new Map();
+
+	static registerAllBookNames(bookNamesMap) {
+		if (!bookNameMap) {
+			let bookNameMapText = localStorage.get("BibleBookNamesMap");
+			if ( bookNameMapText ) {
+				let bookNameMapArray = JSON.parse(bookNameMapText);
+				bookNameMapArray.forEach( bookPair => {
+					Location.registerBookName(bookPair[0], bookPair[1]);
+				});
+			}
+		}
+	}
+
+	static mapBookNameToNumber( aBookName ) {
+		let bookNumber = Location.bookNameMap.get( aBookName );
+		return bookNumber;
+	}
+
+	static mapBookNameToLocation( aBookName ){
+		let bookNumber = Location.bookNameMap.get( aBookName );
+		let location = new Location(name, bookNumber);
+		return location;
 	}
 }
 

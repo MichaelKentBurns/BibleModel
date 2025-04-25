@@ -15,7 +15,8 @@
 //mm ```mermaid
 //mm classDiagram
 
-const BibleVersion = "0.3.2";
+const BibleVersion = "0.3.3";
+const BibleVersionDescription = "Adds location reference mapping to Location for Notes et al.";
 
 const traceBible = false;  // Set this true to have the inner workings of this class traced to console log.
 const useHttp2 = false;

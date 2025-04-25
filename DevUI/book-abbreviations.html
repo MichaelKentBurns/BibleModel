@@ -159,6 +159,18 @@
     booksParagraph.innerHTML = booksText;
     updateTable(booksTable,booksArray);
 
+      let bookNameMap = new Map();
+      booksArray.forEach((book) => {
+            console.log(`Book name: ${book.name} number: ${book.bookNumber}`);
+            bookNameMap.set(book.name, book.bookNumber);
+       });
+      let jsonText = JSON.stringify(Array.from(bookNameMap.entries()));
+      localStorage.setItem('BibleModel-BookNameMap', jsonText);
+
+      // Also cache the abbreviations table in LocalStorage
+      localStorage.setItem('BibleModel-BookAbbreviations', JSON.stringify(booksArray));
+      console.log('Book abbreviations saved');
+
   </script>
 
   <h2>Access the raw data file <a href=`${booksJsonPathname}`>`${booksJsonPathname}`:</a> </h2>

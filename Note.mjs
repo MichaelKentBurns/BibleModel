@@ -1,5 +1,5 @@
-import { Location } from './Location.mjs';
-import { Validation } from './Validation.mjs';
+import {Location} from './Location.mjs';
+import {Validation} from './Validation.mjs';
 
 let traceNotes = true;
 
@@ -27,12 +27,12 @@ let traceNotes = true;
 //mm    class Note {
 
 //- - - - - - - - - - - begin Class definition - - - - - - - - - - -
-const propNames = ['title','text','created','modified','author','reference','location'];
+const propNames = ['title', 'text', 'created', 'modified', 'author', 'reference', 'location'];
 
 export class Note {
 
     //mm  +constructor() Note // make a new Note
-    constructor(row,map) {
+    constructor(row, map) {
         //mm +String title        // The title of the note.
         this.title = '';
         //mm +String text        // The actual text of the note.
@@ -40,7 +40,7 @@ export class Note {
         //mm +Date  created        // when first created
         this.created = new Date();
         //mm *Date  modified       // last time modified
-        this.modified = undefined;  
+        this.modified = undefined;
         //mm +String author
         this.author = '';
         //mm +String   reference    // textual location or other reference point
@@ -62,36 +62,35 @@ export class Note {
         this.xref = 0;
         if (row != undefined) {
             propNames.forEach(propName => {
-               Note.mapProperty(this,propName,map,row);
+                Note.mapProperty(this, propName, map, row);
             });
-          //  this.location.id = row.location;
+            //  this.location.id = row.location;
             this.chapterNumber = row.c;
             this.verseNumber = row.v;
-          //  this.location.path[0] = row.b;
-          //  this.location.path[1] = row.c;
-          //  this.location.path[2] = row.v;
+            //  this.location.path[0] = row.b;
+            //  this.location.path[1] = row.c;
+            //  this.location.path[2] = row.v;
         }
 
     }
 
     //  find propName in row as-is or after checking the map.
-    static mapProperty(newObject,propName,map,row){
+    static mapProperty(newObject, propName, map, row) {
         let value = row[propName];
-        if ( value === undefined ) {
-            if (  map != undefined) {
+        if (value === undefined) {
+            if (map != undefined) {
                 let alternateName = map.get(propName);
                 if (alternateName != null) {
                     let value = row[alternateName];
                 }
             }
         }
-        if ( value !== undefined ) {
-            if ( propName == "created" ) {
+        if (value !== undefined) {
+            if (propName == "created") {
                 newObject.setCreated(value);
-            } else if ( propName == "modified" ) {
+            } else if (propName == "modified") {
                 newObject.setModified(value);
-            }
-            else  newObject[propName] = value;
+            } else newObject[propName] = value;
         }
     }
 
@@ -136,9 +135,9 @@ export class Note {
         let parts = reference.split(' ');
         if (parts.length > 0) {
             this.location.path[0] = parts[1];
-            if ( parts.length > 1 ) {
+            if (parts.length > 1) {
                 this.location.path[1] = parts[2];
-                if ( parts.length > 2) {
+                if (parts.length > 2) {
                     this.location.path[2] = parts[3];
                 }
             }
@@ -164,58 +163,82 @@ export class Note {
 
     //mm validate()  Validation  // validates properties and return the validation
     validate() {
-        let validation = new Validation( `validation of Note titled ${this.title}`, this);
+        let validation = new Validation(`validation of Note titled ${this.title}`, this);
 
-        if ( this.title === undefined || this.title.length === 0 ) {
-            validation.addError('title','Notes require a title string');
-        }
-        else validation.addValid('title');
+        if (this.title === undefined || this.title.length === 0) {
+            validation.addError('title', 'Notes require a title string');
+        } else validation.addValid('title');
 
-        if ( this.text === undefined || this.text.length === 0 ) {
-            validation.addWarning('text','Notes should have some text.');
-        }
-        else validation.addValid('title');
+        if (this.text === undefined || this.text.length === 0) {
+            validation.addWarning('text', 'Notes should have some text.');
+        } else validation.addValid('title');
 
         const currentDate = new Date();
         let testDate = this.created;
-        if ( testDate instanceof Date ) {
+        if (testDate instanceof Date) {
             if (isNaN(testDate)) {
-                validation.addError('created','Notes require a creation date');
+                validation.addError('created', 'Notes require a creation date');
             } else {
-                if ( testDate > currentDate ) {
+                if (testDate > currentDate) {
                     validation.addWarning('created', "Notes should not have a future creation date");
-                }
-                else validation.addValid('created');
+                } else validation.addValid('created');
             }
         } else {
-            validation.addError('created','Creation date is not a valid Date');
+            validation.addError('created', 'Creation date is not a valid Date');
         }
 
-        if ( this.author === undefined || this.author.length === 0 ) {
-            validation.addWarning('author','Notes should have an author.');
-        }
-        else validation.addValid('author');
+        if (this.author === undefined || this.author.length === 0) {
+            validation.addWarning('author', 'Notes should have an author.');
+        } else validation.addValid('author');
 
-        return validation;
+        if (this.reference === undefined || this.reference.length === 0) {
+            // if (this.title != undefined && this.title.length > 1) {
+            //     // no reference, lets test the title to see if that will work.
+            //     let testLocation = Location.referenceToLocation(this.reference);
+            //     if (testLocation) {
+            //         this.reference = this.title;
+            //     }
+            // } else {
+            //     validation.addWarning('author', 'Notes should have an reference.');
+            // }
+            if (this.reference !== undefined || this.reference.length > 0) {
+                let testLocation = Location.referenceToLocation(this.reference);
+                if (testLocation === undefined || testLocation.length === 0) {
+                    validation.addWarning('reference',
+                        `Notes should have a valid reference not ${testLocation}`);
+                } else {
+                    this.location = testLocation;
+                    validation.addValid('author');
+                }
+
+            }
+            return validation;
+        }
     }
 
-    //mm cast(noteLikeObject) Note   // create a new Note object from something that has the right attributes
-    //mm     Please note that when a real Note is fetched from the server or read in from a file,
-    //mm     it is NOT a real Note instance.  This cast will make it into an official Note and return that.
-    static cast(noteLikeObject){
-        return new Note(noteLikeObject);
-    }
-    static castMany(arrayOfNoteLikeObjects,map){
-        const newNoteList = [];
-        if (arrayOfNoteLikeObjects) {
-            arrayOfNoteLikeObjects.forEach(noteLikeObject => {
-                const newNote = new Note(noteLikeObject,map);
-                 newNoteList.push(newNote);
-            });
+        //mm cast(noteLikeObject) Note   // create a new Note object from something that has the right attributes
+        //mm     Please note that when a real Note is fetched from the server or read in from a file,
+        //mm     it is NOT a real Note instance.  This cast will make it into an official Note and return that.
+        static
+        castOne(noteLikeObject)
+        {
+            return new Note(noteLikeObject);
         }
-        return newNoteList;
+
+        static
+        castMany(arrayOfNoteLikeObjects, map)
+        {
+            const newNoteList = [];
+            if (arrayOfNoteLikeObjects) {
+                arrayOfNoteLikeObjects.forEach(noteLikeObject => {
+                    const newNote = new Note(noteLikeObject, map);
+                    newNoteList.push(newNote);
+                });
+            }
+            return newNoteList;
+        }
     }
-}
+
 //mm }
 //mm NoteList *-- Note
 //mm Bible -- NoteList
@@ -226,4 +249,7 @@ export class Note {
 //mm ```
 //- - - - - - - - - - - end Class definition - - - - - - - - - - -
 
-export default { Note };
+    export
+    default {
+    Note
+};
