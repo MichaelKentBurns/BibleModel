@@ -3,7 +3,7 @@ host=localhost
 port=8082
 
 echo "Target = $host"
-url = "http://$host:$port"
+url="http://$host:$port"
 echo "url = $url"
 
 echo "======== Make first contact and get the overview:"

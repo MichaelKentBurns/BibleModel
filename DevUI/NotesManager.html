@@ -18,7 +18,7 @@
   </script>
 
   <link rel="stylesheet" href="ErrorTips.css">
-
+  <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 </head>
 
 <body>
@@ -62,38 +62,57 @@
 </div>
 
 <!-- ==================== Two Tables of Notes =========================== -->
-<!-- First table is the localNotes ------------------------------------ -->
+<hr>
+
+<!-- === First table is the localNotes =======================-->
 <div id="localNotes">
   <h2>Local Notes:</h2>
   <br>
   <!-- a button to read the local notes into the table. -->
   <button id='readLocalNotes'>Get Local Notes</button>
-  Automatic<input type="checkbox" id="autoReadLocalNotes"/>
+  Automatic Load<input type="checkbox" id="autoReadLocalNotes"/>
+
+  <!-- a button to create notes to add to the table. -->
   <br>
-  <button id="newNote">New Note</button>
+  <a href="./Notes.html" target="_blank"><button id="newNote">New Note</button></a>
+
+  <!-- Buttons to validate and massage notes -->
+  <br>
+  <button id="validateLocalNotes">Validate Selected Notes</button>
+  Automatic Note Validation<input type="checkbox" id="autoValidateNotes"/>
+
+  <br>
+  <!--  buttons delete and publish notes -->
+  <button id="deleteLocalNotes">Delete Selected Notes</button>
+  <button id="publishLocalNotes">Publish Selected Notes</button>
+  <br>
+  <!--  button to save notes to storage -->
+  <button id="writeLocalNotes">Save Notes</button>
+
   <p>
   <!-- the table displays the array of local notes. -->
   <table id="localNotesTable" style='border: thin double black'>
   </table>
   </p>
-  <br>
-  <!--  buttons to manage the table of notes. -->
-  <button id="writeLocalNotes">Save Notes</button>
-  <button id="deleteLocalNotes">Delete Selected Notes</button>
-  <button id="publishLocalNotes">Publish Selected Notes</button>
 </div>
 
+<hr>
 <!-- Second table is the published Notes ------------------------------ -->
 <div id="publishedNotes">
   <h2>Published Notes:</h2>
   <br>
+  <!-- a button to read the local notes into the table. -->
   <button id="readPublishedNotes">Get Published Notes</button>
   Automatic<input type="checkbox" id="autoReadPublishedNotes"/>
   <br>
+  <!--  buttons delete and publish notes -->
+  <button id="checkoutPublishedNotes">Copy Selected Notes to Local</button>
+  <button id="validateSelectedPublishedNotes">Validate Selected Notes</button>
   <button id="deletePublishedNotes">Delete Selected Notes</button>
 
   <button id="writePublishedNotes()">Update Published Notes</button>
   <p>
+  <!--  button to save notes to storage -->
   <table id="publishedNotesTable" style='border: thin double black'>
   </table>
   </p>
@@ -108,9 +127,13 @@
 
   // state settings
   let doRefreshLocal = false;
+  let doAutoValidation = false;
+
   let doRefreshPublished = false;
 
   // Find and glue the elements into the controlling NotesManager.
+
+  //========================= first the local notes table and buttons.
   //  localNotesTable is the raw HTML table
   let localNotesTable = document.getElementById('localNotesTable');
   // inform the NotesManager of it, so it can wrap a ValidatedTable around it.
@@ -118,15 +141,36 @@
   // get access to that ValidatedTable
   let localValidatedTable = theNotesManager.localNotesValidatedTable;
 
+  //-- a button to read the local notes into the table. -->
+  function readLocalNotes() {
+    NotesManager.readLocalNotes(); }
+  document.getElementById('readLocalNotes').addEventListener('click', readLocalNotes);
+   // -- save the setting to auto read in notes preferences.
+  function saveAutoReadLocalNotes() {
+    theNotesManager.preferences.notes.autoReadLocalNotesElement = autoReadLocalNotesElement.checked;
+    NotesManager.savePreferences();
+  }
   // The checkbox to cause autosave on load of page (saved in prefs)
   const autoReadLocalNotesElement = document.getElementById('autoReadLocalNotes');
+  autoReadLocalNotesElement.onchange = function(ev) {
+    saveAutoReadLocalNotes();
+  }
 
-  const writeLocalNotesElement = document.getElementById('writeLocalNotes');
-  writeLocalNotesElement.addEventListener('click', () => { NotesManager.writeLocalNotes(); });
+  //-- Buttons to validate and massage notes -->
+  function validateLocalNotes() {
+    let selectedNotes = localValidatedTable.getSelectedRows();
+    NotesManager.validateLocalNotes(selectedNotes); }
+  document.getElementById('validateLocalNotes').addEventListener('click', validateLocalNotes);
+  // The checkbox to auto validation of notes
+  const autoValidateNotesElement = document.getElementById('autoValidateNotes');
 
-  // two buttons - two ways to implement the delete button.
+  autoValidateNotesElement.onchange = function(value) {
+    localValidatedTable.setAutoValidate(!localValidatedTable.autoValidate);
+    localValidatedTable.refreshTable();
+  }
+
+  //--  buttons delete and publish notes -->
   const deleteLocalNotesElement = document.getElementById('deleteLocalNotes');
-
   // using a local function that should have access to other variables
   function deleteLocalNotesFunction() {
     let selectedNotes = localValidatedTable.getSelectedRows();
@@ -140,14 +184,7 @@
   // now we have a local function, the callback can be that function?
   deleteLocalNotesElement.addEventListener('click', () => { deleteLocalNotesFunction(); });
 
-  // logic to handle the publishedNotes table and buttons.
-    let publishedNotesTable = document.getElementById('publishedNotesTable');
-  NotesManager.setServerNotesTable(publishedNotesTable);
-
-
-  let publishedValidatedTable = theNotesManager.serverNotesValidatedTable;
-  let publishedValidatedArray = publishedValidatedTable.objectArray;
-  // using a local function that should have access to other variables
+  // publishLocalNotes button
   function publishLocalNotesFunction() {
     let publishedValidatedTable = theNotesManager.serverNotesValidatedTable;
     let publishedValidatedArray = publishedValidatedTable.objectArray;
@@ -157,9 +194,9 @@
       let noteN = selectedNotes[i];
       let noteToPublish = array[noteN-1];
       if ( publishedValidatedArray.length > 0 ) {
-      publishedValidatedArray.splice(0,0,noteToPublish);
+        publishedValidatedArray.splice(0,0,noteToPublish);
       } else {
-       publishedValidatedArray.push(noteToPublish);
+        publishedValidatedArray.push(noteToPublish);
       }
     }
     NotesManager.refreshServerNotesTable();
@@ -167,30 +204,59 @@
   const publishLocalNotesElement = document.getElementById('publishLocalNotes');
   publishLocalNotesElement.addEventListener('click', () => { publishLocalNotesFunction(); });
 
+  // -- button to validate selected notes
+
+  // -- button to delete selected notes.
+  const deletePublishedNotesElement = document.getElementById('deletePublishedNotes');
+  // using a local function that should have access to other variables
+  function deletePublishedNotesFunction() {
+    let selectedNotes = serverValidatedTable.getSelectedRows();
+    let array = publishedValidatedTable.objectArray;
+    for (let i = selectedNotes.length-1; i >= 0; i--) {
+      let noteN = selectedNotes[i];
+      array.splice(noteN-1, 1);
+    }
+    NotesManager.refreshPublishedNotesTable();
+  }
+  // now we have a local function, the callback can be that function?
+  deletePublishedNotesElement.addEventListener('click', () => { deletePublishedNotesFunction(); });
+
+  //--  button to save notes to storage -->
+  const writeLocalNotesElement = document.getElementById('writeLocalNotes');
+  writeLocalNotesElement.addEventListener('click', () => { NotesManager.writeLocalNotes(); });
+
+  //-------------- handle initialization of local notes -----
+  if (autoReadLocalNotesElement.checked) {
+    NotesManager.readLocalNotes();
+    doRefreshLocal = true;
+  };
+  if (doRefreshLocal) NotesManager.refreshLocalNotesTable();
+
+  //--  button to save notes to storage -->
+  function writeLocalNotes() {
+    NotesManager.writeLocalNotes(); }
+  document.getElementById('writeLocalNotes').addEventListener('click', writeLocalNotes);
+  //===============================================================================
+  //========================  publishedNotes table and buttons.
+    let publishedNotesTable = document.getElementById('publishedNotesTable');
+  NotesManager.setServerNotesTable(publishedNotesTable);
+
+  let publishedValidatedTable = theNotesManager.serverNotesValidatedTable;
+  let publishedValidatedArray = publishedValidatedTable.objectArray;
+
 
   const autoReadPublishedNotesElement = document.getElementById('autoReadPublishedNotes');
   autoReadLocalNotesElement.checked = theNotesManager.preferences.notes.autoReadLocalNotesElement;
   autoReadPublishedNotesElement.checked = theNotesManager.preferences.notes.autoReadPublishedNotesElement;
 
-  function saveAutoReadLocalNotes() {
-    theNotesManager.preferences.notes.autoReadLocalNotesElement = autoReadLocalNotesElement.checked;
-    NotesManager.savePreferences();
-  }
+
 
   function saveAutoReadPublishedNotes() {
     theNotesManager.preferences.notes.autoReadPublishedNotesElement = autoReadPublishedNotesElement.checked;
     NotesManager.savePreferences();
   }
 
-  if (autoReadLocalNotesElement.checked) {
-    NotesManager.readLocalNotes();
-    doRefreshLocal = true;
-  };
-  autoReadLocalNotesElement.onchange = function(ev) {
-    saveAutoReadLocalNotes();
-  }
-  if (doRefreshLocal) NotesManager.refreshLocalNotesTable();
-
+  //============== now handle the publish table check boxes
   if (autoReadPublishedNotesElement.checked) {
     NotesManager.readPublishedNotes();
     doRefreshPublished = true;
@@ -200,21 +266,13 @@
   }
 
   if (doRefreshPublished) NotesManager.refreshServerNotesTable();
-  function readLocalNotes() {
-    NotesManager.readLocalNotes(); }
-  document.getElementById('readLocalNotes').addEventListener('click', readLocalNotes);
-
-  function writeLocalNotes() {
-    NotesManager.writeLocalNotes(); }
-  document.getElementById('writeLocalNotes').addEventListener('click', writeLocalNotes);
-
   function readPublishedNotes() {
     NotesManager.readPublishedNotes(); }
   document.getElementById('readPublishedNotes').addEventListener('click', readPublishedNotes);
 
-
+//  ========================== done with the page, cleanup and check
   window.addEventListener('beforeunload', function (e) {
-    e.preventDefault();
+    //e.preventDefault();
     e.returnValue = true;
     NotesManager.writeLocalNotes();
    // NotesManager.writePublishedNotes();

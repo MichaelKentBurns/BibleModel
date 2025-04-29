@@ -22,8 +22,8 @@
 
 import {RESTendpoint} from "./Servers/RESTServer/RESTendpoint.mjs";
 
-const traceBook = true;
-const traceData = true;
+const traceBook = false;
+const traceData = false;
 
 if (traceBook) console.log('Book.mjs initializing.');
 import fs from 'node:fs';

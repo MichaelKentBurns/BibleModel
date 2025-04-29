@@ -159,6 +159,10 @@ export class NotesManager {
         theNotesManager.localNotesValidatedTable.refreshTable();
     }
 
+    static validateLocalNotes(selectedRows) {
+        theNotesManager.localNotesValidatedTable.refreshTable(selectedRows);
+    }
+
 
     setServerNotesArray(anArray) {
         this.serverNotesArray = anArray;

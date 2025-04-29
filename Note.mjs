@@ -201,8 +201,11 @@ export class Note {
             // } else {
             //     validation.addWarning('author', 'Notes should have an reference.');
             // }
-            if (this.reference !== undefined || this.reference.length > 0) {
-                let testLocation = Location.referenceToLocation(this.reference);
+            if ( this.reference != undefined ) {
+
+            let stripped = this.reference.replace( /^\s*/, '' );
+            if ( stripped > 0) {
+                let testLocation = Location.referenceToLocation(stripped);
                 if (testLocation === undefined || testLocation.length === 0) {
                     validation.addWarning('reference',
                         `Notes should have a valid reference not ${testLocation}`);
@@ -211,6 +214,7 @@ export class Note {
                     validation.addValid('author');
                 }
 
+            }
             }
             return validation;
         }

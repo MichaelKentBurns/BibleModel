@@ -2,7 +2,7 @@
 import { Note } from '../Note.mjs';
 // import { Book } from '../Book.mjs';
 // import { NoteList } from '../NoteList.mjs';
-import { Validation } from '../Validation.mjs';
+import validation, { Validation } from '../Validation.mjs';
 import {NotesManager} from "./NotesManager.mjs";
 
 const fixedColumns = ['Row','Select','Errors'];
@@ -27,6 +27,8 @@ export class ValidatedTable {
         this.columnNames = [...fixedColumns,...objectColumnNames];
         this.objectColumnNames = objectColumnNames;
         this.tableElement = tableElement;
+        this.autoValidate = false;
+        this.autoValidateElement = undefined;
         this.refreshTable();
     }
 
@@ -38,7 +40,18 @@ export class ValidatedTable {
         this.tableElement = anElement;
     }
 
-    refreshTable() {
+    setAutoValidate(aBoolean) {
+        this.autoValidate = aBoolean;
+    }
+    setAutoValidateElement( anElement ) {
+        this.autoValidateElement = anElement;
+        anElement.onclick = () => {
+            this.autoValidate = true;
+            this.autoValidateElement.clicked = true;
+        }
+    }
+
+    refreshTable(validateSelected,validateAll) {
         // build header row
         var tableHTML = "<tr>";
         this.columnNames.forEach((columnName) => {
@@ -51,22 +64,42 @@ export class ValidatedTable {
         this.objectArray.forEach((anObject) => {
             row++;
             try {
+                let errorSummary = '';
+                let nErrors = 0;
+                let nWarnings = 0;
+                let someErrors = false;
+                let someWarnings = false;
+                let didValidation = false;
+                let doValidationOnThisOne = false;
+                if ( this.autoValidate )
+                    doValidationOnThisOne = true;
 
-                if (anObject !== null && anObject !== undefined) {
-                    let validation = anObject.validate();
-                    if ( validation !== null ) {
+                if ( validateSelected ) {
+                    validateSelected.forEach( item => {
+                       if ( item == row - 1 )
+                           doValidationOnThisOne = true;
+                    });
+                }
 
-                    let nErrors = 0;
-                    let someErrors = validation.getErrors();
-                    if ( someErrors )
-                        nErrors = Object.entries(someErrors).length;
-                    let nWarnings = 0;
-                    let someWarnings = validation.getWarnings();
-                    if ( someWarnings )
-                        nWarnings = Object.entries(someWarnings).length;
-                    let errorSummary = 'good';
-                    if ( nErrors > 0 || nWarnings > 0 )
-                        errorSummary = `${nErrors} errors, ${nWarnings} warnings`;
+                if (this.autoValidate || doValidationOnThisOne ) {
+
+                    if (anObject !== null && anObject !== undefined) {
+                        let validation = anObject.validate();
+                        console.log(`validation of ${anObject} is ${validation}`);
+                        if (validation) {
+                            didValidation = true;
+                            let someErrors = validation.getErrors();
+                            if (someErrors)
+                                nErrors = Object.entries(someErrors).length;
+                            let someWarnings = validation.getWarnings();
+                            if (someWarnings)
+                                nWarnings = Object.entries(someWarnings).length;
+                            let errorSummary = 'good';
+                            if (nErrors > 0 || nWarnings > 0)
+                                errorSummary = `${nErrors} errors, ${nWarnings} warnings`;
+                        }
+                    }
+                }
 
                     //     tableHTML += "<tr>";
                     //     tableHTML += "<td style='border: thin double black'>" + dataObj[eachItem] + "</td>";
@@ -77,43 +110,40 @@ export class ValidatedTable {
                     tableHTML += "<td style='border: thin double black'>" + '<input type="checkbox"/>' + "</td>";
                     tableHTML += "<td style='border: thin double black'>" + errorSummary + "</td>";
                     this.objectColumnNames.forEach((columnName) => {
+                        // default to undecorated
                         let toolTipText = '';
                         let value = anObject[columnName];
                         let showValue = '';
-                        if ( value !== undefined) {
-                            if ( value instanceof Date)
+                        let showColor = 'hsl(0,0%,100%)';  // clear
+
+                        if (value !== undefined) {
+                            if (value instanceof Date)
                                 showValue = value.toLocaleString();//      toISOString();
                             else
                                 showValue = value;
 
                         }
-                        let showColor;
-                        if ( someErrors != undefined && someErrors[columnName] ) {
+                        if (someErrors != undefined && someErrors != false && someErrors[columnName]) {
                             showColor = 'hsl(0,100%,80%)'; // 'red';
                             toolTipText += someErrors[columnName] + ' ';
-                        }
-                        else if ( someWarnings != undefined && someWarnings[columnName] ){
+                        } else if (someWarnings != undefined && someWarnings != false && someWarnings[columnName]) {
                             showColor = 'hsl(60,100%,80%)';//'yellow';
                             toolTipText += someWarnings[columnName];
-                        }
-                        else
-                            showColor = 'hsl(120,100%,80%)'; // 'green';
-                        if ( toolTipText.length > 0 ) {
+                        } else if (didValidation){
+                            showColor = 'hsl(120,100%,80%)';
+                        }// 'green';
+                        if (toolTipText.length > 0) {
                             tableHTML += `<td class="CellWithComment" `
                                 + `style='border: thin double black; background-color: ${showColor}'>`
                                 + showValue
                                 + `<span class="CellComment">${toolTipText}</span>`
                                 + '</td>';
-                        }
-                        else {
+                        } else {
                             tableHTML += `<td style='border: thin double black; background-color: ${showColor}'>` + showValue + '</td>';
                         }
 
                     });
-                    }
-                    tableHTML += "</tr>";
-
-                }
+                tableHTML += "</tr>";
 
             } catch (rowError) {
                 console.log(`error rendering note for row ${row}: ${rowError}`);
@@ -126,19 +156,27 @@ export class ValidatedTable {
 
     getSelectedRows() {
         //Reference the Table.
-        var grid = this.tableElement;
-        var rowsSelected = [];
+        let grid = this.tableElement;
+        let rowsSelected = [];
         //Reference the CheckBoxes in Table.
-        var checkBoxes = grid.getElementsByTagName("INPUT");
+        let checkBoxes = grid.getElementsByTagName("INPUT");
         //Loop through the CheckBoxes.
-        for (var i = 0; i < checkBoxes.length; i++) {
+        for (let i = 0; i < checkBoxes.length; i++) {
             if (checkBoxes[i].checked) {
-                var row = checkBoxes[i].parentNode.parentNode;
+                let row = checkBoxes[i].parentNode.parentNode;
                 let rowNumber = Number(row.cells[0].innerText);
                 rowsSelected.push(rowNumber);
             }
         }
         return rowsSelected;
+    }
+
+    validateSelectedRows() {
+        let selectedRows = this.getSelectedRows();
+        for (let i = 0; i < selectedRows.length; i++) {
+            console.log(`Should validate row ${i} `,selectedRows[i]);
+        }
+        this.refreshTable(selectedRows);
     }
 }
 
