@@ -8,6 +8,8 @@
  *
  */
 let traceHTTP = true;
+let traceHTTPfull = true;
+
 import http from 'node:http';
 import os from 'node:os';
 import fs from 'node:fs';
@@ -243,7 +245,9 @@ forRequest.GET = (req, res) => {
     });
     if ( traceHTTP ) {
         console.log(`middleware response: status=${res.statusCode}`);
-        console.log( res._header );
+        if ( res._header) console.log( res._header );
+        else  if ( res.rawHeaders) console.log( res.rawHeaders );
+
     }
 
     }
@@ -275,8 +279,9 @@ HTTPserver.on('request', (req, res)=>{
     requestCount++;
     // call method for request method
     if ( traceHTTP ) {
+        console.log( '----------------------------------------------------------');
         console.log(`HTTP server request ${req.method.toUpperCase()} for ${req.url}`);
-        console.log(req._header);
+        if ( req._header ) console.log(`Headers: ${req._header}`);
     }
 
         var method = forRequest[req.method];
@@ -293,7 +298,7 @@ HTTPserver.on('request', (req, res)=>{
     }
     if ( traceHTTP ) {
         console.log(`HTTP server response: status=${res.statusCode}`);
-        console.log( res._header );
+        if ( res._header ) console.log(`Headers: ${res._header}`);
 
     }
 });
@@ -321,6 +326,11 @@ HTTPserver.listen(port, host, () => {
     console.log('dir_public: ' + dir_public);
     console.log('port: ' + port);
     console.log('host: ' + host);
+    const url = `http://${host}:${port}`;
+    console.log(`server URL: ${url}`);
+    const proxiedPort = 80;
+    const proxiedUrl = `https://${host}:${proxiedPort}/Bible/`;
+    console.log(`proxied URL: ${proxiedUrl}`);
 });
 
 export function HTTPserverStop () {
