@@ -192,16 +192,16 @@ export class Note {
         } else validation.addValid('author');
 
         if (this.reference === undefined || this.reference.length === 0) {
-            // if (this.title != undefined && this.title.length > 1) {
-            //     // no reference, lets test the title to see if that will work.
-            //     let testLocation = Location.referenceToLocation(this.reference);
-            //     if (testLocation) {
-            //         this.reference = this.title;
-            //     }
-            // } else {
-            //     validation.addWarning('author', 'Notes should have an reference.');
-            // }
-            if ( this.reference != undefined ) {
+             if (this.title != undefined && this.title.length > 1) {
+                 // no reference, lets test the title to see if that will work.
+                 let testLocation = Location.referenceToLocation(this.title);
+                 if (testLocation) {
+                     this.reference = this.title;
+                 }
+             } else {
+                 validation.addWarning('author', 'Notes should have an reference.');
+             }
+            if ( this.reference != undefined && this.reference.length > 0 ) {
 
             let stripped = this.reference.replace( /^\s*/, '' );
             if ( stripped > 0) {
@@ -216,8 +216,9 @@ export class Note {
 
             }
             }
-            return validation;
         }
+        return validation;
+
     }
 
         //mm cast(noteLikeObject) Note   // create a new Note object from something that has the right attributes

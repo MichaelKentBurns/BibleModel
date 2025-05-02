@@ -76,7 +76,7 @@ export class ValidatedTable {
 
                 if ( validateSelected ) {
                     validateSelected.forEach( item => {
-                       if ( item == row - 1 )
+                       if ( item == row )
                            doValidationOnThisOne = true;
                     });
                 }
@@ -85,7 +85,7 @@ export class ValidatedTable {
 
                     if (anObject !== null && anObject !== undefined) {
                         let validation = anObject.validate();
-                        console.log(`validation of ${anObject} is ${validation}`);
+                        console.log(`validation of `,anObject, ' is ',validation);
                         if (validation) {
                             didValidation = true;
                             let someErrors = validation.getErrors();

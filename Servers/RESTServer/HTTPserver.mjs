@@ -15,6 +15,7 @@ import os from 'node:os';
 import fs from 'node:fs';
 import path from 'node:path';
 import util from 'node:util';
+
 const lstat = util.promisify(fs.lstat);
 const readFile = util.promisify(fs.readFile);
 const readdir = util.promisify(fs.readdir);
@@ -24,8 +25,8 @@ let BODY_MAX_SIZE = 1024;
 
 // __dirname and __filename not supported in ES modules.
 // workaround:
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import {fileURLToPath} from 'url';
+import {dirname} from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -39,29 +40,40 @@ let dir_root = process.argv[2] || path.join(__dirname, '../..');
 // try to set up middelware
 let middlewarePOST;
 let middlewareGET;
+let middlewareOPT;
 
 import middleware from './middlewareREST.mjs';
-try{
+
+try {
     console.log('middleware index found.', middleware);
     middlewarePOST = middleware.middlewarePOST;
     console.log('middlewarePOST = ', middlewarePOST);
     middlewareGET = middleware.middlewareGET;
     console.log('middlewareGET = ', middlewareGET);
+    middlewareOPT = middleware.middlewareOPT;
+    console.log('middlewareOPT = ', middlewareOPT);
 
-}catch(e){
+} catch (e) {
     console.log('no /middleware/middlewareREST.mjs found.');
     console.log(e.message);
 }
 
-if ( middlewarePOST === undefined ) {
+if (middlewarePOST === undefined) {
 // default middleware that does nothing
-    middlewarePOST = function(req, res, next){
+    middlewarePOST = function (req, res, next) {
         next(req, res);
     };
 }
-if ( middlewareGET === undefined ) {
+if (middlewareGET === undefined) {
 // default middleware that does nothing
-    middlewareGET = function(req, res, next){
+    middlewareGET = function (req, res, next) {
+        next(req, res);
+    };
+}
+
+if (middlewareOPT === undefined) {
+// default middleware that does nothing
+    middlewareOPT = function (req, res, next) {
         next(req, res);
     };
 }
@@ -70,15 +82,15 @@ if ( middlewareGET === undefined ) {
 export let dir_project = process.argv[3] || path.join(__dirname, '../..');
 // public folder to serve
 //    Public should be a sibling to the project directory.
-export let dir_public = path.join(dir_project,'../Public');
+export let dir_public = path.join(dir_project, '../Public');
 
 // set port with argument or hard coded default
 export let port = process.argv[4] || 8082; // port 8888 for now
 
 // host defaults to os.networkInterfaces().lo[0].address
-let netInter = os.networkInterfaces(), 
-host = process.argv[5] || 'localhost';
-if(netInter.lo){
+let netInter = os.networkInterfaces(),
+    host = process.argv[5] || 'localhost';
+if (netInter.lo) {
     host = process.argv[5] || netInter.lo[0].address || 'localhost';
 }
 
@@ -86,14 +98,14 @@ if(netInter.lo){
 let createPathInfoObject = (url) => {
     // remove any extra / ( /foo/bar/  to /foo/bar )
     let urlArr = url.split('');
-    if(urlArr[urlArr.length - 1] === '/'){
+    if (urlArr[urlArr.length - 1] === '/') {
         urlArr.pop();
         url = urlArr.join('');
-    }  
+    }
     // starting state
     let pInfo = {
-        url : url,
-        uri : path.join(dir_public, url),
+        url: url,
+        uri: path.join(dir_root, url),
         encoding: 'utf-8',
         mime: 'text/plain',
         ext: '',
@@ -102,41 +114,41 @@ let createPathInfoObject = (url) => {
     };
     //return pInfo;
     return lstat(pInfo.uri)
-    .then((stat)=>{
-        pInfo.stat = stat;
-        if(pInfo.stat.isFile()){
-            pInfo.ext = path.extname(pInfo.uri).toLowerCase();
-            pInfo.ext = path.extname(pInfo.uri).toLowerCase();
-            pInfo.mime = pInfo.ext === '.html' ? 'text/html' : pInfo.mime;
-            pInfo.mime = pInfo.ext === '.css' ? 'text/css' : pInfo.mime;
-            pInfo.mime = pInfo.ext === '.js' ? 'text/javascript' : pInfo.mime;
-            pInfo.mime = pInfo.ext === '.mjs' ? 'text/javascript' : pInfo.mime;
-            pInfo.mime = pInfo.ext === '.json' ? 'application/json' : pInfo.mime;
-             // images
-            pInfo.mime = pInfo.ext === '.png' ? 'image/png' : pInfo.mime;
-            pInfo.mime = pInfo.ext === '.ico' ? 'image/x-icon' : pInfo.mime;
-            // binary encoding if...
-            pInfo.encoding = pInfo.ext === '.png' || pInfo.ext === '.ico' ? 'binary' : pInfo.encoding;
-            return pInfo;
-        }
-        if(pInfo.stat.isDirectory()){
-            pInfo.ext = '';
-            pInfo.mime = 'text/plain';
-            pInfo.encoding = 'utf-8';
-        }
-        return createDirInfo(pInfo);
-    });
+        .then((stat) => {
+            pInfo.stat = stat;
+            if (pInfo.stat.isFile()) {
+                pInfo.ext = path.extname(pInfo.uri).toLowerCase();
+                pInfo.ext = path.extname(pInfo.uri).toLowerCase();
+                pInfo.mime = pInfo.ext === '.html' ? 'text/html' : pInfo.mime;
+                pInfo.mime = pInfo.ext === '.css' ? 'text/css' : pInfo.mime;
+                pInfo.mime = pInfo.ext === '.js' ? 'text/javascript' : pInfo.mime;
+                pInfo.mime = pInfo.ext === '.mjs' ? 'text/javascript' : pInfo.mime;
+                pInfo.mime = pInfo.ext === '.json' ? 'application/json' : pInfo.mime;
+                // images
+                pInfo.mime = pInfo.ext === '.png' ? 'image/png' : pInfo.mime;
+                pInfo.mime = pInfo.ext === '.ico' ? 'image/x-icon' : pInfo.mime;
+                // binary encoding if...
+                pInfo.encoding = pInfo.ext === '.png' || pInfo.ext === '.ico' ? 'binary' : pInfo.encoding;
+                return pInfo;
+            }
+            if (pInfo.stat.isDirectory()) {
+                pInfo.ext = '';
+                pInfo.mime = 'text/plain';
+                pInfo.encoding = 'utf-8';
+            }
+            return createDirInfo(pInfo);
+        });
 };
 
 // create an html index of a folder
 let createHTML = (pInfo) => {
-    var html = '<html><head><title>Index of - ' + pInfo.url + '</title>'+
-    '<style>body{padding:20px;background:#afafaf;font-family:arial;}div{display: inline-block;padding:10px;}</style>' +
-    '</head><body>';
+    var html = '<html><head><title>Index of - ' + pInfo.url + '</title>' +
+        '<style>body{padding:20px;background:#afafaf;font-family:arial;}div{display: inline-block;padding:10px;}</style>' +
+        '</head><body>';
     html += '<h3>Contents of : ' + pInfo.url + '</h3>'
-    pInfo.contents.forEach((itemName)=>{
+    pInfo.contents.forEach((itemName) => {
         let itemURL = pInfo.url + '/' + itemName;
-        html += '<div> <a href=\"' + itemURL + '\" >' +  itemName + '</a> </div>'
+        html += '<div> <a href=\"' + itemURL + '\" >' + itemName + '</a> </div>'
     });
     html += '</body></html>';
     return html;
@@ -145,26 +157,26 @@ let createHTML = (pInfo) => {
 // create dir info for a pInfo object
 let createDirInfo = (pInfo) => {
     // first check for an index.html
-    let uriIndex = path.join( pInfo.uri, 'index.html' );
+    let uriIndex = path.join(pInfo.uri, 'index.html');
     return readFile(uriIndex)
-    // if all goes file we have an index file call createPathInfoObject with new uri
-    .then((file)=>{
-        pInfo.uri = uriIndex;
-        pInfo.ext = '.html';
-        pInfo.mime = 'text/html';
-        return pInfo;
-    })
-    // else we do not get contents
-    .catch(()=>{
-        return readdir(pInfo.uri);
-    }).then((contents)=>{
-        if(contents && pInfo.ext === ''){
-            pInfo.contents = contents;
+        // if all goes file we have an index file call createPathInfoObject with new uri
+        .then((file) => {
+            pInfo.uri = uriIndex;
+            pInfo.ext = '.html';
             pInfo.mime = 'text/html';
-            pInfo.html = createHTML(pInfo);
-        }
-        return pInfo;
-    });
+            return pInfo;
+        })
+        // else we do not get contents
+        .catch(() => {
+            return readdir(pInfo.uri);
+        }).then((contents) => {
+            if (contents && pInfo.ext === '') {
+                pInfo.contents = contents;
+                pInfo.mime = 'text/html';
+                pInfo.html = createHTML(pInfo);
+            }
+            return pInfo;
+        });
 };
 
 // parse a body for a post request
@@ -182,9 +194,9 @@ let parseBody = (req, res, next) => {
     });
     // once the body is received
     req.on('end', function () {
-        try{
+        try {
             req.body = JSON.parse(bodyStr);
-        }catch(e){
+        } catch (e) {
             req.body = bodyStr;
         }
         next(req, res);
@@ -204,51 +216,117 @@ let forRequest = {};
 forRequest.GET = (req, res) => {
     // see if the middleware implements the request.
 
-    let done = middlewareGET(req, res );
+    let done = middlewareGET(req, res);
 
     if (!done) {
-    // create path info object for req.url
-    createPathInfoObject(req.url)
-    // if we have a pinfo object without any problems
-    .then((pInfo)=>{
-        // if we have html send that
-        if(pInfo.html != ''){
-            res.writeHead(200, {
-                'Content-Type': pInfo.mime
+        // create path info object for req.url
+        createPathInfoObject(req.url)
+            // if we have a pinfo object without any problems
+            .then((pInfo) => {
+                // if we have html send that
+                if (pInfo.html != '') {
+                    res.writeHead(200, {
+                        'Content-Type': pInfo.mime
+                    });
+                    res.write(pInfo.html, pInfo.encoding);
+                    res.end();
+                } else {
+                    // else we are sending a file
+                    readFile(pInfo.uri, pInfo.encoding).then((file) => {
+                        res.writeHead(200, {
+                            'Content-Type': pInfo.mime
+                        });
+                        res.write(file, pInfo.encoding);
+                        res.end();
+                    }).catch((e) => {
+                        // send content
+                        res.writeHead(500, {
+                            'Content-Type': 'text/plain'
+                        });
+                        res.write(e.message, 'utf8');
+                        res.end();
+                    });
+                }
+            }).catch((e) => {
+            // send content
+            res.writeHead(500, {
+                'Content-Type': 'text/plain'
             });
-            res.write(pInfo.html, pInfo.encoding);
+            res.write(e.message, 'utf8');
             res.end();
-        }else{
-            // else we are sending a file
-            readFile(pInfo.uri, pInfo.encoding).then((file)=>{
-                res.writeHead(200, {
-                    'Content-Type': pInfo.mime
-                });
-                res.write(file, pInfo.encoding);
-                res.end();
-            }).catch((e)=>{
-                // send content
-                res.writeHead(500, {
-                    'Content-Type': 'text/plain'
-                });
+        });
+        if (traceHTTP) {
+            console.log(`middleware response: status=${res.statusCode}`);
+            if (res._header) console.log(res._header);
+            else if (res.rawHeaders) console.log(res.rawHeaders);
+
+        }
+
+    }
+};
+
+// for ALL OPTIONS requests
+forRequest.OPTIONS = (req, res) => {
+
+    // see if the middleware implements the request.
+    let done = false;  // nothing for middlewar yet: middlewareOPT(req, res );
+
+    let origin;
+    let method;
+
+    let array = req.rawHeaders;
+    for (let i = 0; i <= array.length; i += 2) {
+        let headerName = array[i];
+        let headerValue = array[i + 1];
+        if (headerName === 'Origin') {
+            origin = headerValue;
+        } else if (headerName === 'Method') {
+            method = headerValue;
+        }
+    }
+
+    done = middlewareOPT(req, res);
+
+    if (!done) {
+        // create path info object for req.url
+        createPathInfoObject(req.url)
+            // if we have a pinfo object without any problems
+            .then((pInfo) => {
+                // if we have html send that
+                if (pInfo.html != '') {
+                    res.writeHead(200, {
+                        'Content-Type': pInfo.mime,
+                        'Access-Control-Allow-Origin': 'http://Bible.MichaelKentBurns.com',
+                        'Access-control-Allow-Methods:': 'POST, GET, OPTIONS'
+                    });
+                    res.end();
+                } else {
+                    // else we are sending a file
+                    try {
+                        res.writeHead(200, {
+                            'Content-Type': pInfo.mime
+                        });
+                        // res.write(file, pInfo.encoding);
+                        res.end();
+                    } catch (e) {
+                        // send content
+                        res.writeHead(500, {
+                            'Content-Type': 'text/plain'
+                        });
+                        res.write(e.message, 'utf8');
+                        res.end();
+                    };
+
+                }
                 res.write(e.message, 'utf8');
                 res.end();
             });
-        }
-    }).catch((e)=>{
-        // send content
-        res.writeHead(500, {
-            'Content-Type': 'text/plain'
-        });
-        res.write(e.message, 'utf8');
-        res.end();
-    });
-    if ( traceHTTP ) {
-        console.log(`middleware response: status=${res.statusCode}`);
-        if ( res._header) console.log( res._header );
-        else  if ( res.rawHeaders) console.log( res.rawHeaders );
+        if (traceHTTP) {
+            console.log(`middleware response: status=${res.statusCode}`);
+            if (res._header) console.log(res._header);
+            else if (res.rawHeaders) console.log(res.rawHeaders);
 
-    }
+        }
 
     }
 };
@@ -256,13 +334,13 @@ forRequest.GET = (req, res) => {
 // for any post request
 forRequest.POST = (req, res) => {
     // parse the given body
-    parseBody(req, res, function(req, res){
+    parseBody(req, res, function (req, res) {
         res.resObj = {
-           body: req.body,
-           mess: ''
+            body: req.body,
+            mess: ''
         };
         // call middleware
-        middlewarePOST(req, res, function(req, res){
+        middlewarePOST(req, res, function (req, res) {
             // when done send a response
             res.writeHead(200, {
                 'Content-Type': 'text/plain'
@@ -275,19 +353,19 @@ forRequest.POST = (req, res) => {
 };
 
 // on request
-HTTPserver.on('request', (req, res)=>{
+HTTPserver.on('request', (req, res) => {
     requestCount++;
     // call method for request method
-    if ( traceHTTP ) {
-        console.log( '----------------------------------------------------------');
+    if (traceHTTP) {
+        console.log('----------------------------------------------------------');
         console.log(`HTTP server request ${req.method.toUpperCase()} for ${req.url}`);
-        if ( req._header ) console.log(`Headers: ${req._header}`);
+        if (req._header) console.log(`Headers: ${req._header}`);
     }
 
-        var method = forRequest[req.method];
-    if(method){
+    var method = forRequest[req.method];
+    if (method) {
         method.call(this, req, res);
-    }else{
+    } else {
         console.log('unsupported http method ' + req.method);
         // send content
         res.writeHead(500, {
@@ -296,15 +374,15 @@ HTTPserver.on('request', (req, res)=>{
         res.write('unsupported http method ' + req.method, 'utf8');
         res.end();
     }
-    if ( traceHTTP ) {
+    if (traceHTTP) {
         console.log(`HTTP server response: status=${res.statusCode}`);
-        if ( res._header ) console.log(`Headers: ${res._header}`);
+        if (res._header) console.log(`Headers: ${res._header}`);
 
     }
 });
 
 export function HTTPserverRequestCount() {
-   return requestCount;
+    return requestCount;
 }
 
 export function HTTPserverSetPort(aPort) {
@@ -314,6 +392,7 @@ export function HTTPserverSetPort(aPort) {
 export function HTTPserverGetPort() {
     return port;
 }
+
 export function HTTPserverStart() {
     console.log('HTTP server started');
 }
@@ -333,12 +412,12 @@ HTTPserver.listen(port, host, () => {
     console.log(`proxied URL: ${proxiedUrl}`);
 });
 
-export function HTTPserverStop () {
+export function HTTPserverStop() {
     HTTPserver.close();
     console.log('HTTP server stopped');
 }
 
 export default {
     server: HTTPserver, HTTPserverStart, HTTPserverSetPort, HTTPserverGetPort,
-                        HTTPserverStop, HTTPserverRequestCount,
+    HTTPserverStop, HTTPserverRequestCount,
 };

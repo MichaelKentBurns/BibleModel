@@ -42,10 +42,10 @@ let middlewareGET = (req, res, next) => {
     }
 
     if ( firstElement == 'Bible' ) {
-        let firstElement = urlPath[1];
-        if ( firstElement != undefined ) {
+        let secondElement = urlPath[1];
+        if ( secondElement != undefined && secondElement.length > 0 ) {
         // Check the endpoint registry for a handler.
-            let endpoint = RESTendpoint.findEndpoint(firstElement);
+            let endpoint = RESTendpoint.findEndpoint(secondElement);
             if ( endpoint !== undefined ) {
                 res.setHeader("Access-Control-Allow-Origin","*");
                 if (traceMiddleware) console.log("200 Cross Origin accepted");
@@ -80,14 +80,71 @@ let middlewarePOST = (req, res, next) => {
         if ( traceMiddleware) {
             console.log(`middleware response: status=${res.statusCode}`);
             console.log( `middleware response headers ${res._header}` );
-            if ( traceMiddlewareFull ) console.log( `middleware response: `, res );
-
+            if ( traceMiddlewareFull ) {
+                console.groupCollapsed('middleware response:');
+                console.log(`full response: `, res);
+                console.groupEnd();
+            }
         }
         return true;
     }
     return false; // not implemented yet.
 };
 
+let middlewareOPT = (req, res, next) => {
+    let url = req.url;
+    let urlPath = req.url.split('/');
+    let fromNginx=false;
+    req.rawHeaders.forEach( (header) => {
+        if ( header === 'nginx' ) {
+            fromNginx = true;
+        }
+    });
+    let firstElement = urlPath[1];
+    // nginx already removes the 'Bible' first element
+    if ( fromNginx ) {
+        firstElement = 'Bible';
+    } else {
+        firstElement = urlPath[1];
+        urlPath = urlPath.slice(1);
+        console.log( 'not from Nginx, so remove first element. ');
+    }
+    console.log(`from nginx=${fromNginx}`);
+    if ( traceMiddleware ) {
+        console.groupCollapsed('middleware request:');
+        console.log(`${req.method.toUpperCase()} for ${req.url}`);
+        if ( traceMiddlewareFull && res ) console.log(`full: `, req);
+        console.log( `headers: ${req._header}` );
+        console.log(`headers: `, req.rawHeaders); // ._header);
+        console.groupEnd();
+    }
+
+    if ( firstElement == 'Bible' ) {
+        let secondElement = urlPath[1];
+        if ( secondElement != undefined && secondElement.length > 0 ) {
+            // Check the endpoint registry for a handler.
+            let endpoint = RESTendpoint.findEndpoint(secondElement);
+            if ( endpoint !== undefined ) {
+                res.setHeader("Access-Control-Allow-Origin","*");
+                if (traceMiddleware) console.log("200 Cross Origin accepted");
+                RESTendpoint.handleRequest(endpoint, req, res );
+                if ( traceMiddleware) {
+                    console.groupCollapsed('middleware response:');
+                    if ( traceMiddlewareFull && res ) console.log(`response full: `, res);
+                    console.log(`status: ${res.statusCode}`);
+                    console.log( `headers: ${res._header}` );
+                    console.groupEnd();
+                }
+                return true;
+            }
+            return false;
+        }
+        return false;  // specific path not implemented.
+    }
+    return false; // not implemented yet.
+};
+
+
 export default {
-    middlewarePOST, middlewareGET,
+    middlewarePOST, middlewareGET, middlewareOPT
 };

@@ -469,6 +469,12 @@ export class Bible {
             response.writeHead(200);
             response.end( JSON.stringify(Version.getVersions()) + '\n');
         }
+        else     if ( request.method === 'OPTIONS' )
+        {
+            response.setHeader("Content-Type","text/plain");
+            response.writeHead(200);
+            response.end( 'options handled.\n');
+        }
     }
 
 
